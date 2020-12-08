@@ -1,0 +1,172 @@
+{% include 'products-listing-snippet' %}
+
+{% schema %}
+{
+  "name": "Products Listing",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Products Listing' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Listing"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger heading size"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Heading border line"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "range",
+          "id": "width",
+          "label": "Width",
+          "default": 3,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+		{
+          "type": "checkbox",
+          "id": "border_right",
+          "label": "Border right"
+        },
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "remove_space",
+          "label": "Remove space when Heading is empty"
+        },
+        {
+          "type": "header",
+          "content": "Products"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection item"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "range",
+          "id": "width",
+          "label": "Width",
+          "default": 3,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+		{
+          "type": "checkbox",
+          "id": "border_right",
+          "label": "Border right"
+        },
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "remove_space",
+          "label": "Remove space when Heading is empty"
+        }, 
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Select a image"
+        },
+        {
+          "type": "checkbox",
+          "id": "push_down",
+          "label": "Push down"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Listing",
+      "category": "Collection",
+      "blocks": [
+        { "type": "product" },
+        { "type": "image" },
+        { "type": "product" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

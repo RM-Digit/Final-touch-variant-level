@@ -1,0 +1,19 @@
+<div class="single-product-{{ _type }}">
+  {% for block in section.blocks %}
+  {%- assign _product = block.settings.product -%}
+
+    {% unless _product == blank %}
+      <div class="sp-item sp-item-{{ block.id }}">
+        
+        {%- assign product = all_products[_product] -%}
+        {% include 'single-product-item' %}
+
+      </div>
+
+    {% else %}
+      {{ emptyProduct02 }}
+
+    {% endunless %}
+
+  {% endfor %}
+</div>

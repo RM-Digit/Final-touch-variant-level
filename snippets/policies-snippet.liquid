@@ -1,0 +1,118 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _background = section.settings.bg_color -%}
+{%- assign _border_item = section.settings.border_item -%}
+{%- assign _text_position = section.settings.text_position -%}
+{%- assign _block_heading_color = section.settings.block_heading_color -%}
+{%- assign _block_heading_size = section.settings.heading_size -%}
+{%- assign _block_subheading_color = section.settings.block_subheading_color -%}
+
+{%- assign _title_text_bold = section.settings.title_text_bold -%}
+{%- assign _subtitle_text_bold = section.settings.subtitle_text_bold -%}
+
+{%- assign _item_per_row = section.settings.item_per_row -%}
+{%- assign _item_per_row_tablet = section.settings.item_per_row_tablet -%}
+{%- assign _item_per_row_mobile = section.settings.item_per_row_mobile -%}
+
+{% if _layout == 'boxed' or _layout == 'boxed-bg' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% if _background == blank or _background == 'none' or _background == 'rgba(0,0,0,0)' %}
+  {%- assign _bg_color_none = 'bg-color-none' -%}
+{% endif %}
+
+{% if _layout == 'wide-padding' or _layout == 'boxed-bg' %}<div class="{{ _layout_class }}">{% endif %}
+
+  <div data-section-type="reload_section" data-section-id="{{ section.id }}" id="section-policy-{{ section.id }}" class="policies-wrapper border-{{ _border_item }} layout-{{ _layout }}{% if _hide_mobile %} d-none d-md-block{% endif %} {{ _bg_color_none }}" style="background: {{ _background }}">
+    <div class="{% if _layout == 'boxed' or _layout == 'full'  %}{{ _layout_class }}{% endif %}">
+
+        {% include 'heading-block' %}
+
+        <div class="policies-content">
+          <div class="policy-list">
+
+              {% if section.blocks.size > 0 %}
+                {%- assign _bg_color = section.settings.block_bg_color -%}
+                {%- assign _image_size = section.settings.image_size -%}
+
+                {% for block in section.blocks %}
+                  {%- assign _image = block.settings.image -%}
+                  {%- assign _heading = block.settings.heading -%}
+                  {%- assign _subheading = block.settings.subheading -%}
+
+                  <div class="policy-item">
+                    <div class="item tp-{{ _text_position }}">
+
+                      <div class="image">
+                        {% unless _image == blank %}
+                          <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _image_size }}" alt="Icon" />   
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endunless %}
+                      </div>
+
+                      {% unless _heading == blank and _subheading == blank %}
+                        <div class="text">
+                          {% unless _heading == blank %}<h6{% if _title_text_bold %} class="bold-text"{% endif %}>{{ _heading }}</h6>{% endunless %}
+                          {% unless _subheading == blank %}<span{% if _subtitle_text_bold %} class="bold-text"{% endif %}>{{ _subheading }}</span>{% endunless %}
+                        </div>
+                      {% endunless %}
+
+                    </div>
+                  </div>
+
+                {% endfor %}
+
+              {% else %}
+                {% for i in (1..4) %}
+                  <div class="policy-item">
+                    <div class="item">
+
+                      <div class="image">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+
+                      <div class="text">
+                        <h6>{{ 'homepage.onboarding.service_title' | t }}</h6>
+                        <span>{{ 'homepage.onboarding.service_subtitle' | t }}</span>
+                      </div>
+
+                    </div>
+                  </div>
+                {% endfor %}
+
+              {% endif %}
+
+          </div>
+        </div>
+
+        <style type="text/css">
+          .templateIndex #section-policy-{{ section.id }} .title-wrapper h3{
+            color: {{ _block_heading_color }};
+          }
+          #section-policy-{{ section.id }} .policy-item{
+            background: {{ _bg_color }};
+          }
+          #section-policy-{{ section.id }} .policy-item .text h6{
+            color: {{ _block_heading_color }};
+            font-size: {{ _block_heading_size }}px;
+          }
+          #section-policy-{{ section.id }} .policy-item .text span{
+            color: {{ _block_subheading_color }};
+          }
+        </style>
+    <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+            data-id="#section-policy-{{ section.id }} .policy-list"
+            data-margin="20"
+            data-resp="4"
+            data-items-1="1"
+            data-items-2="{{ _item_per_row_mobile }}"
+            data-items-3="{{ _item_per_row_tablet }}"
+            data-items-4="{{ _item_per_row }}">
+    </div>
+  </div>
+{% if _layout == 'wide-padding' or _layout == 'boxed-bg' %}</div>{% endif %}

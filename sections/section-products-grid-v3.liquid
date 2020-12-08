@@ -1,0 +1,254 @@
+{% include 'products-grid-snippet-v3' %}
+
+{% schema %}
+{
+  "name": "Products Grid V3",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Products Grid V3' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Grid V3"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    } 
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Block image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Text Box"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Position",
+          "default": "center-center",
+          "options": [
+            { "label": "Top left", "value": "top-left" },
+            { "label": "Top center", "value": "top-center" },
+            { "label": "Top right", "value": "top-right" },
+            { "label": "Middle left", "value": "center-left" },
+            { "label": "Middle center", "value": "center-center" },
+            { "label": "Middle right", "value": "center-right" },
+            { "label": "Bottom left", "value": "bottom-left" },
+            { "label": "Bottom center", "value": "bottom-center" },
+            { "label": "Bottom right", "value": "bottom-right" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_label_color",
+          "label": "Button label",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "checkbox",
+          "id": "fix_layout",
+          "label": "Fix layout below 1300px"
+        },
+        {
+          "id": "bg_color",
+          "type": "color",
+          "label": "Background color"
+        },
+        {
+          "type": "range",
+          "id": "box_width",
+          "label": "Width",
+          "min": 400,
+          "max": 800,
+          "step": 5,
+          "unit": "px",
+          "default": 560
+        },
+        {
+          "type": "range",
+          "id": "position_right",
+          "label": "Position right",
+          "min": 10,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_carousel",
+          "label": "Product Carousel",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "navigator",
+          "label": "Show Navigator Next Prev",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "id": "text",
+          "type": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection item"
+        },
+        {
+          "type": "select",
+          "id": "item_per_row",
+          "label": "Item per row",
+          "default": "3",
+          "options": [
+            { "value": "3", "label": "3 items" },
+            { "value": "6", "label": "6 items" }
+          ],
+          "info": "Only for Product Carousel"
+        },
+        {
+          "type": "range",
+          "id": "limited",
+          "label": "Total items",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 6
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid V3",
+      "category": "Collection",
+      "blocks": [
+        { "type": "image" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

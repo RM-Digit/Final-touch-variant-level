@@ -1,0 +1,55 @@
+{% assign _menu_class = 'col-md-12' %}
+
+<div class="{% if _width == 0 %}col fix-col{% else %}col-md-{{ _width }} col-sm-12 col-12{% endif %}{% if _width == 12 %} fix-menu{% endif %}{% if _f_title == blank %} heading-blank{% endif %}">
+  <div class="footer-block footer-menu{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %}">
+
+    {% unless _f_title == blank %}
+      <h6>{{ _f_title }}<span class="icon"></span></h6>
+    {% endunless %}
+
+    <div class="row fix-row">
+      <div class="{{ _menu_class }} col-12">
+        {%- assign _collection_image = block.settings.collection_image -%}
+
+        <ul class="f-list">
+          {% for i in (1..6) %}
+            {% assign _f_collection = 'footer_collection_' | append: i %}
+
+            {% unless block.settings[_f_collection] == blank %}
+              {%- assign footer_collection = collections[block.settings[_f_collection]] -%}
+              {%- assign _image = 'footer_collection_image_' | append: i -%}
+              <li>
+                <a href="{{ footer_collection.url }}">
+                  {% if _collection_image == 'image' %}
+                    {% if footer_collection.image %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ footer_collection.image.src | collection_img_url: '40x' }}" alt="{{ footer_collection.title | escape }}" />
+                    {% else %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ 'default-image.jpg' | asset_url }}" alt="{{ footer_collection.title | escape }}" />
+                    {% endif %}
+
+                  {% elsif _collection_image == 'upload' %}
+                    {% if block.settings[_image] == blank %}
+                      {% if footer_collection.image %}
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ footer_collection.image.src | collection_img_url: '40x' }}" alt="{{ footer_collection.title | escape }}" />
+                      {% else %}
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ 'default-image.jpg' | asset_url }}" alt="{{ footer_collection.title | escape }}" />
+                      {% endif %}
+
+                    {% else %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings[_image] | img_url: '40x' }}" alt="{{ footer_collection.title | escape }}" />
+                    {% endif %}
+                  {% else %}
+                  {% endif %}
+
+                  <span>{{ footer_collection.title }}</span>
+                </a>
+              </li>
+            {% endunless %}
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</div>

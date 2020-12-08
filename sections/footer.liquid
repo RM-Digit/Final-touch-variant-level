@@ -1,0 +1,1973 @@
+{% include 'instagram-snippet-footer' %}
+{% include 'newsletter-header-text' %}
+<!-- {% include 'newsletter-snippet-footer' %} -->
+{% include 'klaviyoform-custom' %}
+{% include 'footer-snippet' %}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "max_blocks": 50,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "default": "boxed",
+        "options": [   
+          { "value": "boxed", "label": "Boxed" },
+          { "value": "full", "label": "Wide" }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "push_elements_right",
+        "label": "Push Elements Right",
+        "info": "Use for these blocks: Instagram row, Logo List row, Notice Bar row, Row content."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "instagram",
+        "name": "Instagram row",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Section Layout Mode",
+            "default": "boxed",
+            "options": [
+              { "value": "boxed", "label": "Boxed" },
+              { "value": "full",  "label": "Wide" },
+              { "value": "wide-padding", "label": "Wide padding" }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "header",
+            "content": "Heading"
+          },
+          {
+            "type": "checkbox",
+            "id": "heading_relative",
+            "label": "Position relative"
+          },
+          {
+            "type": "html",
+            "id": "heading",
+            "label": "Text"
+          },
+          {
+            "type": "range",
+            "id": "heading_font_size",
+            "label": "Font size",
+            "min": 12,
+            "max": 40,
+            "step": 1,
+            "unit": "px",
+            "default": 12
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "select",
+            "id": "type",
+            "label": "Type",
+            "options": [
+              { "value": "row", "label": "Row" },
+              { "value": "carousel", "label": "Carousel" }
+            ],
+            "default": "row"
+          },
+          {
+            "id": "instagram_token",
+            "label": "Instagram Access Token [( ? )](http:\/\/codeofaninja.com\/2015\/05\/get-instagram-access-token.html)",
+            "type": "text",
+            "default": "6156446154.1677ed0.91d3682c177e4e2f9e91b17cc41626af"
+          },
+          {
+            "id": "instagram_userid",
+            "label": "Instagram User ID [( ? )](http:\/\/codeofaninja.com\/tools\/find-instagram-user-id)",
+            "type": "text",
+            "default": "6156446154"
+          },
+          {
+            "type": "range",
+            "id": "item_width",
+            "label": "Item width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "/12",
+            "default": 2
+          },
+          {
+            "type": "range",
+            "id": "limited",
+            "label": "Total items",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 11
+          }
+        ]
+      },
+      {
+        "type": "newsletter",
+        "name": "Newsletter row",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "newsletter_layout",
+            "label": "Style",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "text",
+            "id": "heading_block",
+            "label": "Heading block"
+          },
+          {
+            "type": "header",
+            "content": "Border"
+          },
+          {
+            "type": "select",
+            "id": "border_radius_content",
+            "label": "Border radius content",
+            "options": [
+              {
+                "value": "round",
+                "label": "Round"
+              },
+              {
+                "value": "square",
+                "label": "Square"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "checkbox",
+            "id": "border_line",
+            "label": "Border line"
+          }, 
+          {
+            "type": "select",
+            "id": "border_top",
+            "label": "Border top",
+            "options": [
+              {
+                "value": "full",
+                "label": "Full width"
+              },
+              {
+                "value": "container",
+                "label": "Container"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "header",
+            "content": "Color"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background"
+          },
+          {
+            "type": "color",
+            "id": "heading_color",
+            "label": "Heading",
+            "default": "#000000"
+          },
+          {
+            "type": "color",
+            "id": "subheading_color",
+            "label": "Subheading",
+            "default": "#000000"
+          },
+          {
+            "type": "color",
+            "id": "placeholder_color",
+            "label": "Text placeholder",
+            "default": "#000000"
+          },
+          {
+            "type": "color",
+            "id": "border_bottom",
+            "label": "Border bottom",
+            "default": "#404040"
+          },
+          {
+            "type": "header",
+            "content": "Font size"
+          },
+          {
+            "type": "range",
+            "id": "heading_block_size",
+            "label": "Heading block",
+            "min": 13,
+            "max": 60,
+            "step": 1,
+            "unit": "px",
+            "default": 13
+          },
+          {
+            "type": "range",
+            "id": "heading_size",
+            "label": "Heading",
+            "min": 14,
+            "max": 60,
+            "step": 1,
+            "unit": "px",
+            "default": 15
+          },
+          {
+            "type": "range",
+            "id": "subheading_size",
+            "label": "Subheading",
+            "min": 14,
+            "max": 30,
+            "step": 1,
+            "unit": "px",
+            "default": 15
+          },
+          {
+            "type": "header",
+            "content": "Newsletter form"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "textarea",
+            "id": "subheading",
+            "label": "Subheading"
+          }, 
+          {
+            "type": "select",
+            "id": "email_type",
+            "label": "Automated Email Marketing",
+            "default": "klaviyo",
+            "options": [
+              { "value": "klaviyo", "label": "Klaviyo" },
+              { "value": "mailchimp", "label": "MailChimp" }
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "mailing_form_action",
+            "label": "Form Action"
+          },
+          {
+            "type":"paragraph",
+            "content":"Mailchimp: [Where do I get my MailChimp Form Action](https:\/\/www.arenacommerce.com\/blogs\/faq\/shopify-theme-how-to-get-a-mailchimp-form-action-url)"
+          },
+          {
+            "type":"paragraph",
+            "content":"KLAVIYO: [Sign up](https:\/\/www.klaviyo.com\/partner\/signup?utm_source=0010V00002PVTlf&utm_medium=partner)"
+          },
+          {
+            "type": "text",
+            "id": "input_placeholder",
+            "label": "Text placeholder",
+            "default": "Your e-mail address"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "1",
+            "options": [
+              { "value": "1", "label": "Primary button" },
+              { "value": "2", "label": "Secondary button" },
+              { "value": "3", "label": "Tertiary button" }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Terms and condition"
+          },
+          {
+            "type": "checkbox",
+            "id": "condition",
+            "label": "Enable terms and condition"
+          },
+          {
+            "type": "html",
+            "id": "html",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "logo-list",
+        "name": "Logo List row",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background"
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "item_per_row",
+            "label": "Item per row",
+            "min": 6,
+            "max": 10,
+            "step": 1,
+            "default": 7
+          },
+          {
+             "type":"text",
+             "id":"img_size",
+             "label":"Image size",
+             "default": "150x",
+             "placeholder": "150x"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_4",
+            "label": "Image 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_5",
+            "label": "Image 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_6",
+            "label": "Image 6"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_7",
+            "label": "Image 7"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_8",
+            "label": "Image 8"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_9",
+            "label": "Image 9"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_10",
+            "label": "Image 10"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_11",
+            "label": "Image 11"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_12",
+            "label": "Image 12"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_13",
+            "label": "Image 13"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_14",
+            "label": "Image 14"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_15",
+            "label": "Image 15"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_16",
+            "label": "Image 16"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_17",
+            "label": "Image 17"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_18",
+            "label": "Image 18"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_19",
+            "label": "Image 19"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_20",
+            "label": "Image 20"
+          }
+        ] 
+      },
+      {
+        "type": "bar",
+        "name": "Service Bar row",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "select",
+            "id": "style",
+            "label": "Style",
+            "options": [
+              {
+                "value": "1",
+                "label": "3 items"
+              },
+              {
+                "value": "2",
+                "label": "3 items with line"
+              },
+              {
+                "value": "3",
+                "label": "4 items"
+              },
+              {
+                "value": "4",
+                "label": "4 items with line"
+              },
+              {
+                "value": "5",
+                "label": "Flex center"
+              },
+              {
+                "value": "6",
+                "label": "Flex left"
+              },
+              {
+                "value": "7",
+                "label": "Flex left & Payment icons"
+              }
+            ],
+            "default": "1"
+          },
+          {
+            "type": "select",
+            "id": "border_top",
+            "label": "Border top",
+            "options": [
+              {
+                "value": "full",
+                "label": "Full"
+              },
+              {
+                "value": "container",
+                "label": "Container"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "select",
+            "id": "image_type",
+            "label": "Image type",
+            "options": [
+              {
+                "value": "icon",
+                "label": "Icon"
+              },
+              {
+                "value": "image",
+                "label": "Image"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "icon"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background",
+            "default": "#1a1a1a"
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "select",
+            "id": "border_radius_content",
+            "label": "Border radius content",
+            "options": [
+              {
+                "value": "round",
+                "label": "Round"
+              },
+              {
+                "value": "square",
+                "label": "Square"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "checkbox",
+            "id": "border_right_item",
+            "label": "Border right item"
+          },
+          {
+            "type": "header",
+            "content": "Text Box settings"
+          },
+          {
+            "type": "select",
+            "id": "position",
+            "label": "Position",
+            "options": [
+              {
+                "value": "right",
+                "label": "Right image"
+              },
+              {
+                "value": "right-center",
+                "label": "Right-center image"
+              },
+              {
+                "value": "below",
+                "label": "Below image"
+              }
+            ],
+            "default": "right"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Color",
+            "default": "#8a8a8a"
+          },
+          {
+            "type": "range",
+            "id": "text_font_size",
+            "label": "Font size",
+            "min": 11,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 15
+          },
+          {
+            "type": "header",
+            "content": "Service bar 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "bar_1",
+            "label": "Show service bar 1",
+            "default": true
+          },
+          {
+            "type":"image_picker",
+            "id":"image_1",
+            "label":"Image"
+          },
+          {
+            "type":"text",
+            "id":"icon_1",
+            "label":"Font icon name",
+            "info": "E.g: icon-volume-off"
+          },  
+          {
+            "type":"html",
+            "id":"text_1",
+            "label":"Text 1"
+          },
+          {
+            "type":"text",
+            "id":"subtext_1",
+            "label":"Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service bar 2"
+          },
+          {
+            "type": "checkbox",
+            "id": "bar_2",
+            "label": "Show service bar 2",
+            "default": true
+          },
+          {
+            "type":"image_picker",
+            "id":"image_2",
+            "label":"Image"
+          },
+          {
+            "type":"text",
+            "id":"icon_2",
+            "label":"Font icon name",
+            "info": "E.g: icon-volume-off"
+          },  
+          {
+            "type":"html",
+            "id":"text_2",
+            "label":"Text 1"
+          },
+          {
+            "type":"text",
+            "id":"subtext_2",
+            "label":"Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service bar 3"
+          },
+          {
+            "type": "checkbox",
+            "id": "bar_3",
+            "label": "Show service bar 3",
+            "default": true
+          },
+          {
+            "type":"image_picker",
+            "id":"image_3",
+            "label":"Image"
+          },
+          {
+            "type":"text",
+            "id":"icon_3",
+            "label":"Font icon name",
+            "info": "E.g: icon-volume-off"
+          },  
+          {
+            "type":"html",
+            "id":"text_3",
+            "label":"Text 1"
+          },
+          {
+            "type":"text",
+            "id":"subtext_3",
+            "label":"Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service bar 4"
+          },
+          {
+            "type": "checkbox",
+            "id": "bar_4",
+            "label": "Show service bar 4",
+            "default": true
+          },
+          {
+            "type":"image_picker",
+            "id":"image_4",
+            "label":"Image"
+          },
+          {
+            "type":"text",
+            "id":"icon_4",
+            "label":"Font icon name",
+            "info": "E.g: icon-volume-off"
+          },  
+          {
+            "type":"html",
+            "id":"text_4",
+            "label":"Text 1"
+          },
+          {
+            "type":"text",
+            "id":"subtext_4",
+            "label":"Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Payment icon"
+          },
+          {
+            "type": "image_picker",
+            "id": "payment_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "payment_image_width",
+            "label": "Custom image width (in pixels)",
+            "default": "310"
+          }
+        ]
+      },
+      {
+        "type": "notice-bar",
+        "name": "Notice Bar row",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Section Layout Mode",
+            "default": "boxed",
+            "options": [
+              { "value": "boxed", "label": "Boxed" },
+              { "value": "full",  "label": "Wide" }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type":"checkbox",
+            "id":"border",
+            "label":"Border Top & Bottom"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type":"richtext",
+            "id":"text",
+            "label":"Text"
+          },
+          {
+            "type":"color",
+            "id":"bg_color",
+            "label":"Background color"
+          },
+          {
+            "type":"color",
+            "id":"text_color",
+            "label":"Text color",
+            "default": "#ffffff"
+          }  
+        ]
+      },
+      {
+        "type": "menu-info",
+        "name": "Row content",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Use to wrap these columns: Information, Menu items, Working time, Newsletter, Collection list, Payment method, Textbox."
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Block title"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background color"
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "select",
+            "id": "border_top",
+            "label": "Border",
+            "options": [
+              {
+                "value": "full",
+                "label": "Border top full width"
+              },
+              {
+                "value": "container",
+                "label": "Border top container"
+              },
+              {
+                "value": "special",
+                "label": "Special 1"
+              },
+              {
+                "value": "special-2",
+                "label": "Special 2"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "header",
+            "content": "Heading"
+          },
+          {
+            "type": "checkbox",
+            "id": "heading_flex",
+            "label": "Flex Heading"
+          },
+          {
+            "type": "checkbox",
+            "id": "heading_moibile",
+            "label": "Only show Heading on Mobile"
+          },
+          {
+            "type": "range",
+            "id": "heading_size",
+            "label": "Font size",
+            "min": 12,
+            "max": 30,
+            "step": 1,
+            "unit": "px",
+            "default": 13
+          },
+          {
+            "type": "header",
+            "content": "Column width"
+          },
+          {
+            "type": "range",
+            "id": "info_width",
+            "label": "Information column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "default": 4,
+            "unit": "/12"
+          },
+          {
+            "type": "range",
+            "id": "menu_width",
+            "label": "Rest Columns",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "default": 8,
+            "unit": "/12"
+          },
+          {
+            "type": "header",
+            "content": "Column padding"
+          },
+          {
+            "type": "range",
+            "id": "column_padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Widget menu item"
+          },
+          {
+            "type": "color",
+            "id": "link_color",
+            "label": "Color",
+            "default": "#b2b2b2"
+          },
+          {
+            "type": "checkbox",
+            "id": "uppercase",
+            "label": "Uppercase text",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "logo",
+        "name": "+ Information column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "select",
+            "id": "fix_layout",
+            "label": "Layout",
+            "options": [
+              {
+                "value": "center-logo-layout",
+                "label": "Center"
+              },
+              {
+                "value": "flex-logo-layout",
+                "label": "Flex"
+              }
+            ],
+            "default": "center-logo-layout",
+            "info": "Use when Column width is 12"
+          },
+          {
+            "type": "checkbox",
+            "id": "border_left",
+            "label": "Border left"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "header",
+            "content": "Logo image"
+          },
+          {
+            "type": "checkbox",
+            "id": "fix_position",
+            "label": "Move to the last block"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "logo_max_width",
+            "label": "Custom logo width (in pixels)",
+            "default": "150"
+          },
+          {
+            "type": "header",
+            "content": "Address"
+          }, 
+          {
+            "type": "checkbox",
+            "id": "flex_address",
+            "label": "Flex layout"
+          },
+          {
+            "type": "textarea",
+            "id": "contact_box_address",
+            "label": "Text"
+          },
+          {
+            "type": "range",
+            "id": "contact_box_address_font_size",
+            "label": "Font size",
+            "min": 12,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 15
+          }, 
+          {
+            "type": "header",
+            "content": "Phone number & Email"
+          }, 
+          {
+            "type": "checkbox",
+            "id": "flex_email",
+            "label": "Flex layout"
+          },
+          {
+            "type": "checkbox",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "phone_color",
+            "label": "Phone number color",
+            "default": "#227764"
+          },
+          {
+            "type": "color",
+            "id": "email_color",
+            "label": "Email color",
+            "default": "#227764"
+          },
+          {
+            "type": "range",
+            "id": "contact_box_email_font_size",
+            "label": "Font size",
+            "min": 12,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 16
+          },
+          {
+            "type": "text",
+            "id": "contact_box_phone",
+            "label": "Phone number"
+          },
+          {
+            "type": "text",
+            "id": "contact_box_email",
+            "label": "Email"
+          },
+          {
+            "type": "header",
+            "content": "Buttons"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button label 1"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link 1"
+          },
+          {
+            "type": "text",
+            "id": "button_text_2",
+            "label": "Button label 2"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button link 2"
+          },
+          {
+            "type": "header",
+            "content": "Social icons",
+            "info": "Use settings in Icon > Social icon 01, Social icon 02, Social icon 03, Social icon 04, etc..."
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icons",
+            "label": "Show Social icons",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "flex_layout_social_icons",
+            "label": "Layout",
+            "default": "none",
+            "options": [
+              { "value": "flex", "label": "Flex" },
+              { "value": "flex-right", "label": "Flex right" },
+              { "value": "none", "label": "None" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "+ Menu item column",
+        "settings": [
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 4,
+            "unit": "/12"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Information"
+          },
+          {
+            "type": "header",
+            "content": "Menu items"
+          },  
+          {
+            "type": "link_list",
+            "id": "footer_menu_1",
+            "label": "Menu item 1"
+          },
+          {
+            "type": "link_list",
+            "id": "footer_menu_2",
+            "label": "Menu item 2"
+          },
+          {
+            "type": "link_list",
+            "id": "footer_menu_3",
+            "label": "Menu item 3"
+          },
+          {
+            "type": "link_list",
+            "id": "footer_menu_4",
+            "label": "Menu item 4"
+          }
+        ]
+      },
+      {
+        "type": "working-time",
+        "name": "+ Working time column",
+        "limit": 1,
+        "settings": [  
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 6,
+            "unit": "/12"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "header",
+            "content": "About us"
+          }, 
+          {
+            "type": "text",
+            "id": "phone_number",
+            "label": "Phone number"
+          },
+          {
+            "type": "textarea",
+            "id": "working_time",
+            "label": "Working time"
+          },
+          {
+            "type": "textarea",
+            "id": "email",
+            "label": "Email"
+          }
+        ]
+      },
+      {
+        "type": "newsletter-column",
+        "name": "+ Newsletter column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 6,
+            "unit": "/12"
+          },
+          {
+            "type": "header",
+            "content": "Newsletter form"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "select",
+            "id": "email_type",
+            "label": "Automated Email Marketing",
+            "default": "klaviyo",
+            "options": [
+              { "value": "klaviyo", "label": "Klaviyo" },
+              { "value": "mailchimp", "label": "MailChimp" }
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "mailing_form_action",
+            "label": "Form Action"
+          },
+          {
+            "type":"paragraph",
+            "content":"Mailchimp: [Where do I get my MailChimp Form Action](https:\/\/www.arenacommerce.com\/blogs\/faq\/shopify-theme-how-to-get-a-mailchimp-form-action-url)"
+          },
+          {
+            "type":"paragraph",
+            "content":"KLAVIYO: [Sign up](https:\/\/www.klaviyo.com\/partner\/signup?utm_source=0010V00002PVTlf&utm_medium=partner)"
+          },
+          {
+            "type": "text",
+            "id": "input_placeholder",
+            "label": "Text placeholder",
+            "default": "Your e-mail address"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "1",
+            "options": [
+              { "value": "1", "label": "Primary button" },
+              { "value": "2", "label": "Secondary button" },
+              { "value": "3", "label": "Tertiary button" }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Terms and condition"
+          },
+          {
+            "type": "checkbox",
+            "id": "condition",
+            "label": "Enable terms and condition"
+          },
+          {
+            "type": "html",
+            "id": "html",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "+ Textbox column",
+        "settings": [
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 3,
+            "unit": "/12"
+          },
+          {
+            "type": "html",
+            "id": "text_1",
+            "label": "Text 1"
+          },  
+          {
+            "type": "html",
+            "id": "text_2",
+            "label": "Text 2"
+          }
+        ]
+      }, 
+      {
+        "type": "collection-list",
+        "name": "+ Collection list column",
+        "settings": [
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 4,
+            "unit": "/12"
+          },
+          {
+            "type": "select",
+            "id": "collection_image",
+            "label": "Select image to show",
+            "default": "image",
+            "options": [
+              { "value": "image", "label": "Collection image" },
+              { "value": "upload", "label": "Upload image" },
+              { "value": "none", "label": "None" }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Collection"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 1"
+          },  
+          {
+            "type": "collection",
+            "id": "footer_collection_1",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_1",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 2"
+          }, 
+          {
+            "type": "collection",
+            "id": "footer_collection_2",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_2",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 3"
+          }, 
+          {
+            "type": "collection",
+            "id": "footer_collection_3",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_3",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 4"
+          }, 
+          {
+            "type": "collection",
+            "id": "footer_collection_4",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_4",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 5"
+          }, 
+          {
+            "type": "collection",
+            "id": "footer_collection_5",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_5",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Collection item 6"
+          }, 
+          {
+            "type": "collection",
+            "id": "footer_collection_6",
+            "label": "Collection item"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_collection_image_6",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "menu-2-wrapper",
+        "name": "Menu item 2 row",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Use to wrap 'Menu item 2' block"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Block title"
+          }
+        ]
+      },
+      {
+        "type": "menu-2",
+        "name": "+ Menu item 2 column",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Use when check on 'Push Elements Right'"
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 3,
+            "unit": "/12"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Information"
+          },  
+          {
+            "type": "link_list",
+            "id": "footer_menu",
+            "label": "Menu item"
+          }
+        ]
+      }, 
+      {
+        "type": "copyright",
+        "name": "Copyright bar row",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Use to wrap these columns: Copyright text, Support Center, Copyright menu, Payment method, Social icons."
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Block title"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "style",
+            "label": "Style",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding top",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "select",
+            "id": "copyright_border_top",
+            "label": "Border top",
+            "options": [
+              {
+                "value": "full",
+                "label": "Full width"
+              },
+              {
+                "value": "container",
+                "label": "Container"
+              },
+              {
+                "value": "none",
+                "label": "None"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alignment",
+            "default": "center",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center",  "label": "Center" },
+              { "value": "right",  "label": "Right" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "copyright-text",
+        "name": "+ Copyright text column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "html",
+            "id": "html",
+            "label": "Text",
+            "default": "All Rights Reserved"
+          },
+          {
+            "type": "checkbox",
+            "id": "uppercase",
+            "label": "Uppercase text",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "support-center",
+        "name": "+ Support Center column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Heading"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Text"
+          },
+          {
+            "type": "checkbox",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Text"
+          },
+          {
+            "type": "header",
+            "content": "Buttons"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button label 1"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link 1"
+          },
+          {
+            "type": "text",
+            "id": "button_text_2",
+            "label": "Button label 2"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button link 2"
+          }
+        ]
+      },
+      {
+        "type": "menu-copyright",
+        "name": "+ Copyright menu column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Menu"
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "label": "Color",
+            "default": "#999999"
+          },
+          {
+            "type": "checkbox",
+            "id": "uppercase",
+            "label": "Uppercase text",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": true
+          },
+          {
+            "type": "link_list",
+            "id": "copyright_menu",
+            "label": "Menu item"
+          },
+          {
+            "type": "header",
+            "content": "Right Block"
+          },
+          {
+            "type": "select",
+            "id": "right_block_content",
+            "label": "Content Components",
+            "default": "none",
+            "options": [
+              { "value": "text", "label": "Text" },
+              { "value": "social-icons", "label": "Social icons" },
+              { "value": "none", "label": "None" }
+            ]
+          }, 
+          {
+            "type": "html",
+            "id": "html",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "payment",
+        "name": "+ Payment method column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout",
+            "info": "Only for Widget Wrapper"
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "default": 4,
+            "unit": "/12"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Payments" 
+          },
+          {
+            "type": "header",
+            "content": "Payment icon"
+          },
+          {
+            "type": "select",
+            "id": "payment_icon_type",
+            "label": "Icons type",
+            "default": "image",
+            "options": [
+              { "value": "image", "label": "Upload a image" },
+              { "value": "icon", "label": "Use icon" },
+              { "value": "none", "label": "None" }
+            ]
+          }, 
+          {
+            "type": "image_picker",
+            "id": "payment_image",
+            "label": "Payment image"
+          },
+          {
+            "type": "text",
+            "id": "payment_image_width",
+            "label": "Custom Payment image width (in pixels)",
+            "default": "310"
+          },
+          {
+            "type": "header",
+            "content": "Icon 1"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_1",
+            "label": "Font icon name",
+            "default": "icon-cc-visa",
+            "info": "Default is icon-cc-visa"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_1",
+            "label": "Font icon title",
+            "default": "Visa"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_2",
+            "label": "Font icon name",
+            "default": "icon-cc-paypal",
+            "info": "Default is icon-cc-paypal"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_2",
+            "label": "Font icon title",
+            "default": "PayPal"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_3",
+            "label": "Font icon name",
+            "default": "icon-cc-discover",
+            "info": "Default is icon-cc-discover"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_3",
+            "label": "Font icon title",
+            "default": "Discover"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_4",
+            "label": "Font icon name",
+            "default": "icon-cc-amex",
+            "info": "Default is icon-cc-amex" 
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_4",
+            "label": "Font icon title",
+            "default": "American express"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_5",
+            "label": "Font icon name",
+            "default": "icon-cc-amex",
+            "info": "Default is icon-cc-skrill" 
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_5",
+            "label": "Font icon title",
+            "default": "Skrill"
+          }
+        ]
+      },
+      {
+        "type": "social-icons",
+        "name": "+ Social icons column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout",
+            "info": "Only for Widget Wrapper"
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Column width",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "default": 3,
+            "unit": "/12"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Follow us" 
+          },
+          {
+            "type": "header",
+            "content": "Social icons",
+            "info": "Use settings in Icon > Social icon 01, Social icon 02, Social icon 03, Social icon 04, etc..."
+          },
+          {
+            "type": "checkbox",
+            "id": "social_text",
+            "label": "Show text"
+          }
+        ]
+      } 
+    ]
+  }
+{% endschema %}

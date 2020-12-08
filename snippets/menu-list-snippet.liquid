@@ -1,0 +1,37 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _heading = section.settings.heading -%}
+{%- assign _alignment_center = section.settings.alignment_center -%}
+{%- assign _border_top = section.settings.border_top -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+{%- assign _menu_item = section.settings.menu_item -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+<div class="home-menu-list layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="{{ _layout_class }}">
+
+  	<div class="menu-list-box{% if _alignment_center %} text-center{% endif %}{% if _border_top %} border-top{% endif %}{% if _border_bottom %} border-bottom{% endif %}">
+  		{% unless _heading == blank %}
+  			<div class="heading">{{ _heading }}</div>
+  		{% endunless %}
+
+  		<ul class="d-flex list-inline">
+	  		{% unless _menu_item == blank %}
+	  			{% for link in linklists[_menu_item].links %}
+	            	<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+	            {% endfor %}
+	        {% else %}
+	         	{% for i in (1..7) %}
+	            	<li><a>{{ 'homepage.onboarding.menu_title' | t }}</a></li>
+	            {% endfor %}
+	  		{% endunless %}
+  		</ul>
+	</div>
+
+  </div>
+</div>

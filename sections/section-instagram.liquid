@@ -1,0 +1,157 @@
+{% include 'instagram-snippet' %}
+
+{% schema %}
+{
+  "name": "Instagram",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Instagram' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Instagram"
+    }, 
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "random_layout",
+      "label": "Random layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_relative",
+      "label": "Heading relative position"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_padding_top",
+      "label": "Remove padding top & bottom"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" },
+        { "value": "wide-padding", "label": "Wide padding" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "carousel", "label": "Carousel" }
+      ],
+      "default": "row"
+    },  
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Instagram"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading size",
+      "min": 11,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ]
+    },  
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "id": "instagram_token",
+      "label": "Instagram Access Token [( ? )](http:\/\/codeofaninja.com\/2015\/05\/get-instagram-access-token.html)",
+      "type": "text",
+      "default": "6156446154.1677ed0.91d3682c177e4e2f9e91b17cc41626af"
+    },
+    {
+      "id": "instagram_userid",
+      "label": "Instagram User ID [( ? )](http:\/\/codeofaninja.com\/tools\/find-instagram-user-id)",
+      "type": "text",
+      "default": "6156446154"
+    },
+    {
+      "type": "range",
+      "id": "item_width",
+      "label": "Item width",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "/12",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "limited",
+      "label": "Total items",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

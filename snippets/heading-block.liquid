@@ -1,0 +1,21 @@
+{% unless section.settings.heading == blank and section.settings.subheading == blank %}
+	{%- assign _heading = section.settings.heading -%}
+	{%- assign _subheading = section.settings.subheading -%}
+	{%- assign _bigger_size = section.settings.bigger_size -%}
+	{%- assign _float_right_subheading = section.settings.float_right_subheading -%}
+    {%- assign _subheading_position = section.settings.subheading_position -%}
+
+	{% if section.settings.alignment == blank %}
+		{%- assign _alignment = 'center' -%}
+	{% else %}
+		{%- assign _alignment = section.settings.alignment -%}
+	{% endif %}
+
+	<div class="title-wrapper text-{{ _alignment }}{% unless _subheading_position == blank %} subheading-position-{{ _subheading_position }}{% endunless %}{% if _bigger_size %} bigger-size{% endif %}{% if _float_right_subheading %} float-right{% endif %}">
+        {% if _border_line %}<span class="line-heading"></span>{% endif %}	
+        <h3>{{ _heading }}</h3>
+        {% if _border_line %}<span class="line-heading"></span>{% endif %}
+		{% unless _subheading == blank %}<a href="{{ collection.url }}" class="show-all-link" style="color: {{ section.settings.subheading_color  }}">{{ _subheading }}</a>{% endunless %}
+		{% if _show_all_button == 'next-heading' %}<a href="{{ blog.url }}" class="show-all-link" style="color: {{ section.settings.subheading_color  }}">{{ 'general.text.view_all' | t }}</a>{% endif %}
+	</div>
+{% endunless %}

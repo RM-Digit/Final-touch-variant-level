@@ -1,0 +1,140 @@
+{% include 'image-gallery-snippet-v2' %}
+
+{% schema %}
+{
+  "name": "Image Gallery V2",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Image Gallery V2' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Image Gallery V2"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Layout",
+          "info": "Heading, Button"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text box alignment",
+          "default": "bottom-center",
+          "options": [
+            { "label": "Top left", "value": "top-left" },
+            { "label": "Top center", "value": "top-center" },
+            { "label": "Top right", "value": "top-right" },
+            { "label": "Middle left", "value": "center-left" },
+            { "label": "Middle center", "value": "center-center" },
+            { "label": "Middle right", "value": "center-right" },
+            { "label": "Bottom left", "value": "bottom-left" },
+            { "label": "Bottom center", "value": "bottom-center" },
+            { "label": "Bottom right",  "value": "bottom-right" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        },
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Heading",
+          "default": "Heading"
+        },  
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Gallery V2",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

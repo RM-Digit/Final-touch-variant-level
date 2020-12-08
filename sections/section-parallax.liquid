@@ -1,0 +1,248 @@
+{% include 'parallax-snippet' %}
+
+{% schema %}
+{
+  "name": "Parallax",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Parallax' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Parallax"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size (pixels)",
+          "default": "1920x",
+          "info": "Eg: 1920x600"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection item"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Layout",
+          "info": "Heading, Subheading, Button"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Alignment",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Position",
+          "default": "center-center",
+          "options": [
+            { "label": "Top left", "value": "top-left" },
+            { "label": "Top center", "value": "top-center" },
+            { "label": "Top right", "value": "top-right" },
+            { "label": "Middle left", "value": "center-left" },
+            { "label": "Middle center", "value": "center-center" },
+            { "label": "Middle right", "value": "center-right" },
+            { "label": "Bottom left", "value": "bottom-left" },
+            { "label": "Bottom center", "value": "bottom-center" },
+            { "label": "Bottom right",  "value": "bottom-right" }
+          ]
+        },   
+        {
+          "type": "range",
+          "id": "text_position_top",
+          "label": "Position Top",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_left",
+          "label": "Position Left",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_bottom",
+          "label": "Position Bottom",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_right",
+          "label": "Position Right",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        }, 
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label"
+        }, 
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "subtitle_text_bold",
+          "label": "Bold Subeading"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_text_bold",
+          "label": "Bold Buttons"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subheading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "label": "Subheading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Button label",
+          "min": 11,
+          "max": 36,
+          "unit": "px",
+          "default": 13
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

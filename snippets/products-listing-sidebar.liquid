@@ -1,0 +1,26 @@
+{% assign _heading = block.settings.heading %}
+{% assign _listing_col = block.settings.sb_latest_product_col %}
+{% assign _listing_collection = collections[_listing_col] %}
+{% assign _limit = block.settings.limited %}
+
+{% unless _listing_col == blank %}
+  <div class="sb-widget d-none d-lg-block">
+    <div class="sb-product{% if _border_bottom %} sb-border-bottom{% endif %}">
+
+      {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+      <div class="sb-product-list">
+        {% for product in _listing_collection.products limit: _limit %}
+          <div class="latest-product-item">
+            {% include 'products-listing-item' %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if _show_all_btn %}
+        <a class="btn btn-3" href="{{ _listing_collection.url }}">{{ 'general.text.view_all' | t }}</a>
+      {% endif %}
+
+    </div>
+  </div>
+{% endunless %}

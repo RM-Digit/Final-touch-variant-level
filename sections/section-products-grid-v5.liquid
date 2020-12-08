@@ -1,0 +1,277 @@
+{% include 'products-grid-snippet-v5' %}
+
+{% schema %}
+{
+  "name": "Products Grid",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Products Grid V5' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Grid V5"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "default": "row",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "carousel", "label": "Carousel" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "product_alignment",
+      "label": "Product text alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    }, 
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "limited",
+      "label": "Total items",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Newarrivals"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "header",
+      "content": "Border items"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_bottom",
+      "label": "Border bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_right",
+      "label": "Border right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu_item",
+          "label": "Menu item"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_all_btn",
+          "label": "SHOW ALL button"
+        },
+        {
+          "type": "url",
+          "id": "show_all_link",
+          "label": "SHOW ALL link"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection item"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_bold",
+          "label": "Bold Heading"
+        },    
+        {
+          "type": "checkbox",
+          "id": "subheading_bold",
+          "label": "Bold Subeading"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Heading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Heading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_label_color",
+          "label": "Button label color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid V5",
+      "category": "Collection",
+      "blocks": [
+        { "type": "menu" },
+        { "type": "image" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,331 @@
+<div class="left-column-container">
+  {% assign _lazyload = settings.use_lazyload %}
+  
+  {% for block in section.blocks %}
+  
+    {% case block.type %}
+      {% when 'categories' %}
+        <div class="sb-widget sb-categories" style="border-color:{{ block.settings.border_color }};">
+          <div class="sb-widget-content">
+
+            {% for i in (1..2) %}
+              {%- assign _menu = 'menu_item_' | append: i -%}
+              {% unless block.settings[_menu] == blank %}
+                <ul class="menu-list-{{ i }}{% if i == 1 and block.settings.menu_item_icon_1 %} icon-true{% endif %}">
+                  {% for l in linklists[block.settings[_menu]].links %}
+                    <li>
+                      {% if i == 1 and block.settings.menu_item_icon_1 %}
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                      {% endif %}
+                      <a href="{{ l.url }}"><span>{{ l.title }}</span></a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endunless %}
+            {% endfor %}
+
+          </div>
+        </div>
+
+      {% when 'service' %}
+        <div class="sb-widget sb-service">
+          <div class="sb-widget-content">
+
+            <ul class="sb-service-list">
+              {% for i in (1..3) %}
+                {%- assign _show = 'bar_' | append: i -%}
+
+                {% if block.settings[_show] %}
+                  {%- assign _icon = 'icon_' | append: i -%}
+                  {%- assign _text = 'text_' | append: i -%}
+
+                  <li>
+                    {% unless block.settings[_icon] == blank %}<i class="demo-icon {{ block.settings[_icon] }}"></i>{% endunless %}
+                    {% unless block.settings[_text] == blank %}<div class="text">{{ block.settings[_text] }}</div>{% endunless %}
+                  </li>
+                {% endif %}
+
+              {% endfor %}
+            </ul>
+
+          </div>
+        </div>
+
+      {% when 'logo' %}
+        <div class="sb-widget sb-logo-list">
+          <div class="sb-widget-content">
+
+            {%- assign _show_all_btn = block.settings.show_all_btn -%}
+            {%- assign _show_all_link = block.settings.show_all_link -%}
+            {%- assign _show_all_btn_alignment = block.settings.show_all_btn_alignment -%}
+            {%- assign _heading = block.settings.heading -%}
+            {%- assign _show_border_right = block.settings.show_border_right -%}
+
+            {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+            <ul class="list{% if _show_border_right %} list-right-border{% endif %}">
+              {% for i in (1..8) %}
+                {%- assign _image = 'image_' | append: i -%}
+
+                {% unless block.settings[_image] == blank %}
+                  <li><img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ block.settings[_image] | img_url: '150x'  }}" alt="Icon" /></li>
+                {% endunless %}
+
+              {% endfor %}
+            </ul>
+
+            {% if _show_all_btn %}
+              <div class="show-all-btn{% if _show_all_btn_alignment %} text-center{% endif %}">
+                <a class="btn btn-3" href="{{ _show_all_link }}">{{ 'general.text.view_all' | t }}</a>
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+      {% when 'banner' %}
+        <div class="sb-widget">
+          <div class="sb-banner">
+            {%- assign _image_size = '370x' -%}
+            {%- assign _image = block.settings.image -%}
+            {%- assign _link = block.settings.link -%}
+            {%- assign _text_position = block.settings.text_box_position | append: '-left' -%}
+            {%- assign _text_alignment = 'left' -%}
+
+            {%- assign _title = block.settings.image_title -%}
+            {%- assign _title_color = block.settings.title_color -%}
+            {%- assign _title_size = block.settings.title_size -%}
+            {%- assign _title_text_bold = block.settings.title_text_bold -%}
+
+            {%- assign _subtitle = block.settings.image_subtitle -%}
+            {%- assign _subtitle_color = block.settings.subtitle_color -%}
+            {%- assign _subtitle_size = block.settings.subtitle_size -%}
+            {%- assign _subtitle_text_bold = block.settings.subtitle_text_bold -%}
+
+            {%- assign _button_text = block.settings.button_text -%}
+            {%- assign _button_color = block.settings.button_text_color -%}
+            {%- assign _button_bg = block.settings.button_text_bg_color -%}
+            {%- assign _button_text_size = block.settings.button_size -%}
+            {%- assign _button_text_bold = block.settings.button_text_bold -%}
+
+            {% include 'left-column-banner' %}
+          </div>
+        </div>
+  
+      {% when 'banner-2' %}
+        <div class="sb-widget">
+          <div class="sb-banner-v2">
+            {%- assign _image_size = '180x' -%}
+            {%- assign _title_color = block.settings.title_color -%}
+            {%- assign _title_size = block.settings.title_size -%}
+            {%- assign _subtitle_color = block.settings.subtitle_color -%}
+            {%- assign _subtitle_size = block.settings.subtitle_size -%}
+            
+            {% for i in (1..3) %}
+              {%- assign _image = 'image_' | append: i -%}
+              {% unless block.settings[_image] == blank %}
+                {%- assign _link = 'link_' | append: i -%}
+            	{%- assign _title = 'image_title_' | append: i -%}
+            	{%- assign _subtitle = 'image_subtitle_' | append: i -%}
+
+                <div class="item">
+                  <div class="row">
+                    <div class="item-image col-lg-5 col-md-5 col-sm-5 col-6">
+                      <a href="{{ block.settings[_link] }}">
+                        {% include 'image-lazysize' with image: block.settings[_image], image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                      </a>
+                    </div>
+                    
+                    <div class="item-text col-lg-7 col-md-7 col-sm-7 col-6">
+                      {% unless block.settings[_title] == blank %}
+                        <div class="title" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ block.settings[_title] }}</div>
+                      {% endunless %}
+                      {% unless block.settings[_subtitle] == blank %}
+                        <div class="subtitle" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px;"><a href="{{ block.settings[_link] }}">{{ block.settings[_subtitle] }}</a></div>
+                      {% endunless %}
+                    </div>
+                  </div>
+                </div>
+
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+  
+      {% when 'products-listing' %}
+        {%- assign _show_all_btn = block.settings.show_all_btn -%}
+  		{%- assign _border_bottom = block.settings.border_bottom -%}
+        {% include 'products-listing-sidebar' %}
+
+      {% when 'special-product' %}
+        {%- assign _heading = block.settings.heading -%}
+  		{%- assign _text_bold = block.settings.text_bold -%}
+        {%- assign _block_product_item = block.settings.product -%}
+  		{%- assign _custom_text_bg = block.settings.custom_text_bg -%}
+        {%- assign _custom_text = block.settings.custom_text -%}
+
+        <div class="sb-widget sb-special-product">
+          <div class="sb-widget-content">
+
+            {% unless _heading == blank %}<h5 class="sb-title{% if _text_bold %} bold-text{% endif %}">{{ _heading }}</h5>{% endunless %}
+
+            {% unless _block_product_item == blank %}
+              {% assign product = all_products[_block_product_item] %}
+              {% include 'product-item' %}
+
+              {%- assign available = 0 -%}
+              
+              {% for variant in product.variants %} 
+                {% if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' %}
+                  {% capture i %}{{ available | plus: variant.inventory_quantity }}{% endcapture %}
+                {% else %}
+                  {%- assign i = 30 -%}
+                {% endif%}
+
+                {%- assign available = i | plus: 0 -%}
+              {% endfor %}
+
+              {% if available > 0 %} 
+                <div class="pieces-left">
+                  {%- assign total = available | plus: 10 -%}
+                  {% capture progress %}{{ available | times:100 | divided_by: total }}{% endcapture %}
+                  {%- assign progressNumber = progress | plus: 0 -%}
+
+                  <span class="stock-available">{{ 'general.text.only' | t }} {{ available }} {{ 'general.text.pieces_left' | t }}</span>
+                  <div class="progress">
+                    <span class="progress-bar" style="width:{{ progress }}%"></span>
+                  </div>
+                </div>
+              {% endif %}
+
+            {% endunless %}
+
+          </div>
+        </div>
+  		{% unless _custom_text == blank %}
+          <div class="sb-custom-text" style="background: {{ _custom_text_bg }}">
+            <div class="custom-text">{{ _custom_text }}</div>
+          </div>
+  		{% endunless %}
+  
+      {% when 'blog' %}
+        {%- assign _heading = block.settings.heading -%}
+        {%- assign _blog = block.settings.sidebar_post -%}
+        {%- assign blog = blogs[_blog] -%}
+        {%- assign _show_all_btn = block.settings.show_all_btn -%}
+
+        {% unless _blog == blank and blog.articles_count == 0 %}
+
+          <div class="sb-widget">
+            <div class="sb-blog-posts">
+
+              {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+              <div class="post-list">
+                {% for _article in blog.articles limit: block.settings.limited %}
+                  {% unless _article.id == article.id %} 
+                    {% include 'sb-blog-post-item' %}
+                  {% endunless %}
+                {% endfor %}
+              </div>
+
+              {% if _show_all_btn %}
+                <a class="btn btn-3" href="{{ blog.url }}">{{ 'general.text.view_all' | t }}</a>
+              {% endif %}
+
+            </div>
+          </div>
+        {% endunless %}
+
+      {% when 'instagram' %}
+        {%- assign _heading = block.settings.heading -%}
+
+        <div class="sb-widget">
+          <div class="sb-instagram">
+
+            {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+            <div class="instagram-items">
+              <div id="sb_instagram_list" class="sb_instagram_list" data-token-key="{{ block.settings.instagram_token }}" data-uid="{{ block.settings.instagram_userid }}" data-limit="{{ block.settings.limited }}"></div>
+            </div>
+
+            <script type="text/javascript">
+              jQuery(document).ready(function($) {
+                  if( jQuery('#sb_instagram_list').length > 0 ){
+                    if( 'undefined' === typeof Instafeed ){
+                      console.log(" Instafeed has not defined yet! ");
+                      return;
+                    }
+                  
+                    var sb_instagram_list;
+                    
+                    jQuery('#sb_instagram_list').each(function( index,value ){
+                      sb_instagram_list = new Instafeed({
+                        get: "user"
+                        ,target   : "sb_instagram_list"
+                        ,accessToken: jQuery(value).data('token-key')
+                        ,userId   : jQuery(value).data('uid')
+                        ,limit    : jQuery(value).data('limit')
+                        ,resolution : "low_resolution"
+                        ,resolution2 : "standard_resolution"
+                        {% if _lazyload %}
+                        ,template: '<a class="lazyload waiting" href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}"><img class="lazyload" data-src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" /></a>'
+                        {% else %}
+                        ,template: '<a href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}"><img src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" /></a>'
+                        {% endif %}
+                        ,after: function() {
+                          jQuery("#sb_instagram_list > a").each(function(index,value){
+                            jQuery(value).attr("target","_blank");
+                          });
+                        }
+                    });
+                      
+                    sb_instagram_list.run();
+                      
+                  });  
+                }
+              });
+            </script>
+
+          </div>
+        </div>
+  
+      {% when 'newsletter' %}
+        <div class="sb-widget">
+          <div class="sb-newsletter">
+
+            {%- assign _heading = block.settings.heading -%}
+            {%- assign _subheading = block.settings.subheading -%} 
+            {%- assign _form_action = block.settings.mailing_form_action -%}
+            {%- assign _input_placeholder = block.settings.input_placeholder -%}
+            {%- assign _button_style = '1' -%}
+            {%- assign _newsletter_button_right = true -%}
+
+            {%- assign _condition = block.settings.condition -%}
+            {%- assign _condition_text = block.settings.html -%}
+
+            {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+            {% unless _subheading == blank %}<p class="subtext">{{ _subheading }}</p>{% endunless %}
+
+            {% if block.settings.email_type == 'mailchimp' %}
+              {% include 'mailchimp-form' %}
+
+            {% else %}
+              {% include 'klaviyo-form' %}
+
+            {% endif %}
+
+          </div>
+        </div>
+  
+      {% else %}
+        {%- assign _margin_top = block.settings.top_margin -%}
+        {%- assign _margin_bottom = block.settings.bottom_margin -%}
+  
+        <div class="block-separator block-separator-{{ block.id }} separator-mt-{{ _margin_top }} separator-mb-{{ _margin_bottom }}">
+        </div>
+
+    {% endcase %}
+
+  {% endfor %}
+</div>

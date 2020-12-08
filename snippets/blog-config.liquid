@@ -1,0 +1,130 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{%- assign _bg_style = section.settings.bg_style -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _bg_image = section.settings.bg_image -%}
+
+{%- assign _item_per_row = section.settings.item_per_row -%}
+{%- assign _item_per_row_tablet = section.settings.item_per_row_tablet -%}
+{%- assign _item_per_row_mobile = section.settings.item_per_row_mobile -%}
+
+{%- assign _full_image = section.settings.full_image -%}
+{%- assign _article_bg = section.settings.article_bg -%}
+{%- assign _article_heading_color = section.settings.article_heading_color -%}
+{%- assign _article_text_position = section.settings.textbox_position -%}
+{%- assign _alignment_textbox = section.settings.alignment_textbox -%}
+{%- assign _article_text_color = section.settings.article_text_color -%}
+{%- assign _article_show_tag = section.settings.show_tag -%}
+{%- assign _article_show_excerpt = section.settings.show_excerpt -%}
+{%- assign _article_read_more_btn = section.settings.show_read_more -%}
+{%- assign _limit = section.settings.limited -%}
+{%- assign _border_right_item = section.settings.border_right_item -%}
+
+{% unless _item_per_row == 2 %}
+  {% if _article_text_position == 'right' %}
+    {%- assign _article_text_position = 'below' -%}
+  {% endif %}
+{% endunless %}
+
+{% if _item_per_row == 1 %}
+  {% if _layout == 'boxed' or _layout == 'boxed-padding' %}
+    {%- assign _layout_class = 'container' -%}
+  {% else %}
+    {%- assign _layout_class = '' -%}
+  {% endif %}
+{% else %}
+  {% if _layout == 'boxed' or _layout == 'boxed-padding' %}
+    {%- assign _layout_class = 'container' -%}
+  {% else %}
+    {%- assign _layout_class = 'container-fluid' -%}
+  {% endif %}
+{% endif %}
+
+{% if section.settings.image_size == blank %}
+  {%- assign _image_size = '370x' -%}
+{% else %}
+  {%- assign _image_size = section.settings.image_size -%}
+{% endif %}
+
+{%- assign _navigator = section.settings.navigator -%}
+
+{% if _bg_style == 'color' %}
+  {% if _bg_color == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' %}
+    {%- assign _bg_color_none = 'bg-color-none' -%}
+  {% endif %}
+{% endif %}
+
+{% if _article_bg == blank or _bg_color == 'none' or _article_bg == 'rgba(0,0,0,0)' %}
+  {%- assign _article_bg_none = 'bg-none' -%}
+{% endif %}
+
+{% capture background_section %}
+  {% if _bg_style == 'color' %}
+    style="background: {{ _bg_color }};"
+  {% else %}
+    {% unless _bg_image == blank %}
+      {% if _lazyload %}
+        data-bgset = "{{ _bg_image | img_url: '1920x' }} 1920w"
+      {% else %}
+        style="background-image: url({{ _bg_image | img_url: '1920x' }});"
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endcapture %}
+
+{% case _item_per_row %}
+  {% when 2 %}
+    {%- assign _desktop_class = "col-xl-6 col-lg-6" -%}
+  {% when 3 %}
+    {%- assign _desktop_class = "col-xl-4 col-lg-4" -%}
+  {% else %}
+    {%- assign _desktop_class = "col-xl-3 col-lg-3" -%}
+{% endcase %}
+
+{% case _item_per_row_tablet %}
+  {% when 1 %}
+    {%- assign _tablet_class = "col-md-12" -%}
+  {% when 2 %}
+    {%- assign _tablet_class = "col-md-6" -%}
+  {% else %}
+    {%- assign _tablet_class = "col-md-4" -%}
+{% endcase %}
+
+{% case _item_per_row_mobile %}
+  {% when 1 %}
+    {%- assign _mobile_class = "col-sm-12" -%}
+  {% when 2 %}
+    {%- assign _mobile_class = "col-sm-6" -%}
+  {% else%}
+    {%- assign _mobile_class = "col-sm-4" -%}
+{% endcase %}
+
+{% capture emptyBlog %}
+  {% for i in (1.._item_per_row)  %}
+    <div class="post-item {{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} col-12 padding-{{ _padding_section }}">
+      <div class="post-item-inner">
+
+        <div class="post-image">
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+
+        <div class="post-content">
+          <div class="info">
+            <h4 class="blog-title">{{ 'homepage.onboarding.blog_title' | t }}</h4>
+          </div>
+
+          <div class="meta-data">
+            <span class="date">{{ 'homepage.onboarding.blog_date' | t }}</span>
+          </div>
+        </div>
+
+      </div> 
+    </div>
+  {% endfor %}
+{% endcapture %}

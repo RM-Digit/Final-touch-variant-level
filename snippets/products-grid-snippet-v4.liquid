@@ -1,0 +1,227 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _overlay_image = section.settings.overlay_image -%}
+{%- assign _border_right = section.settings.border_right -%}
+{%- assign _bg_item = section.settings.background_item_color -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% if _bg_item == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' %}
+  {%- assign _bg_item_class = 'bg-color-none' -%}
+  {%- assign _padding = 20 -%}
+{% else %}
+  {%- assign _bg_item_class = 'bg-color-item' -%}
+  {%- assign _padding = 0 -%}
+{% endif %}
+
+{% capture emptyProduct %}
+  {% for i in (1..3) %}
+    <div class="product-grid-item">
+      <div class="product-wrapper">
+
+        <div class="product-head">
+          <div class="product-image">
+            <div class="featured-img">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="product-content">
+          <div class="pc-inner">
+            <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% endfor %}
+{% endcapture %}
+
+{% capture emptyImage %}
+  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+{% endcapture %}
+
+<div id="product-grid-{{ section.id }}" class="product-grid-v4{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}" data-section-type="reload_section" data-section-id="{{ section.id }}">
+
+  <div class="{{ _layout_class }}">
+    <div class="grid-v4-content{% if _overlay_image %} overlay-image{% endif %}{% if _border_right %} grid-v4-border-right{% endif %}">
+      <div class="row">
+
+        {% for block in section.blocks %}
+          {% if block.type == 'banner' %}
+            {%- assign _have_banner = true -%}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if _have_banner %}
+          {%- assign _box_class = 'box-content-column' -%}
+        {% else %}
+          {%- assign _box_class = 'col-lg-6' -%}
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+
+            {% if block.type == 'image' %}
+              {%- assign _border_line = block.settings.border_line -%}
+              <div class="box-content {{ _box_class }}{% if _border_line %} heading-border-line{% endif %} col-md-12 col-sm-12 col-12">
+
+                {%- assign _block_heading = block.settings.text -%}
+                {%- assign _alignment = block.settings.alignment -%}
+                {%- assign _image = block.settings.image -%}
+                {%- assign _text_position = block.settings.text_position -%}
+                {%- assign _heading = block.settings.heading -%}
+                {%- assign _subheading = block.settings.subheading -%}
+                {%- assign _button_text = block.settings.button_label -%}
+                {%- assign _link = block.settings.button_link -%}
+                {%- assign _image_size = '570x' -%}
+
+                {%- assign block_collection = block.settings.collection -%}
+                {%- assign collection = collections[block_collection] -%}
+                {%- assign _limit = block.settings.limited -%}
+
+                {% unless _block_heading == blank %}
+                  <div class="title-wrapper text-{{ _alignment }}">
+                    {% if _border_line %}<span class="line-heading"></span>{% endif %}
+                    <h3>{{ _block_heading }}</h3>
+                    {% if _border_line %}<span class="line-heading"></span>{% endif %}
+                  </div>
+                {% endunless %}
+
+                <div class="box-product {{ _bg_item_class }}">
+
+                  <div class="{% if _overlay_image %}product-grid-carousel-v4{% else %}product-grid-row row{% endif %}">
+                    {% unless block_collection == blank or collection.products_count == 0 %}
+
+                      {% for product in collection.products limit: _limit %}
+                        <div class="product-grid-item{% unless _overlay_image %} col-xl-4 col-lg-6 col-md-4 col-sm-6 col-6{% endunless %}">
+                          {% include 'product-item' %}
+                        </div>
+                      {% endfor %}
+
+                    {% else %}
+                      {{ emptyProduct }}
+
+                    {% endunless %}
+                  </div>
+
+                </div>
+
+                <div class="box-image {{ _text_position }}">
+
+                  <div class="image">
+                    {% unless _image == blank %}
+                      {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                    {% endunless %}
+                  </div>
+
+                  {% unless _heading == blank and _button_text == blank and _subheading == blank %}
+                    <div class="text-box">
+
+                      {%- assign _text_color = block.settings.heading_color -%}
+                      {%- assign _text_size = block.settings.heading_size -%}
+                      {%- assign _text_bold = block.settings.heading_bold -%}
+                      {%- assign _subheading_color = block.settings.subheading_color -%}
+                      {%- assign _subheading_size = block.settings.subheading_size -%}
+                      {%- assign _subheading_bold = block.settings.subheading_bold -%}
+                      {%- assign _button_color = block.settings.button_label_color -%}
+                      {%- assign _button_bg = block.settings.button_bg_color -%}
+
+                      {% unless _heading == blank %}
+                        <div class="title{% if _text_bold %} bold-text{% endif %}" style="color: {{ _text_color }}; font-size: {{ _text_size }}px;">{{ _heading }}</div>
+                      {% endunless %}
+
+                      {% unless _subheading == blank %}
+                        <div class="subheading{% if _subheading_bold %} bold-text{% endif %}" style="color: {{ _subheading_color }}; font-size: {{ _subheading_size }}px;">{{ _subheading }}</div>
+                      {% endunless %}
+
+                      {% unless _button_text == blank %}
+                        <a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>
+                      {% endunless %}
+                    </div>
+                  {% endunless %}
+
+                </div>
+
+              </div>
+
+            {% else %}
+              {%- assign _image_size = '370x' -%}
+              {%- assign _image = block.settings.image -%}
+              {%- assign _link = block.settings.link -%}
+              {%- assign _text_position = block.settings.text_box_position | append: '-left' -%}
+              {%- assign _text_alignment = 'left' -%}
+
+              {%- assign _title = block.settings.image_title -%}
+              {%- assign _title_color = block.settings.title_color -%}
+              {%- assign _title_size = block.settings.title_size -%}
+              {%- assign _title_text_bold = block.settings.title_text_bold -%}
+
+              {%- assign _subtitle = block.settings.image_subtitle -%}
+              {%- assign _subtitle_color = block.settings.subtitle_color -%}
+              {%- assign _subtitle_size = block.settings.subtitle_size -%}
+              {%- assign _subtitle_text_bold = block.settings.subtitle_text_bold -%}
+
+              {%- assign _button_text = block.settings.button_text -%}
+              {%- assign _button_color = block.settings.button_text_color -%}
+              {%- assign _button_bg = block.settings.button_text_bg_color -%}
+              {%- assign _button_text_size = block.settings.button_size -%}
+              {%- assign _button_text_bold = block.settings.button_text_bold -%}
+
+              <div class="banner-middle">
+                {% include 'left-column-banner' %}
+              </div>
+
+            {% endif %}
+
+          {% endfor %}
+
+        {% else %}
+          {% for i in (1..2) %}
+            <div class="col-md-6 col-sm-12 col-12">
+              <div class="box-image">
+                <div class="image">
+                  {{ emptyImage }}
+                </div>
+              </div>
+
+              <div class="box-product">
+                <div class="product-grid-carousel-v4">
+                  {{ emptyProduct }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <style type="text/css">
+    #product-grid-{{section.id }} .bg-color-item{
+      background: {{ _bg_item }};
+    }
+  </style>
+
+    <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+            data-id="#product-grid-{{ section.id }} .product-grid-carousel-v4"
+            data-margin="{{ _padding }}"
+            data-resp="5.3"
+            data-items-1="1"
+            data-items-2="2"
+            data-items-3="3"
+            data-items-4="2"
+            data-items-5="3">
+
+</div>

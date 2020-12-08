@@ -1,0 +1,89 @@
+{%- assign _layout = section.settings.layout -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _margin_top = section.settings.top_margin -%}
+{%- assign _margin_bottom = section.settings.bottom_margin -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+
+{% if _layout == 'boxed' or _layout == 'boxed-padding' %}
+  {%- assign _layout_class = 'container' -%}
+{% elsif _layout == 'wide-padding' %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+<div class="section-separator section-separator-{{ section.id }} layout-{{ _layout }} {% if _hide_mobile %} d-none d-md-block{% endif %} separator-mt-{{ _margin_top }} separator-mb-{{ _margin_bottom }}" style="background: {{ _bg_color }};">
+  <div class="separator-content {{ _layout_class }}">
+  
+    {% for block in section.blocks %}
+      {%- assign _type = block.type -%}
+    
+        {% case _type %}
+
+    		  {% when 'heading' %}
+            {%- assign _content_hwline_heading_text = block.settings.content_hwline_heading_text -%}
+            {%- assign _content_hwline_heading_color = block.settings.content_hwline_heading_color -%}
+            {%- assign _content_hwline_heading_size = block.settings.content_hwline_heading_size -%}  
+            {%- assign _content_hwline_subheading_text = block.settings.content_hwline_subheading_text -%}
+            {%- assign _content_hwline_subheading_color = block.settings.content_hwline_subheading_color -%}
+            {%- assign _content_hwline_subheading_size = block.settings.content_hwline_subheading_size -%}
+
+            <div class="separator-heading-line">
+              <h2><span>{{_content_hwline_heading_text}}</span></h2>
+              <span class="separator-subtext">{{_content_hwline_subheading_text}}</span>
+            </div>
+    
+          {% when 'heading_with_line' %}
+            {%- assign _content_hwline_heading_text = block.settings.content_hwline_heading_text -%}
+            {%- assign _content_hwline_heading_color = block.settings.content_hwline_heading_color -%}
+            {%- assign _content_hwline_heading_size = block.settings.content_hwline_heading_size -%}  
+            {%- assign _content_hwline_style = block.settings.content_hwline_style -%}
+            {%- assign _content_hwline_position = block.settings.content_hwline_position -%}
+            {%- assign _content_hwline_subheading_text = block.settings.content_hwline_subheading_text -%}
+            {%- assign _content_hwline_subheading_color = block.settings.content_hwline_subheading_color -%}
+            {%- assign _content_hwline_subheading_size = block.settings.content_hwline_subheading_size -%}
+
+    
+            <div class="separator-heading-line {{ _content_hwline_position }} line-{{ _content_hwline_style }}">
+              {% if _content_hwline_position == 'top_bottom' %}<div class="separator-sub-line sub-double-line"></div>{% endif %}
+              {% if _content_hwline_position == 'top' %}<div class="separator-sub-line sub-line-top"></div>{% endif %}
+              <h2><span>{{_content_hwline_heading_text}}</span></h2>
+              {% if _content_hwline_position == 'center' %}<div class="separator-sub-line"></div>{% endif %}
+              <span class="separator-subtext">{{_content_hwline_subheading_text}}</span>
+              {% if _content_hwline_position == 'bottom' %}<div class="separator-sub-line sub-line-bt"></div>{% endif %}
+              {% if _content_hwline_position == 'top_bottom' %}<div class="separator-sub-line sub-double-line sub-line-bt"></div>{% endif %}
+            </div>
+
+          {% when 'line' %}
+            {%- assign _content_hwline_style = block.settings.content_hwline_style -%}
+
+            <div class="separator-heading-line line-{{ _content_hwline_style }}">
+              <div class="separator-sub-line sub-line-bt"></div>
+            </div>
+
+          {% else %}
+            <div class="separator-heading-line"></div>
+
+        {% endcase %}
+
+      <style type="text/css">    
+          .section-separator-{{ section.id }} h2 {
+            font-size: {{_content_hwline_heading_size}}px;
+            color: {{_content_hwline_heading_color}};
+          }
+          .section-separator-{{ section.id }} .separator-subtext {
+            font-size: {{_content_hwline_subheading_size}}px;
+            color: {{_content_hwline_subheading_color}};
+          }
+          .section-separator-{{ section.id }} .separator-sub-line {
+            border-color: {{ _content_hwline_heading_color}};
+          }
+          .section-separator-{{ section.id }} .separator-heading-line.side-line h2:before,
+          .section-separator-{{ section.id }} .separator-heading-line.side-line h2:after {
+            border-color: {{ _content_hwline_heading_color}};
+          }
+      </style>
+    {% endfor %}
+  
+  </div>
+</div>

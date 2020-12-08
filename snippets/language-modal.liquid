@@ -1,0 +1,29 @@
+{% if settings.enable_multiple_currencies or settings.gg_tran %}
+  <div id="language-popup" class="modal fade" role="dialog" aria-hidden="true" tabindex="-1">
+    
+    <div class="modal-dialog fadeIn animated">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <span class="language-close" title="{{'products.product.close_quick_shop' | t }}" data-dismiss="modal" aria-hidden="true"><i class="demo-icon icon-close"></i></span>
+        </div>
+
+        <div class="modal-body">
+          <div class="language-inner currencies-switcher-{{ settings.enable_multiple_currencies }}">
+            {% if settings.enable_multiple_currencies %}
+              <h4>{{'general.text.currency'| t }}</h4>
+              <div class="currency-position flag-{{ settings.flag_currency }}">{% include 'currencies-switcher' %}</div>
+            {% endif %}
+
+            {% if settings.gg_tran %}
+              <h4>{{'general.text.language'| t }}</h4>
+              <div class="translate-position-mobile"></div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+{% endif %}

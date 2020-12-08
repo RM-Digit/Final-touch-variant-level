@@ -1,0 +1,7 @@
+{% unless settings.product_review_option == 'none' %}
+  {% if settings.product_review_option == 'shopify-review' %}
+    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+  {% else %}
+    <div id="looxReviews" data-product-id="{{product.id}}">{{ product.metafields.loox.reviews }}</div> 
+  {% endif %}
+{% endunless %}

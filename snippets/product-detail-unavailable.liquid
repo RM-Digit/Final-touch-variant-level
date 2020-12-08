@@ -1,0 +1,9 @@
+<meta itemprop="price" content="{{ product.price | divided_by: 100.00  }}" />
+
+<div class="group-cw clearfix">
+  <div class="action-button">
+    <button id="add-to-cart" class="sold-out btn btn-1" type="button"><span class="demo-icon icon-electro-add-to-cart-icon"></span>{{'products.product.sold_out' | t }}</button>
+  </div>
+
+  {% include 'product-detail-pre-order-btn' %}
+</div>

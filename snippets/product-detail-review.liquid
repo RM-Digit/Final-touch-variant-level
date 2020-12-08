@@ -1,0 +1,13 @@
+{% unless settings.product_review_option == 'none' %}
+  <div class="rating-links">
+    <div class="rating-inner">
+      {% if settings.product_review_option == 'shopify-review' %}
+        <div class="shopify-product-reviews-badge" data-id="{{ product.id }}"></div>
+      {% else %}
+        <div class="loox-rating" data-fetch data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+      {% endif %}
+    </div>
+    <a href="#tab_review" style="font-size: 20px;">REVIEWS</a>
+  </div>
+{% endunless %}
+{% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}

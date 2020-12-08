@@ -1,0 +1,21 @@
+<div class="{{ _sb_class }} left-column-container">
+  
+  {% for block in section.blocks %}
+    {% case block.type %}
+  
+      {% when 'collections' %}
+        {% include 'list-collections-sidebar' %}
+
+      {% when 'banner' %}
+        {% include 'banner-sidebar' %}
+  
+      {% when 'products-listing' %}
+  		{% include 'products-listing-sidebar' %}
+  
+      {% when 'service' %}
+  		{% include 'service-sidebar' %}
+
+    {% endcase %}
+  {% endfor %}
+  
+</div>

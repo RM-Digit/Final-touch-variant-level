@@ -1,0 +1,31 @@
+{%- assign klaviyo_id  = _form_action | split: 'g=' | last -%}
+{% if _button_style == blank %}
+  {%- assign _button_style = '2' -%}
+{% endif %}
+
+<form action="{{ _form_action }}" method="post" class="klaviyo_styling" target="_blank" novalidate="novalidate">
+  <div class="action-form">
+    <input type="hidden" name="g" value="HQkx8y">
+    <input type="email" class="form-control" required value="" placeholder="Enter your email address" name="EMAIL">
+    {% unless _newsletter_button_right %}
+      <button type="submit" title="Subscibe" name="subscribe" class="email-submit btn btn-1">SUBSCRIBE</button>
+    {% endunless %}
+  </div>
+
+  {% if _condition %}
+    <div class="newsletter-checkbox">
+      <input type="checkbox" class="custom-control-input newsletterCheck">
+      <label for="newsletterCheck">{{ _condition_text }}</label> 
+    </div>
+
+    <script>
+      jQuery(document).ready(function($) {
+        AT_Main.newsletterTermsConditions();
+      })
+    </script>
+  {% endif %}
+
+  {% if _newsletter_button_right %}
+    <button type="submit" title="Subscibe" name="subscribe" class="email-submit btn btn-1">SUBSCRIBE</button>
+  {% endif %}
+</form>

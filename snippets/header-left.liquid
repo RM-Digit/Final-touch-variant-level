@@ -1,0 +1,22 @@
+{%- assign _nav_linklist = section.settings.nav_linklist -%}
+<div class="header-main">
+  <div class="table-row">
+    {% include 'header-icons' %}
+    <div class="navbar navbar-responsive-menu d-lg-none">
+      <div class="responsive-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+
+    {% include 'header-mobile-cart-icon' %}
+    {% include 'header-logo' %}
+    {% include 'header-horizontal-menu' %}
+  </div>
+</div>
+
+<div class="header-bottom">
+  {% include 'header-switcher' %}
+  {% include 'social-media-icons' %}
+</div>

@@ -1,0 +1,287 @@
+{% include 'list-collections-snippet-v2' %}
+
+{% schema %}
+{
+  "name": "List Collections V2",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'List Collections V2' section"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section label",
+      "default": "Collection List V2"
+    },
+    {
+      "type": "paragraph",
+      "content": "All of your collections are listed by default. To customize your list, choose 'Selected' and add collections."
+    },
+    {
+      "type": "select",
+      "id": "display_type",
+      "label": "Select collections to show",
+      "default": "all",
+      "options": [
+        { "value": "all", "label": "All"},
+        { "value": "selected", "label": "Selected" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Select style to show",
+      "default": "image-text",
+      "options": [
+        { "value": "image-text", "label": "Image & title" },
+        { "value": "text", "label": "Only title" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "icon_type",
+      "label": "Select image to show",
+      "default": "image",
+      "options": [
+        { "value": "image", "label": "Collection image" },
+        { "value": "upload", "label": "Upload image" },
+        { "value": "icon", "label": "Font icon" }
+      ],
+      "info": "Only for Selected"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "boxed-bg", "label": "Boxed background" },
+        { "value": "boxed-padding", "label": "Boxed padding" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "default": "row",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "row-2", "label": "Row 2" },
+        { "value": "carousel", "label": "Carousel" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "border_right_line",
+      "label": "Border item",
+      "default": "full",
+      "options": [
+        { "value": "full", "label": "Right full" },
+        { "value": "mini", "label": "Right mini line" },
+        { "value": "rl", "label": "Right & Left" },
+        { "value": "none", "label": "None" }
+      ],
+      "info": "Only for type is Row"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Font icon color"
+    },
+    {
+      "type": "color",
+      "id": "bg_icon_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading font size",
+      "min": 14,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "header",
+      "content": "Collection title"
+    },
+    {
+      "type": "select",
+      "id": "collection_name_position",
+      "label": "Position",
+      "default": "below",
+      "options": [
+        { "value": "below", "label": "Below image" },
+        { "value": "right", "label": "Right image" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "collection_name_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "label": "Bold text",
+      "id": "bold_collection_name",
+      "type": "checkbox"
+    },
+    {
+      "label": "Uppercase text",
+      "id": "uppercase_collection_name",
+      "type": "checkbox"
+    },
+    {
+      "type": "header",
+      "content": "Block settings"
+    },
+    {
+      "label": "SHOW ALL button",
+      "id": "show_all",
+      "type": "checkbox"
+    },
+	{
+      "label": "SHOW ALL line",
+      "id": "show_all_line",
+      "type": "checkbox"
+    },
+    {
+      "label": "Image size",
+      "id": "image_size",
+      "type": "text",
+      "default": "60x60",
+      "info": "E.g: 60x60"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+      	{
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        },
+        {
+          "label": "Image",
+          "id": "image",
+          "type": "image_picker"
+        },
+        {
+          "label": "Font icon name",
+          "id": "icon",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "all-collection",
+      "name": "Show all link",
+      "limit": 1,
+      "settings": [
+        {
+          "label": "Text",
+          "id": "text",
+          "type": "text",
+          "default": "Show all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "List Collections V2",
+      "category": "List Collections",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

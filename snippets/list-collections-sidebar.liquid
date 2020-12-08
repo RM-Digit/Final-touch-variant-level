@@ -1,0 +1,117 @@
+{% assign _border_color = block.settings.border_color %}
+{% if _border_color == blank or _border_color == 'none' or _border_color == 'rgba(0,0,0,0)' %}
+  {% assign _border_class = 'sb-border-none' %}
+{% else %}
+  {% assign _border_class = 'sb-border' %}
+  <style type="text/css">
+    .sb-widget.sb-border{
+      border: 2px solid {{ _border_color }};
+    }
+  </style>
+{% endif %}
+
+<div class="sb-widget {{ _border_class }} d-none d-lg-block">
+  <div class="sb-menu">
+
+    {% assign _heading = block.settings.heading %}
+
+    {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+    <ul class="categories-menu">
+      {% if block.settings.display_type == 'all' %}
+        {% for collection in collections %}
+
+          <li>
+            {% unless block.settings.icon == 'none' %}
+              {% assign col_handle = collection.handle %}
+
+              <span class="icon{% if _lazyload %} lazyload waiting{% endif %}">
+                {% if block.settings.icon == 'collection-image' %}
+                  <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ collection.image.src | collection_img_url: 'icon' }}" alt="{{ collection.title | escape }}" />
+
+                {% elsif block.settings.icon == 'upload-svg' %}
+                  <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ col_handle | append: '.svg' | asset_url }}" alt="" />
+
+                {% else %}
+                  {% assign col_handle = collection.handle %}
+                  <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ col_handle | append: '.png' | asset_url }}" alt="" />
+
+                {% endif %}
+              </span>
+            
+            {% endunless %}
+
+            <a href="{{ collection.url }}">{{ collection.title }}</a>
+          </li>
+
+        {% endfor %}
+
+      {% elsif block.settings.display_type == 'selected'  %}
+        {% for i in (1..12) %}
+          {% assign _col = 'collection_' | append : i %}
+
+          {% unless block.settings[_col] == blank %}
+            {% assign _collection = collections[block.settings[_col]] %}
+
+            <li>
+              {% unless block.settings.icon == 'none' %}
+                {% assign col_handle = _collection.handle %}
+
+                <span class="icon{% if _lazyload %} lazyload waiting{% endif %}">
+                  {% if block.settings.icon == 'collection-image' %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _collection.image.src | collection_img_url: 'icon' }}" alt="{{ _collection.title | escape }}" />
+
+                  {% elsif block.settings.icon == 'upload-setting' %}
+                    {% assign _image = 'image_' | append : i %}
+                    {% unless block.settings[_image] == blank %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ block.settings[_image] | img_url: '25x' }}" alt="" />
+                    {% endunless %}
+
+                  {% elsif block.settings.icon == 'upload-svg' %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ col_handle | append: '.svg' | asset_url }}" alt="" />
+
+                  {% else %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ col_handle | append: '.png' | asset_url }}" alt="" />
+
+                  {% endif %}
+                </span>
+              {% endunless %}
+
+              <a href="{{ _collection.url }}">{{ _collection.title }}</a>
+            </li>
+
+          {% endunless %}
+
+        {% endfor %}
+
+      {% else %}
+
+        {% for l in linklists[block.settings.menu_item].links %}
+          {% assign submenu = l.title | handleize %}
+
+          {% if linklists[submenu].links.size > 0 %}
+            {% include 'sb-dropdown-menu' %}
+
+          {% else %}
+            <li class="{% if l.active %}active{% endif %}">
+              {% unless block.settings.icon == 'none' %}
+                <span class="icon{% if _lazyload %} lazyload waiting{% endif %}">
+                  {% if block.settings.icon == 'upload-svg' %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ submenu | append: '.svg' | asset_url }}" alt="" />
+                  {% elsif block.settings.icon == 'upload' %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ submenu | append: '.png' | asset_url }}" alt="" />
+                  {% endif %}
+                </span>
+              {% endunless %}
+              <a href="{{ l.url }}">{{ l.title }}</a>
+            </li>
+
+          {% endif %}
+
+        {% endfor %}
+
+      {% endif %}
+    </ul>
+
+  </div>
+</div>

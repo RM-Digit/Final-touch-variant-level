@@ -1,0 +1,121 @@
+{% assign description = product.description %}
+{% capture description %}{{ description }}{% endcapture %}
+
+<div class="product-simple-tab">
+  
+  {% if section.settings.show_product_tab %}
+    <div id="product-accordion">
+
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+
+          {% case block.type %}
+            {% when 'description' %}
+              {% unless description == blank %}
+
+                {% if block.settings.multi-tab %}
+                  {% assign description_parts = description | split: "<h5" %}
+
+                  <div class="panel panel-product-accordion">
+                    <div class="container">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-target="#pa-description" aria-expanded="true">{{ 'products.product.description' | t }}</a>
+                        </h4>
+                      </div>
+
+                      <div id="pa-description" class="panel-collapse collapse show" data-parent="#product-accordion">
+                        <div class="panel-body">{{ product.description | split: '<h5>' | first }}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% for part in description_parts %}
+                    {% if part contains "</h5>" %}
+                      {% assign remove = part | split: ">" | first | append: ">" %}
+                      {% capture ind %}{{ forloop.index | plus: 0}}{% endcapture %}
+
+
+                      <div class="panel panel-product-accordion">
+                        <div class="container">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">
+                              <a data-toggle="collapse" data-target="#pa-{{ forloop.index }}" aria-expanded="false">{{ part | split: "</h5>" | first | strip_html | replace: remove, "" }}</a>
+                            </h4>
+                          </div>
+
+                          {% if p != "" or fp contains "<img " or fp contains "<iframe " %}
+                            <div id="pa-{{ forloop.index }}" class="panel-collapse collapse" data-parent="#product-accordion">
+                              <div class="panel-body">{{ part | split: "</h5>" | last | replace: "<div", "<span" | replace: "</div", "</span" }}</div>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      
+                    {% endif %}
+                  {% endfor %}
+
+                {% else %}
+                  <div class="panel panel-product-accordion">
+                    <div class="container">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-target="#pa-description" aria-expanded="true">{{ 'products.product.description' | t }}</a>
+                        </h4>
+                      </div>
+
+                      <div id="pa-description" class="panel-collapse collapse show" data-parent="#product-accordion">
+                        <div class="panel-body">{{ product.description }}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                {% endif %}
+
+              {% endunless %}
+
+            {% when 'page' %}
+              <div class="panel panel-product-accordion">
+                <div class="container">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-target="#pa-page-{{ block.id }}" aria-expanded="false">{{ block.settings.page_title }}</a>
+                    </h4>
+                  </div>
+
+                  <div id="pa-page-{{ block.id }}" class="panel-collapse collapse" data-parent="#product-accordion">
+                    <div class="panel-body">{{ pages[block.settings.page].content }}</div>
+                  </div>
+                </div>
+              </div>
+              
+          {% endcase %}
+
+        {% endfor %}
+      {% endif %}
+
+      {% if section.settings.product_tab_review == 'inside' and settings.product_review_option != 'none' %}
+        <div class="panel panel-product-accordion panel-accordion-review">
+          <div class="container">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" id="tab_review" data-target="#tab_review_tabbed" aria-expanded="false">{{ 'products.product.customer_reviews' | t }}</a>
+              </h4>
+            </div>
+
+            <div id="tab_review_tabbed" class="panel-collapse collapse" data-parent="#product-accordion">
+              <div class="panel-body">{% include 'product-detail-review-content' %}</div>
+            </div>
+          </div>
+        </div> 
+      {% endif %}
+
+    </div>
+
+  {% else %}
+    <div class="container">
+      <div class="product-description">{{ product.description }}</div>
+    </div>
+
+  {% endif %}
+</div>

@@ -1,0 +1,27 @@
+{%- assign _style = block.settings.style -%}
+{%- assign _bar_border_top = block.settings.border_top -%}
+{%- assign _border_radius_content = block.settings.border_radius_content -%}
+{%- assign _border_right_item = block.settings.border_right_item -%}
+{%- assign _bg_color = block.settings.bg_color -%}
+{%- assign _image_type = block.settings.image_type -%}
+{%- assign _text_position = block.settings.position -%}
+{%- assign _text_color = block.settings.text_color -%}
+{%- assign _text_font_size = block.settings.text_font_size -%}
+
+{% if _style == 1 %}
+  {%- assign _item_per_row = 3 -%}
+  {%- assign _item_class = 4 -%}
+{% else %}
+  {%- assign _item_per_row = 4 -%}
+  {%- assign _item_class = 3 -%}
+{% endif %}
+
+<div class="footer-service-bar border-top-{{ _bar_border_top }}" style="background: {{ _bg_color }};">
+  <div class="{{ _layout_class }}{% if _border_right_item %} border-right-item{% endif %}">
+  	<div class="content-inner border-radius-{{ _border_radius_content }}" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+
+  		{% include 'service-bar' %}
+    
+    </div>
+  </div>
+</div>

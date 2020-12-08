@@ -1,0 +1,145 @@
+{%- assign _layout = section.settings.layout -%}
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _flex_layout = section.settings.flex_layout -%}
+{%- assign _alignment = section.settings.alignment -%}
+{%- assign _border = section.settings.nb_border -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{%- assign _padding_top = section.settings.padding_top -%}
+{%- assign _padding_bottom = section.settings.padding_bottom -%}
+
+{%- assign _bg_style = section.settings.bg_style -%}
+{%- assign _bg_img = section.settings.bg_image -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+
+{% if _bg_style == 'image' %}
+  {% if _lazyload %}
+    {% capture background %}{{ _bg_img | img_url: '1920x' }}{% endcapture %}
+  {% else %}
+    {% capture background %}url({{ _bg_img | img_url: '1920x' }}) no-repeat top center; background-size: cover{% endcapture %}
+  {% endif %}
+{% else %}
+  {% capture background %}{{ _bg_color }}{% endcapture %}
+{% endif %}
+
+<div id="notice-bar-{{ section.id }}" data-section-type="notice-bar" data-section-id="{{ section.id }}" class="notice-bar layout-{{ _layout }} notice-border-{{ _border }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="notice-bar-container bg-{{ _bg_style }}{% if _lazyload and _bg_style == 'image' and _layout != 'boxed-padding' and _layout != 'boxed-padding' %} lazyload{% endif %}"{% unless _layout == 'boxed-padding' %}{% if _lazyload and _bg_style == 'image' %}data-bgset="{{ background }}" style=" background-repeat: no-repeat;"
+    {% else %} style="background: {{ background }};"{% endif %}{% endunless %}>
+
+      {% if section.blocks.size > 0 %}
+
+        <div class="container{% if _border_line %} border-line{% endif %} alignment-{{ _alignment }}">
+          <div class="text-box-content"{% if _layout == 'boxed-padding' %} style="background: {{ _bg_color }};"{% endif %}>
+            <div class="text-box{% if _flex_layout %} flex-layout{% endif %}"{% if _border_line %} style="background: {{ _bg_color }};"{% endif %}>
+              {% for block in section.blocks %}
+
+                {% if block.type == 'text' %}
+                  {%- assign _text = block.settings.text -%}
+                  {%- assign _text_color = block.settings.text_color -%}
+                  {%- assign _text_size = block.settings.text_size -%}
+
+                  {% unless _text == blank %}
+                    <div class="text{% if _text_size > 20 %} big-size{% endif %}" style="color: {{ _text_color }}; font-size: {{ _text_size }}px;">{{ _text }}</div>
+                  {% endunless %}
+
+                {% elsif block.type == 'html' %}
+                  {%- assign _text = block.settings.text -%}
+                  {%- assign _text_color = block.settings.text_color -%}
+                  {%- assign _text_span_color = block.settings.text_span_color -%}
+                  {%- assign _text_size = block.settings.text_size -%} 
+
+                  {% unless _text == blank %}
+                    <div class="text text-html-{{ block.id }}" style="color: {{ _text_color }}; font-size: {{ _text_size }}px;">
+                      <p>{{ _text }}</p>
+                    </div>
+                    <style>
+                      .notice-bar .notice-bar-container .text.text-html-{{ block.id }} span{
+                        color: {{ _text_span_color }};
+                      }
+                    </style>
+                  {% endunless %}
+
+                {% else %}
+                  {%- assign _text = block.settings.text -%}
+                  {%- assign _btn_style = block.settings.style -%}
+                  {%- assign _link = block.settings.link -%}
+                  {%- assign _button_size = block.settings.button_size -%} 
+                  {%- assign _bold_text = block.settings.bold_text -%}
+                  {%- assign _button_bg = settings.btn3_bg -%}
+
+                  {% unless _text == blank %}
+                    <a class="btn btn-{{ _btn_style }}{% if _bold_text %} bold-text{% endif %}{% if _button_bg == blank or _button_bg == 'none' or _button_bg == 'rgba(0,0,0,0)' %} bg-none{% endif %}" href="{{ _link }}" style="font-size: {{ _button_size }}px;">{{ _text }}</a>
+                  {% endunless %}
+
+                {% endif %}
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <div class="text-box" style="color:#ffffff;">
+          <div class="text-box-content">
+            <div class="text" style="font-size: 20px;">Huge sale only this weekend!</div>
+            <div class="text" style="font-size: 40px;">WITH CODE “WEEKEND”</div>
+            <a href="javascript:void(0)" class="btn btn-1">Shop now</a>
+          </div>
+        </div>
+
+      {% endif %}
+
+      <style type="text/css">
+        #notice-bar-{{ section.id }} .notice-bar-container .text-box-content{
+          padding-top: {{ _padding_top }}px;
+          padding-bottom: {{ _padding_bottom }}px;
+        }
+      </style>
+
+  </div>
+
+  <span class="close-notice"><i class="demo-icon icon-close"></i></span>
+  
+  <script>
+    jQuery(document).ready(function($) {
+
+      var i_sections = new theme.Sections();
+      i_sections.register('notice-bar',function(){
+        if($('.header-content').hasClass('header-overlay')){
+          var _closeBar = $('#shopify-section-announcement-bar').height();
+          $('.header-container').css('top', _closeBar);
+          return false;
+        }
+        else{
+          if ($.cookie('hide-notice-bar') == "yes") {
+            $("#shopify-section-notice-bar").css('display', 'none');
+          }
+
+          else{
+            $("#shopify-section-notice-bar").slideDown( 'slow' );
+          }
+
+          jQuery("body").on("click", ".notice-bar .close-notice", function() {
+            $.cookie('hide-notice-bar','yes', {expires: 1, path: '/'});
+            $("#shopify-section-notice-bar").css('display', 'none');
+          });
+
+          if ($.cookie('hide-announcement-bar') == "yes") {
+            $("#shopify-section-announcement-bar").css('display', 'none');
+          }
+
+          else{
+            $("#shopify-section-announcement-bar").slideDown( 'slow' );
+          }
+
+          jQuery("body").on("click", ".announcement-bar .close-notice", function() {
+            $.cookie('hide-announcement-bar','yes', {expires: 1, path: '/'});
+            $("#shopify-section-announcement-bar").css('display', 'none');
+          });
+        }
+      })
+
+    })
+  </script>
+</div>

@@ -1,0 +1,83 @@
+
+<div id="product-image" class="product-image">
+  <div class="product-image-inner">
+   {% assign productTitle = product.title | handle %}
+  
+    {% if product.images.size > 0 %}
+
+      <div class="slider-main-image">
+        <div class="slider-for-00 slider-for-01">
+          {% for image in product.images %}
+          {% assign imageAlt = image.alt | handle %}
+            {% unless imageAlt == productTitle %}
+              <div class="slick-item slick-zoom">
+                <a class="prod-zoom" data-fancybox="gallery" href="{{ image.src | product_img_url: '2048x2048' }}">
+                  <img class="image-zoom" src="{{ image.src | product_img_url: '2048x2048' }}" alt="{{ image.alt | handle }}">
+                </a>
+              </div>
+            {% endunless %}
+            {% if imageAlt == "jerky_club" %}
+              <div class="slick-item slick-zoom">
+                <a class="prod-zoom" data-fancybox="gallery" href="{{ image.src | product_img_url: '2048x2048' }}">
+                  <img class="image-zoom" src="{{ image.src | product_img_url: '2048x2048' }}" alt="{{ image.alt | handle }}">
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+ 
+        <div class="slick-btn-01">
+          <span class="btn-prev"><i class="demo-icon icon-chevron-left-solid"></i></span>
+          <span class="btn-next"><i class="demo-icon icon-chevron-right-solid"></i></span>
+        </div>  
+
+        {% if section.settings.meta_video %}
+        {% assign _meta_video = product.metafields.c_f %}
+        {% assign key = 'video_url' %}
+
+        {% unless _meta_video.video_url == blank %}
+        <div class="meta-video">
+          <a href="{{ _meta_video.video_url }}" class="m-video"><i class="demo-icon icon-play-circle2"></i>{{ 'products.product.video' | t }}</a>
+        </div>
+
+        <script src="{{ 'jquery.fancybox-media.js' | asset_url  }}"></script>
+
+        <script>
+          $(document).ready(function() {
+            $('.m-video').fancybox({
+              openEffect  : 'none',
+              closeEffect : 'none',
+              helpers : {
+                media : {}
+              }
+            });
+          });
+        </script>
+
+        {% endunless %}
+
+        {% endif %}
+      </div>
+
+      <div class="slider-thumbs-00 slider-thumbs-01{% if product.images.size < 2 %} d-none{% endif %}">
+       
+        {% for image in product.images %}
+          {% assign imageThumbAlt = image.alt | handle %}
+          {% unless imageThumbAlt == productTitle %}
+            <div class="slick-item" style = "height:100%;">
+              <img src="{{ image.src | product_img_url: 'small' }}" alt="{{ product.title | escape }}" 
+              class="{{ image.alt | handle }}"
+              />
+            </div>
+          {% endunless %}
+        {% endfor %}
+       
+      </div>
+
+    {% else %}
+     <img src="{{ 'default-image.jpg' | asset_url }}" />
+
+    {% endif %}
+
+  </div>
+</div>

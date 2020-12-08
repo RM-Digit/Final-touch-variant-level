@@ -1,0 +1,46 @@
+{% unless _vertical_nav_linklist == blank %}
+  {% assign _vertical_secondary_nav_linklist = section.settings.vertical_secondary_nav_linklist %}
+  {% assign _vertical_header_nav_bg = settings.vertical_header_nav_bg %}
+  {% assign _vertical_nav_border = settings.vertical_nav_border %}
+  {% assign _uppercase_nav = section.settings.uppercase_nav %}
+  {% assign _bold_nav = section.settings.bold_nav %}
+  {% assign _vertical_nav_linklist_icon = section.settings.vertical_nav_linklist_icon %}
+  {% assign _vertical_thumbnail_icon_upload = section.settings.thumbnail_icon_upload %}
+  {% assign _vertical_mega_menu_same_height = section.settings.mega_menu_same_height %}
+  
+  <div class="vertical-menu dropdown-fix{% if _vertical_header_nav_bg == blank or _vertical_header_nav_bg == 'none' or _vertical_header_nav_bg == 'rgba(0,0,0,0)' %} bg-color-none{% endif %}">
+    <div class="sidemenu-holder{% if _uppercase_nav %} text-uppercase{% endif %}{% if _bold_nav %} bold-text{% endif %}{% unless _vertical_secondary_nav_linklist == blank %} vertical-secondary-nav{% endunless %}">
+
+      <div class="navigation{% if _vertical_nav_border == blank or _vertical_nav_border == 'none' or _vertical_nav_border == 'rgba(0,0,0,0)' %} border-color-none{% endif %}">
+        <div class="head">
+          <i class="demo-icon icon-hamberger-solid"></i>
+          <span>{{ 'general.text.all_departments' | t }}</span>
+        </div>
+        
+        <nav class="navbar vertical-navbar" data-height="{{ _vertical_mega_menu_same_height }}">
+          <div class="collapse navbar-collapse">
+            <ul class="main-nav{% unless section.settings.vertical_nav_linklist_icon %} no-icon{% endunless %}">
+              {% for l in linklists[_vertical_nav_linklist].links %}
+                {% include 'vertical-nav-link' %}
+              {% endfor %}
+            </ul>
+
+            {% unless _vertical_secondary_nav_linklist == blank %}
+              <ul class="secondary-nav">
+                {% for link in linklists[_vertical_secondary_nav_linklist].links %}
+                  <li>
+                    <a href="{{ link.url }}"> 
+                      <span>{{ link.title }}</span>  
+                      {% include 'menu-label' %}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endunless %}
+          </div>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+{% endunless %}

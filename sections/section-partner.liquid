@@ -1,0 +1,327 @@
+{% include 'partner-snippet' %}
+ 
+{% schema %}
+{
+  "name": "Logo List",
+  "max_blocks": 20,
+  "settings": [
+  {
+      "type": "paragraph",
+      "content": "Created by 'Logo List' section"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "default": "row",
+      "options": [
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "row", "label": "Row" },
+        { "value": "banner-ll", "label": "Banner & Logo list" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "Border top"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_bottom",
+      "label": "Border bottom"
+    },
+	{
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "header",
+      "content": "Logo list"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_logo_list",
+      "label": "Border section"
+    },
+    {
+      "type": "select",
+      "id": "border_ll_item",
+      "label": "Border item",
+      "default": "none",
+      "options": [
+        { "value": "all", "label": "All" },
+        { "value": "lr", "label": "Left & Right" },
+        { "value": "none", "label": "None" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "border_logo_list_color",
+      "label": "Border section color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "image_size",
+      "label": "Image size",
+      "default": "130x110",
+      "info": "E.g: 130x110"
+    },
+	{
+      "type": "header",
+      "content": "SHOW ALL button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_btn",
+      "label": "SHOW ALL button"
+    },
+	{
+      "type": "select",
+      "id": "show_all_style",
+      "label": "Style",
+      "default": "normal",
+      "options": [
+        { "value": "normal", "label": "Normal" },
+        { "value": "round", "label": "Round" },
+        { "value": "square", "label": "Square" }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "show_all_btn_link",
+      "label": "Show all link"
+    },
+    {
+      "type": "header",
+      "content": "Number of items per row"
+    },
+    {
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Desktop",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "tablet_item_per_row",
+      "label": "Tablet",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_per_row",
+      "label": "Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 1,
+      "settings": [
+       {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Secondary link"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label 1"
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button label 2"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "subtitle_text_bold",
+          "label": "Bold Subeading"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subheading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "label": "Subheading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 80
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo List",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

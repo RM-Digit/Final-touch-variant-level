@@ -1,0 +1,86 @@
+<div class="{{ _sb_class }}">
+  <div id="sidebar-blog" class="sidebar">
+    
+    {% for block in section.blocks %}
+      {% assign _heading = block.settings.heading %}
+    
+      {% case block.type %}
+
+        {% when 'categories' %}
+          {% unless block.settings.menu_item == blank %}
+            <div class="sb-widget">
+              <div class="sb-menu">
+
+                {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+   
+                <ul class="blog-menu">
+                  {% for l in linklists[block.settings.menu_item].links %}
+                    {% assign submenu = l.title | handleize %}
+
+                    {% if linklists[submenu].links.size > 0 %}
+                      {% include 'sb-dropdown-menu' %}
+                    {% else %}
+                      <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                    {% endif %}
+
+                  {% endfor %}
+                </ul>
+
+              </div>
+            </div>
+          {% endunless %}
+
+        {% when 'recent-posts' %}
+          {%- assign _blog = block.settings.sidebar_post -%}
+          {%- assign blog = blogs[_blog] -%}
+
+          {% unless _blog == blank and blog.articles_count == 0 %}
+
+            <div class="sb-widget">
+              <div class="sb-blog-posts">
+
+                {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+  
+                <div class="post-list">
+                  {% for _article in blog.articles limit: block.settings.limited %}
+                    {% unless _article.id == article.id %} 
+                      {% include 'sb-blog-post-item' %}
+                    {% endunless %}
+                  {% endfor %}
+                </div>
+
+              </div>
+            </div>
+          {% endunless %}
+
+        {% when 'tags' %}
+          <div class="sb-widget">
+            <div class="sb-blog-tag">
+
+              {% unless _heading == blank %}<h5 class="sb-title">{{ _heading }}</h5>{% endunless %}
+
+              <ul class="list-inline">
+                <li><a href="{{ shop.url}}/blogs/{{ blog.handle }}">All</a></li>
+                {% for tag in blog.all_tags %}
+
+                  {% if current_tags contains tag %}
+                    <li class="active">{{ tag | link_to_remove_tag: tag }}</li>
+                  {% else %}
+                    <li>{{ tag | link_to_tag: tag }}</li>
+                  {% endif %}
+
+                {% endfor %}
+              </ul>
+
+            </div>
+          </div>
+
+        {% when 'products-listing' %}
+          {% include 'products-listing-sidebar' %}
+    
+      {% endcase %}
+
+    {% endfor %}
+    
+  </div>
+</div>

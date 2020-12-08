@@ -1,0 +1,146 @@
+<div id="layer-addcart-modal" style="display: none; position: fixed;  top: 0%; left: 0%; width: 100%; height: 100%; ">
+  <div class="layer-addcart-modal">
+
+    <div class="addcart-overlay"></div>
+
+    <div class="addcart-modal-box" style="display: none;">
+
+      <div class="addcart-modal-content">
+
+        <div class="addcart-modal-mobile">
+
+          <div class="addcart-modal-product-mobile">  
+            <div class="addcart-modal-image_mobile"></div>
+            <div class="addcart-modal-info-mobile">
+              <div class="prod-main-and-variant">
+                <div class="addcart-modal-title"></div>
+                <div class="addcart-modal-variant"></div>
+              </div>
+                <h4 class="addcart-price-mobile">PRICE</h4>
+                <div class="addcart-modal-price"></div>
+                <h4 class="addcart-qty-mobile">QTY</h4>
+                <div class="addcart-modal-qty"></div>
+            </div>
+          </div>
+
+          <div class="addcart-modal-action">
+            
+            <div class="subqty-price">
+              <div class="addcart-modal-number"></div>
+              <div class="addcart-modal-subtotal"></div>
+            </div>
+            <div class="addcart-modal-button">
+              <!-- <div class="addcart-modal-cart">
+                <a href="javascript:void(null)" onclick="AT_AddCart.addcartModalHide()" class="btn btn-3"></i>{{ 'cart.general.continue_shopping' | t }}</a>
+              </div> -->
+              <div class="addcart-modal-continue">
+                <a href="/cart" class="btn btn-3">VIEW CART</a>
+              </div>
+              <div class="addcart-modal-checkout">
+                <a class="btn btn-1" href="/checkout">CHECK OUT</a>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+
+        <div class="addcart-modal-desktop">
+          <div class="addcart-modal-product">  
+            <div class="addcart-modal-image"></div>
+            
+          </div>
+
+          <div class="addcart-modal-action">
+            <div class="addcart-modal-info">
+              <div class="prod-main-and-variant">
+                <div class="addcart-modal-title"></div>
+                <div class="addcart-modal-variant"></div>
+              </div>
+                <div class="addcart-modal-qty"></div>
+                <div class="addcart-modal-price"></div>
+            </div>
+            <div class="subqty-price">
+              <div class="addcart-modal-number"></div>
+              <div class="addcart-modal-subtotal"></div>
+            </div>
+            <div class="progressbar-btn">
+              <div class="cart-right" style="float: left;width: 60%;padding-inline-start: 0;">
+                <div class="cart-right-table">                  
+                  {% if settings.enable_free_shipping %}
+                    <div class="free-shipping">
+                      {% assign cart_total = cart.total_price | times: 1 %}
+                      {% assign free_shipping_price = settings.free_shipping_price %}
+                      {% assign free_shipping_price_100 = settings.free_shipping_price | times: 100 %}
+                      
+                      {% if cart_total > free_shipping_price_100 %}
+                        <div class="progress">
+                          <span class="progress-bar" style="width:100%">100%</span>
+                        </div>
+                        <div class="unlocked">You've Unlocked Free Shipping!</div>
+                        <div class="text cart-shipping-text free">Free shipping for orders over {{ free_shipping_price_100 | money}}</div>
+                      
+                      {% else %}
+                        {% capture progress %}{{ cart_total | divided_by: free_shipping_price }}{% endcapture %}
+                        {% capture spend %}{{ free_shipping_price_100 | minus: cart_total }}{% endcapture %}
+                        <div class="progress">
+                          <span class="progress-bar" style="width:{{ progress }}%">{{ progress }}%</span>
+                        </div>
+    
+                        <div class="text cart-shipping-text nonfree">
+                          Spend <span class="spend">{{ spend | money }}</span> reach FREE SHIPPING! Continue shopping to add more products to your cart and receive free shipping for orders over {{ free_shipping_price_100 | money }}.
+                        </div>
+                      {% endif %}
+                      
+                    </div>
+                  {% endif %}
+                </div>
+                <script>
+                       jQuery(document).ready(function ($) {
+                        if (window.location.href.includes("product")) {
+                          var freeshippingbar = setInterval(() => {
+                            var cart_total;
+                            if($('.addcart-modal-subtotal').text() !== "") cart_total = $('.addcart-modal-subtotal').text().split(" ")[2].split(".")[0];
+                            cart_total = parseInt(cart_total);
+                            var free_shipping_price_100 = 100;
+                            var progress = cart_total;
+                            if(cart_total > free_shipping_price_100) {
+                              progress = 100;
+                              $('.cart-shipping-text.nonfree').hide();
+                              $('.cart-shipping-text.free').show();
+                            }
+                            
+                            $('.progress-bar').css("width",progress+"%");
+                            $('.progress-bar').text(progress+"%")
+                            $('.spend').text("$"+(free_shipping_price_100 - cart_total));
+                            
+                        }, 1000);
+                        }
+                      });
+                       
+                    
+                </script>
+              </div>
+              <div class="addcart-modal-button">
+                <!-- <div class="addcart-modal-cart">
+                  <a href="javascript:void(null)" onclick="AT_AddCart.addcartModalHide()" class="btn btn-3"></i>{{ 'cart.general.continue_shopping' | t }}</a>
+                </div> -->
+                <div class="addcart-modal-continue">
+                  <a href="/cart" class="btn btn-3">VIEW CART</a>
+                </div>
+                <div class="addcart-modal-checkout">
+                  <a class="btn btn-1" href="/checkout">CHECK OUT</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+      
+      <div class="addcart-modal-close" onclick="AT_AddCart.addcartModalHide()" title="{{ 'customer.general.close' | t }}"><i class="demo-icon icon-close"></i></div>
+
+    </div>
+
+  </div>    
+</div>

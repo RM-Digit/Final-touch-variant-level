@@ -1,0 +1,156 @@
+{% unless template == 'page.contact' or template == 'page.contact-v2' %}
+  {%- assign _instagram_layout = block.settings.layout -%}
+  {%- assign _heading_relative = block.settings.heading_relative -%}
+  {%- assign _item_width = block.settings.item_width -%}
+
+  {% if _instagram_layout == 'boxed' %}
+    {%- assign _instagram_layout_class = 'container' -%}
+  {% elsif _instagram_layout == 'wide-padding' %}
+    {%- assign _instagram_layout_class = 'container-fluid' -%}
+  {% else %}
+    {%- assign _instagram_layout_class = '' -%}
+  {% endif %}
+
+  {% if _item_width == 0 %}
+    {%- assign _item_col = 'col-fix col' -%}
+  {% else %}
+    {%- assign _item_col = 'col-fix col-' | append: _item_width -%}
+  {% endif %}
+
+  <div class="footer-instagram layout-{{ _instagram_layout }}{% if _heading_relative %} heading-relative{% endif %}">
+    <div class="instagram-container {{ _instagram_layout_class }}">
+
+      {%- assign _type = block.settings.type -%}
+      {%- assign _heading = block.settings.heading -%}
+      {%- assign _heading_font_size = block.settings.heading_font_size -%}
+
+      <div class="content-inner" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+        {% unless _heading == blank %}<div class="instagram-title">{{ _heading }}</div>{% endunless %}
+
+        <div class="footer-instagram-items">
+
+          <div class="{% if _type == 'row' %}row-table{% else %} footer-instagram-carousel{% endif %}">
+            <div id="footer_instagram_list" class="footer_instagram_list{% if _type == 'row' %} row{% endif %}" data-token-key="{{ block.settings.instagram_token }}" data-uid="{{ block.settings.instagram_userid }}" data-limit="{{ block.settings.limited }}"></div>
+          </div>
+          
+        </div>
+      </div>
+
+      <style>
+        .instagram-title{
+          font-size:{{ _heading_font_size }}px;
+        }
+        {% if _heading_font_size > 20 %}
+          .footer-instagram .instagram-title{
+            padding-bottom:{{ _heading_font_size }}px;
+          }
+        {% endif %}
+      </style>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        if( jQuery('#footer_instagram_list').length > 0 ){
+          if( 'undefined' === typeof Instafeed ){
+            console.log(" Instafeed has not defined yet! ");
+            return;
+          }
+        
+          var footer_instagram_list;
+          
+          jQuery('#footer_instagram_list').each(function( index,value ){
+            footer_instagram_list = new Instafeed({
+              get: "user"
+              ,target   : "footer_instagram_list"
+              ,accessToken: jQuery(value).data('token-key')
+              ,userId   : jQuery(value).data('uid')
+              ,limit    : jQuery(value).data('limit')
+              ,resolution : "low_resolution"
+              ,resolution2 : "standard_resolution"
+              {% if _lazyload %}
+              ,template: '<div class="{% if _type == "row" %}{{ _item_col }}{% endif %}"><a class="lazyload waiting" href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}"><img class="lazyload" data-src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" /></a></div>'
+              {% else %}
+              ,template: '<div class="{% if _type == "row" %}{{ _item_col }}{% endif %}"><a href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}"><img src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" /></a></div>'
+              {% endif %}
+              ,after: function() {
+                jQuery("#footer_instagram_list > a").each(function(index,value){
+                  jQuery(value).attr("target","_blank");
+                });
+                          
+                {% if _type == 'carousel' %}
+                  jQuery(".footer_instagram_list").length && jQuery('.footer_instagram_list').owlCarousel({
+                    nav     : false,
+                    dots    : false,
+                    items   : 11,
+                    margin  : 0,
+                    responsive : {
+                      {% if _instagram_layout == 'boxed' %}
+                        0:{
+                           items: 1
+                        },
+                        375:{
+                           items: 2
+                        },
+                        480:{
+                           items: 3
+                        },
+                        576:{
+                           items: 4
+                        },
+                        600:{
+                           items: 5
+                        },
+                        768:{
+                           items: 6
+                        }
+                      {% else %}
+                        0:{
+                           items: 1
+                        },
+                        375:{
+                           items: 2
+                        },
+                        480:{
+                           items: 3
+                        },
+                        576:{
+                           items: 4
+                        },
+                        600:{
+                           items: 5
+                        },
+                        768:{
+                           items: 6
+                        },
+                        992:{
+                           items: 7
+                        },
+                        1024:{
+                           items: 8
+                        } ,
+                        1100:{
+                           items: 9
+                        },
+                        1200:{
+                           items: 10
+                        },
+                        1440:{
+                           items: 11
+                        }
+                      {% endif %}                                                        
+                   }
+                  });
+                {% endif %}
+              }
+          });
+            
+          footer_instagram_list.run();
+            
+        });  
+      }
+    });
+  </script>
+
+{% endunless %}

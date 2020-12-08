@@ -1,0 +1,94 @@
+{%- assign _logo_layout = block.settings.fix_layout -%}
+{%- assign _border_left = block.settings.border_left -%}
+
+<div class="col-md-{{ _info_width }} col-sm-12 col-12 fix-pad{% if _info_width == 12 %} {{ _logo_layout }}{% endif %}">
+  <div class="footer-block footer-logo{% if _border_left %} fl-border-left{% endif %}">
+
+    {%- assign _flex_address = block.settings.flex_address -%}  
+    {%- assign _fix_position = block.settings.fix_position -%}  
+    {%- assign _f_title = block.settings.heading -%}
+    {%- assign _address = block.settings.contact_box_address -%}
+    {%- assign _address_font_size = block.settings.contact_box_address_font_size -%} 
+
+    {%- assign _flex_email = block.settings.flex_email -%}
+    {%- assign _phone = block.settings.contact_box_phone -%}
+    {%- assign _email = block.settings.contact_box_email -%}
+    {%- assign _email_font_size = block.settings.contact_box_email_font_size -%} 
+    {%- assign _phone_color = block.settings.phone_color -%}
+    {%- assign _email_color = block.settings.email_color -%}
+    {%- assign _bold_text = block.settings.bold_text -%}
+    {%- assign _social_icons = block.settings.social_icons -%}
+    
+    {%- assign _button_text = block.settings.button_text -%}
+    {%- assign _button_text_2 = block.settings.button_text_2 -%}
+    {%- assign _button_link = block.settings.button_link -%}
+    {%- assign _button_link_2 = block.settings.button_link_2 -%}
+
+    {% unless _f_title == blank %}
+      <h6>{{ _f_title }}<span class="icon"></span></h6>
+    {% endunless %}
+
+    <div class="footer-logo-inner{% unless _f_title == blank %} heading-true{% endunless %}">
+      {% if block.settings.logo != blank and _fix_position == false %}
+        <div class="logo-footer item">
+          {% assign _logo_size = block.settings.logo_max_width | append: 'x' %}
+          {% assign _logo_size_2x = block.settings.logo_max_width | times: 2 | append: 'x' %}
+          <a href="/" title="{{ shop.name | escape }}" class="logo-site{% if _lazyload %} lazyload waiting{% endif %}">
+            <img {% if _lazyload %} class="lazyload" data-srcset="{{ block.settings.logo | img_url: _logo_size }} 1x, {{ block.settings.logo | img_url: _logo_size_2x }} 2x"
+                 {% else %}src="{{ block.settings.logo | img_url: _logo_size }}"{% endif %} 
+                 alt="{{ shop.name | escape }}"
+                 style="max-width: {{ block.settings.logo_max_width }}px;" />
+          </a>
+        </div>
+      {% endif %}
+
+      {% unless _address == blank %}<div class="address item{% if _flex_address %} flex{% endif %}" style="font-size: {{ _address_font_size }}px;">{{ _address }}</div>{% endunless %}
+
+      {% unless _phone == blank and _email == blank %}
+        <div class="phone-email item{% if _flex_email %} flex-email{% endif %}{% if _flex_address %} flex{% endif %}{% if _bold_text %} bold-text{% endif %}" style="font-size: {{ _email_font_size }}px;">
+          {% unless _phone == blank %}<span style="color: {{ _phone_color }};">{{ _phone }}</span><br>{% endunless %}
+          {% unless _email == blank %}<span style="color: {{ _email_color }};">{{ _email }}</span>{% endunless %}
+        </div>
+      {% endunless %}
+      
+      {% unless _button_text == blank and _button_text_2 == blank %}
+        <div class="button">
+          {% unless _button_text == blank %}<a href="{{ _button_link }}" class="btn btn-support">{{ _button_text }}</a>{% endunless %}
+          {% unless _button_text_2 == blank %}<a href="{{ _button_link_2 }}" class="btn btn-support">{{ _button_text_2 }}</a>{% endunless %}
+        </div>
+      {% endunless %}
+
+      {% if _social_icons %}
+        {%- assign _flex_social_icons = block.settings.flex_layout_social_icons -%}
+        <div class="widget-social {{ _flex_social_icons }}">
+          {% include 'social-media-icons' %}
+        </div>
+      {% endif %}
+
+      {% capture _new_index %}{{ forloop.index }}{% endcapture %}
+      {%- assign _ind = _ind | plus: _new_index -%}
+
+      {% for block in section.blocks offset: _ind limit: 1 %}
+        {% if block.type == 'payment' %}
+          {% include 'footer-payment-icon' %}
+        {% endif %}
+      {% endfor %}
+
+      {% if block.settings.logo != blank and _fix_position %}
+        <div class="logo-footer item">
+          {% assign _logo_size = block.settings.logo_max_width | append: 'x' %}
+          {% assign _logo_size_2x = block.settings.logo_max_width | times: 2 | append: 'x' %}
+          <a href="/" title="{{ shop.name | escape }}" class="logo-site{% if _lazyload %} lazyload waiting{% endif %}">
+            <img {% if _lazyload %} class="lazyload" data-srcset="{{ block.settings.logo | img_url: _logo_size }} 1x, {{ block.settings.logo | img_url: _logo_size_2x }} 2x"
+                 {% else %}src="{{ block.settings.logo | img_url: _logo_size }}"{% endif %} 
+                 alt="{{ shop.name | escape }}"
+                 style="max-width: {{ block.settings.logo_max_width }}px;" />
+          </a>
+        </div>
+      {% endif %}
+
+
+    </div>
+
+  </div>
+</div>

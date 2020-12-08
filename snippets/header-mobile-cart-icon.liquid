@@ -1,0 +1,39 @@
+{% if settings.show_cart %}
+  {% assign _cart_icon_type = settings.cart_icon_type %}
+  {% assign _cart_font_icon = settings.cart_font_icon %}
+  {% assign _cart_icon = settings.cart_icon %}
+
+  <div class="m-cart-icon cart-target{% if _lazyload and _cart_icon_type == 'image' %} lazyload waiting{% endif %} d-lg-none">
+    <button type="button" class="search-icon" id ="mobile-search-btn">
+      <span{% if _lazyload and _search_icon_type == 'image' %} class="lazyload waiting"{% endif %}>
+  
+        {% if _search_icon_type == 'font-icon' %}
+          <i class="demo-icon {{ _search_font_icon }}"></i>
+  
+        {% else %}
+          <img {% if _lazyload %}class="lazyload"
+               data-srcset="https://cdn.shopify.com/s/files/1/0429/9385/files/Vector.png?v=1600805900"
+               {% else %}src="https://cdn.shopify.com/s/files/1/0429/9385/files/Vector.png?v=1600805900"{% endif %}
+               alt="Search" />
+  
+        {% endif %}
+  
+      </span>
+    </button>
+    <a href="/cart" class="mobile-basket" title="cart">
+      {% if _cart_icon_type == 'font-icon' %}
+        <i class="demo-icon {{ _cart_font_icon }}"></i>
+
+      {% else %}
+        <img {% if _lazyload %}class="lazyload"
+             data-srcset="https://cdn.shopify.com/s/files/1/0429/9385/files/Frame_Cart.png?v=1600805964"
+             {% else %}src="https://cdn.shopify.com/s/files/1/0429/9385/files/Frame_Cart.png?v=1600805964"{% endif %}
+             alt="Cart" />
+
+      {% endif %}
+
+      <span class="number"><span class="n-item">0</span></span>
+    </a>
+    
+  </div>
+{% endif %}

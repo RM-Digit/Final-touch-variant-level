@@ -1,0 +1,12 @@
+{% for _link in linklists[_menu_item].links %} 
+  {% assign _submenu = _link.title | handleize %}
+  
+  {% if linklists[_submenu].links.size > 0 %}
+    <ul class="sub-collections-items">
+      {% for link in linklists[_submenu].links %}
+        {% assign _collection = link.object %}
+        <li><a class="category-name" href="{{ link.url }}" title="{{ link.title | escape }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}

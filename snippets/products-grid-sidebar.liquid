@@ -1,0 +1,35 @@
+{% assign _grid_col = block.settings.grid_collection %}
+{% assign _grid_collection = collections[_grid_col] %}
+{% assign _limit = block.settings.grid_limited_item %}
+{% assign _grid_title = block.settings.grid_title %}
+
+{% unless _grid_col == blank %}
+  <div class="sb-widget">
+    <div class="sb-product">
+
+      {% unless _grid_title == blank %}<h5 class="sb-title">{{ _grid_title }}</h5>{% endunless %}
+
+      <div class="sb-product-grid">
+        {% for product in _grid_collection.products limit: _limit %}
+          <div class="sb-grid-item">
+
+            <div class="product-image product-ratio-{{ settings.collections_product_ratio }}">
+              <a href="{{ product.url | within: collection }}">
+                {% include 'product-image-lazysize' with image: product.featured_image, image_size: '330x', image_class: '', image_alt: product.title %}
+              </a>  
+            </div>
+
+            <div class="product-content">
+              <div class="product-content-inner">
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                {% include 'product-price' %}
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+{% endunless %}

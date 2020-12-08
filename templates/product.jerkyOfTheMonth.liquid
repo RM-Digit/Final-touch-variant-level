@@ -1,0 +1,557 @@
+{% include 'product-content.zipifypages', contentprt: 'header' %}
+<style>
+  @font-face {
+    font-family: 'bou_westernregular';
+    src: url('{{ "bouweste-webfont.woff2" | asset_url }}') format('woff2'),
+      url('{{ "bouweste-webfont.woff" | asset_url }}') format('woff');
+        font-weight: normal;
+        font-style: normal;
+
+        }
+
+  .productOption{
+    font-size:1.5em;  
+    font-family: 'bou_westernregular';
+    /* font-family: 'Rye', cursive;
+    font-family: 'Maiden Orange', cursive;
+    */
+  }
+
+  .center{
+    text-align:center;  
+  }
+
+  .swatch {
+    text-align:center;
+    margin-top:45px;
+
+  }
+
+  .swatch-element.b-u-l-k-size-1-2-lb-bags {
+    margin-right:0;
+  }
+
+  .swatch-element.b-u-l-k-size-1-2-lb-bags {
+    margin-left:20px;
+  }
+
+  .swatch label{
+    border:3px solid #d0dcd0;
+    -webkit-border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 fill; /* Safari 3.1-5 */
+    -o-border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 fill; /* Opera 11-12.1 */
+    border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 fill;
+    border-image-slice: 30;
+    border-image-width: 10;
+    border-image-outset: 5;
+    background:none;
+    padding:20px 20px;
+    width:inherit;
+  }
+
+  .swatch label:hover{
+    background:#021600;
+  }
+
+  .swatch input:checked+label{
+    border:3px solid #d0dcd0;
+    -webkit-border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 stretch; /* Safari 3.1-5 */
+    -o-border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 stretch; /* Opera 11-12.1 */
+    border-image: url({{ "smallChalkBorder.png" | asset_url }}) 30 stretch;
+    border-image-slice: 30;
+    border-image-width: 10;
+    border-image-outset: 5;
+    background:#013300;
+  }
+
+  .swatch .swatch-element{
+    display:inline-block;  
+    float:none;
+  }
+
+  .swatch > .header {
+    display:none;
+  }
+
+  .redText{
+    color:#af2c25;
+  }
+
+  .underlineText{
+    border-bottom:2px solid #af2c25; 
+    color:#af2c25;
+  }
+
+
+  .JoTMImage{
+    max-height:116px;
+  }
+
+  .floatLeft{
+    float:left;
+  }
+
+  .clear{
+    clear:both; 
+  }
+
+  .JoTMLabel{
+    font-size:2em; 
+
+  }
+
+  .JoTMLabelText{
+    margin:12px 0 0 12px;
+    text-align:left;
+  }
+
+  .JoTMLabelText2{
+    font-size:1.5em;
+    text-align:center;
+    min-width:170px;
+  }
+
+  .westernFont{
+    font-family: 'bou_westernregular';
+  }
+
+
+  .pay-every-month, .pay-every-3-months, .pay-every-6-months, .pay-every-12-months {
+    margin:0 -9px 0 0 !important;
+  }
+
+  .downArrowImg{
+    position:relative; 
+    top:-60px;
+  }
+
+  #AddToCart.JoTMAddToCart{
+    font-size:2em;
+    padding:6px 100px;
+    border:0;
+    background:none;
+    background-image:url({{ "JoTMAddToCartImg.png" | asset_url }});
+    background-size:cover;
+    background-repeat: no-repeat;
+    font-family: 'bou_westernregular';
+  }
+  @media only screen and (max-width: 1160px){
+    .swatch-element.regular-size-1-4-lb-bags  {
+      margin:0;
+    }
+    .swatch-element.b-u-l-k-size-1-2-lb-bags {
+      margin:0;
+      position:relative;
+      top:-13px;
+    }
+  }
+  @media only screen and (max-width: 959px){
+
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:5px 3px;
+    }
+  }
+
+  @media only screen and (max-width: 820px){
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:20px 45px;
+    }
+    .pay-every-6-months, .pay-every-12-months{
+      position:relative;
+      top:-13px;
+    }
+  }
+
+  @media only screen and (max-width: 667px){
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:20px 20px;
+    }
+    .pay-every-6-months, .pay-every-12-months{
+      position:relative;
+      top:-13px;
+    }
+  }
+
+  @media only screen and (max-width: 959px) and (min-width: 768px){
+    #AddToCart.JoTMAddToCart{
+      padding:6px 80px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) and (min-width: 480px){
+    .container12, .container16 {
+      width:100%;  
+    }
+
+    #AddToCart.JoTMAddToCart{
+      padding:4px 40px;
+    }
+  }
+
+  @media only screen and (max-width: 767px){
+    .container12, .container16 {
+      width: 100%;
+    }
+
+    #AddToCart.JoTMAddToCart{
+      padding:6px 20px;
+    }
+
+  }
+
+
+  .addToCartArrowLeft{
+    display:inline-block; 
+    position:relative;
+    top:20px;
+    right:10px;
+  }
+
+  .addToCartArrowRight{
+    display:inline-block; 
+    position:relative;
+    top:22px;
+    left:10px;
+  }
+
+  @media only screen and (max-width: 560px){
+    .addToCartArrowLeft, .addToCartArrowRight{
+      display:none; 
+    }
+  }
+
+
+
+  .continue-shopping{
+    display:none !important; 
+  }
+
+</style>
+
+<!-- Bold: Memberships (product) -->
+{% include 'bold_mem_helper' with 'product' %}
+<!-- end Bold code -->
+
+<!-- Included Custom-carouel.js file -->
+
+{{ 'custom-carousel.js' | asset_url | script_tag }}
+
+<div itemscope itemtype="http://schema.org/Product" class="westernFont">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+
+
+  <div class="JotM-Header"><img src="{{ 'JotMHeader.png' | asset_url }}"></div>
+  <div class="JotM-Header"><img src="{{ 'JotMTitle.png' | asset_url }}"></div>
+
+  <div class="product-single blackBG">
+
+    <div class="container12 featuredProductWrapper">
+
+
+      <div class="product-rightpart" style="border:0px !important;">
+
+
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          {% assign variant = product.variants.first %}
+          {% for varianti in product.variants %}
+          {% unless varianti.title contains '% Off' %}
+          {% if varianti.available %} 
+          {% assign variant = varianti %}
+          {% break %}
+          {% endif %}
+          {% endunless %}
+          {% endfor %}
+
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+
+
+          <form action="/cart/add" data-productid="{{ product.id }}" method="post" enctype="multipart/form-data" id="AddToCartForm" class="addto" style="padding:15px;">
+
+            <div class="featuredProductDescription" >
+              {{ product.description }}
+            </div>
+
+            <div style="text-align:center;">
+              <!-- Swatch -->
+              {% if product.available and product.variants.size > 1 %}
+              {% assign optionCount = product.options.size | minus:1 %}
+
+              {% for i in (0..optionCount) %}
+              {% if i == 0 %}
+              <div class="productOption center">3 BAGS OF GOURMET JERKY EVERY MONTH. <span class="underlineText">JUST CHOOSE THE SIZE...</span></div>
+              {% endif %}
+              {% if i == 1 %}
+              <div class="productOption center">...THEN CHOOSE YOUR <span class="underlineText">PAYMENT PLAN!</span></div>
+              {% endif %}
+
+              {% include 'swatch' with product.options[i] %}
+              {% if i == 0 %}
+              <img class="downArrowImg" src='{{ "downArrow.png" | asset_url }}'>
+              {% endif %}
+              {% endfor %}
+
+              {% endif %}
+              <!-- END Swatch -->
+            </div>
+
+
+            <select name="id" data-productid="{{ product.id }}" id="productSelect" class="" style="">
+              {% for variant in product.variants %}
+
+
+              {% if variant.available %}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" data-price="{{ variant.price | money_without_currency | remove: ',' }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+              {% else %}
+
+              <option disabled="disabled">
+                {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+              </option>
+
+              {% endif %}
+
+              {% endfor %}    
+            </select>
+            <div class="clear"></div>
+
+            <div class="hidden">
+            {% if product.available %}{% include 'subscription-product' %}{% endif %} 
+            </div>
+
+            {% if product.compare_at_price > product.price %}
+            <div style="margin-top:50px; height:68px;">
+              <div id="ComparePriceWrapper" class="featuredProductSavings center" style="font-size:1.5em;display:none;">
+                SAVE 
+                <span id="ComparePrice" class="featuredProductSavings">
+                </span>
+                %
+                {% endif %}
+
+              </div>
+            </div>
+
+            <div class=" featuredProductPrice center" style="font-size:1.5em;">
+              Your Subtotal:
+              <span id="ProductPrice" class="featuredProductPrice" itemprop="price">
+                {{ product.price | money }}
+              </span>
+            </div>
+
+
+            <div class="product-single__quantity is-hidden">
+              <label for="Quantity"><img alt="Quantity Star" src="https://cdn.shopify.com/s/files/1/1110/8120/files/star1.png?15027341013309203670" /> select {{ 'products.product.quantity' | t }}</label>
+              <div class="qbtn">
+                <div class=" udb decre">
+                  <img src="https://cdn.shopify.com/s/files/1/1110/8120/files/uparrow.png?6218583712337790473" />
+                </div>
+                <div class="quantity-no">
+                  <input type="text"  id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                </div>
+                <div class="udb incre">
+                  <img src="https://cdn.shopify.com/s/files/1/1110/8120/files/downarrow.png?6218583712337790473" />
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+            <input name="shopify_customer_id" type="hidden" value="{{ customer.id }}" > 
+            <input name="email" type="hidden" value="{{ customer.email }}" > 
+            <input name="address1" type="hidden" value="{{ customer.default_address.address1 }}" > 
+            <input name="address2" type="hidden" value="{{ customer.default_address.address2 }}" > 
+            <input name="city" type="hidden" value="{{ customer.default_address.city }}" > 
+            <input name="company" type="hidden" value="{{ customer.default_address.company }}" > 
+            <input name="country" type="hidden" value="{{ customer.default_address.country }}" > 
+            <input name="first_name" type="hidden" value="{{ customer.default_address.first_name }}" > 
+            <input name="last_name" type="hidden" value="{{ customer.default_address.last_name }}" > 
+            <input name="phone" type="hidden" value="{{ customer.default_address.phone }}" > 
+            <input name="province" type="hidden" value="{{ customer.default_address.province }}" > 
+            <input name="zip" type="hidden" value="{{ customer.default_address.zip }}" >
+            {% include 'bold-ro' with product %}
+
+
+
+
+
+            <!--hr class="product-hr"-->
+            <div style="text-align:center;">
+              <div class="addToCartArrowLeft">
+                <img class="" src="{{ 'addToCartArrowLeft.png' | asset_url }}">
+              </div>
+              {% if product.available %}
+
+
+
+              <!-- Bold: Memberships (add to cart) -->
+              {% include 'bold-memberships-addtocart' %}
+              {% if bold_hide_item == false %}
+
+              <!-- Addtocartbutton here -->
+              <button type="submit" name="add" id="AddToCart" class="JoTMAddToCart">
+                <!-- bold-ro-liquid --> <div class="bold_add_to_orders" style="display: inline-block;"> </div> <!-- bold-ro-liquid -->
+                <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+              </button>
+
+              {% endif %}
+              <!-- end Bold code -->
+
+
+              {% else %}
+              <button type="btn" name="add" id="" class="btn disabled-sold" disabled>
+                <!-- bold-ro-liquid --> <div class="bold_add_to_orders" style="display: inline-block;"> </div> <!-- bold-ro-liquid -->
+                <span id="">Sold Out</span>
+              </button>
+              {% endif %}
+              <div class="addToCartArrowRight">
+                <img class="" src="{{ 'addToCartArrowRight.png' | asset_url }}">
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+
+      <!--div class=" social-share"> 
+<h1>Share on Social Media</h1>
+
+</div-->
+
+
+
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <div class="clear"></div>
+ {% comment %}
+  <div class="related-products">
+    <div class="container12">
+     
+      include 'new-related-products' %}
+      
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+<!--This code is generated by the Bold Memberships app.-->
+<style type="text/css">@import url("https://mem.boldapps.net/app_assets/css/bs-modal-only.min.css");</style><style type="text/css">@import url("https://shappify-cdn.com/mem/www.bulkbeefjerky.com-widget-style.css");</style><script src="https://mem.boldapps.net/app_assets/js/bs-modal-only.min.js"></script><script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script><script src="//checkout.stripe.com/checkout.js"></script><script data-cfasync="false" src="https://mem.boldapps.net/app_assets/js/plan_multibutton.js"></script><div class="memberships_button" id="checkout_7685"	data-billingid="7685" data-planid="4420" data-approot="https://mem.boldapps.net" data-hash="8694fb098fd83818043030e4fb091b7d" data-label="Buy Membership" data-domain="bulkbeefjerky.myshopify.com"></div>
+<!--End of Bold Memberships code.-->
+
+
+
+
+<input type="hidden" class="totalprod" value="{{ collection.products.size }} ">
+
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+<script>
+
+  var selectCallback = function(variant, selector) {
+    // BEGIN SWATCHES
+    if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+    // END SWATCHES
+
+    timber.featuredProductPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector,
+      translations: {
+      add_to_cart : "{{ 'products.product.add_to_cart' | t }}",
+      sold_out : "{{ 'products.product.sold_out' | t }}",
+      unavailable : "{{ 'products.product.unavailable' | t }}"
+    }
+                               });
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0"><img src="https://cdn.shopify.com/s/files/1/1110/8120/files/star1.png?15027341013309203670" /> {{ product.options.first | escape }}</label>');
+                                         {% endif %}
+
+                                         // Hide selectors if we only have 1 variant and its title contains 'Default'.
+                                         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                                         $('.selector-wrapper').hide();
+    {% endif %}
+  });
+
+  jQuery(document).ready(function(){
+    var qty=$('#Quantity').val();
+    jQuery('.incre').click(function(){ 
+      qty++;
+      jQuery('#Quantity').val(qty);   
+      //Quantity increment
+    });
+
+    jQuery('.decre').click(function(){
+      if(qty>1){
+        qty--;
+        jQuery('#Quantity').val(qty);
+        //Quantity decrement
+      }
+    });
+
+    // Get URL
+    var currenturl= window.location.href;
+    var beefUrl= 'http://bulk-test-store.myshopify.com/collections/beef-jerky';
+    if(currenturl != beefUrl){
+      jQuery( ".grid-link__title" ).remove();
+    }
+    //Getting Description
+    var desc= jQuery('.product-description').html();
+    jQuery('.description_left').html(desc);
+    jQuery('.description_left .nutri_main').remove();
+    jQuery('.product-description').contents(':not(.nutri_main)').remove();
+  });
+
+  // SWATCH
+  jQuery(function() {
+    jQuery('.swatch :radio').change(function() {
+      var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery(this)
+      .closest('form')
+      .find('.single-option-selector')
+      .eq(optionIndex)
+      .val(optionValue)
+      .trigger('change');
+    });
+  });
+
+  $(".regular-size-1-4-lb-bags").find("label").html('<div class="JoTMLabel"><img class="JoTMImage floatLeft" style="margin-left:45px;" src="https://cdn.shopify.com/s/files/1/0429/9385/files/regularProduct.png?5001842710326801991"><div class="floatLeft JoTMLabelText"><div class="redText">REGULAR SIZE</div><div>THREE 1/4 LB BAGS</div></div></div><div class="clear"></div>');
+  $(".b-u-l-k-size-1-2-lb-bags").find("label").html('<div class="JoTMLabel"><img class="JoTMImage floatLeft" src="https://cdn.shopify.com/s/files/1/0429/9385/files/largeProduct.png?6523092311493635955"><div class="floatLeft JoTMLabelText"><div class="redText">B.U.L.K. SIZE</div><div>THREE 1/2 LB BAGS</div></div></div><div class="clear"></div>');
+  $(".pay-every-month").find("label").html('<div data-value="1" class="frequency-label floatLeft JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>MONTH</div></div>');
+  $(".pay-every-3-months").find("label").html('<div data-value="3" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>THREE MONTHS</div></div>');
+  $(".pay-every-6-months").find("label").html('<div data-value="6" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>SIX MONTHS</div></div>');
+  $(".pay-every-12-months").find("label").html('<div data-value="12" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>YEAR</div></div>');
+
+  $(".frequency-label").on("click", function(){
+    var value = $(this).data("value");
+    console.log(value);
+    $(".rc_select").find("select").val(value);
+  });
+
+  $(".rc_container").addClass("hidden");
+</script>
+
+{% include 'product-content.zipifypages', contentprt: 'footer' %}

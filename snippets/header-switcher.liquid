@@ -1,0 +1,13 @@
+{% if settings.gg_tran or settings.enable_multiple_currencies %}
+	<ul class="header-switcher">
+		{% if settings.gg_tran %}
+		  	<li class="translate-position-desktop{% if settings.gg_with_name == false and settings.gg_full_name == false %} flag-only{% endif %}">
+		  		<div class="translate-position"></div>
+		  	</li>
+		{% endif %}
+
+		{% if settings.enable_multiple_currencies %}
+		  	<li class="currency-position flag-{{ settings.flag_currency }}">{% include 'currencies-switcher' %}</li>
+		{% endif %}
+	</ul>
+{% endif %}

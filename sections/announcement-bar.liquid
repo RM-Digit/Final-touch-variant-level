@@ -1,0 +1,120 @@
+{% include 'announcement-bar' %}
+
+{% schema %}
+  {
+    "name": "Announcement Bar",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_mobile",
+        "label": "Visibility: Hide for Mobile"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "default": "bar-boxed",
+        "options": [
+          { "value": "bar-boxed", "label": "Boxed" },
+          { "value": "full", "label": "Wide" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "bar_style",
+        "label": "Style",
+        "min": 1,
+        "max": 6,
+        "default": 1
+      },
+      {
+        "type": "header",
+        "content": "Background style"
+      },
+      {
+        "type": "select",
+        "id": "bar_bg_style",
+        "label": "Background",
+        "default": "color",
+        "options": [
+          {
+            "value": "color",
+            "label": "Color"
+          },
+          {
+            "value": "image",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "bar_bg_color",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "image_picker",
+        "id": "bar_bg_image",
+        "label": "Background image"
+      },
+      {
+        "type": "header",
+        "content": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "icon_color",
+        "label": "Icon",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color_1",
+        "label": "Text 1",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color_2",
+        "label": "Text 2",
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [ 
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type":"text",
+            "id":"icon",
+            "label":"Font icon name",
+            "info": "E.g: icon-volume-off"
+          },  
+          {
+            "type":"html",
+            "id":"text",
+            "label":"Text 1"
+          },
+          {
+            "type":"text",
+            "id":"text_2",
+            "label":"Text 2"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Announcement Bar",
+        "category": "Taskbar"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,31 @@
+{% include 'mobile-department' %}
+
+{% schema %}
+  {
+    "name": "Mobile Department",
+    "max_blocks": 10,
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "label": "Image",
+            "id": "image",
+            "type": "image_picker"
+          },
+          {
+            "label": "Text",
+            "id": "text",
+            "type": "text"
+          },
+          {
+            "label": "Link to",
+            "id": "link",
+            "type": "url"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

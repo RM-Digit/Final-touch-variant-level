@@ -1,0 +1,25 @@
+<div class="listing-item">
+  <div class="row">
+
+    <div class="product-image col-lg-4 col-md-4 col-sm-4 col-6">
+      <div class="featured-img product-ratio-{{ settings.collections_product_ratio }}">
+        <a href="{{ product.url | within: collection }}">
+          {% include 'product-image-lazysize' with image: product.featured_image, image_size: '200x', image_class: '', image_alt: product.title %}
+        </a>
+      </div>
+    </div>
+
+    <div class="product-content col-lg-8 col-md-8 col-sm-8 col-6">
+      <div class="product-content-inner">
+
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+
+        {% if settings.product_review == 'above' %}{% include 'product-grid-review' %}{% endif %}  
+        {% include 'product-price' %}
+        {% if settings.product_review == 'below' %}{% include 'product-grid-review' %}{% endif %}  
+
+      </div>
+    </div>
+
+  </div>
+</div>

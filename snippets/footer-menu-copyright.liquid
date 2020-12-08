@@ -1,0 +1,42 @@
+{% assign _f_menu = block.settings.copyright_menu %}
+{% assign _color = block.settings.color %}
+
+{% assign _right_block_content = block.settings.right_block_content %}
+{% assign _uppercase = block.settings.uppercase %}
+{% assign _bold_text = block.settings.bold_text %}
+{% assign _html = block.settings.html %}
+
+{% unless _f_menu == blank  %}
+	<div class="default-copyright default-copyright-{{ _footer_style }}">
+
+		<div class="copyright-menu{% if _uppercase %} text-uppercase{% endif %}{% if _bold_text %} bold-text{% endif %}">
+		    <ul class="list-inline">
+		      {% for l in linklists[_f_menu].links %}
+		      <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+		      {% endfor %}
+		    </ul>
+
+		    <style>
+		    	.footer-bot .copyright-menu ul li a,
+		    	.footer-bot .info{
+		    		color: {{ _color }};	
+		    	}
+			</style>
+		</div>
+
+		{% unless _right_block_content == 'none' %}
+			<div class="info">
+				{% if _right_block_content == 'text' %}
+					{{ _html }}
+				{% else %}
+					<div class="widget-social">
+						{% include 'social-media-icons' %}
+					</div>
+				{% endif %}
+
+			</div>
+		{% endunless %}
+
+	</div>
+{% endunless %}
+

@@ -1,0 +1,39 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _background = section.settings.bg_color -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _bigger_size = section.settings.bigger_size -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% capture emptyProduct %}
+  {% for i in (1..3) %}
+
+    <div class="listing-item">
+      <div class="row">
+
+        <div class="product-image col-lg-4 col-md-4 col-sm-4 col-6">
+          <div class="featured-img">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        </div>
+
+        <div class="product-content col-lg-8 col-md-8 col-sm-8 col-6">
+          <div class="product-content-inner">
+            <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  {% endfor %}
+{% endcapture %}

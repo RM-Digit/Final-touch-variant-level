@@ -1,0 +1,29 @@
+{%- assign _heading = block.settings.heading -%}
+{%- assign _form_action = block.settings.mailing_form_action -%}
+{%- assign _input_placeholder = block.settings.input_placeholder -%}
+
+{%- assign _condition = block.settings.condition -%}
+{%- assign _condition_text = block.settings.html -%}
+{%- assign _button_style = block.settings.button_style -%}
+
+<div class="col-md-{{ _width }} col-sm-12 col-12{% if _width == 12 %} fix-menu{% endif %}">
+  <div class="footer-block newsletter-container newsletter-column">
+
+    <div class="newsletter-inner">
+
+      {% unless _heading == blank %}
+      	<div class="newsletter-title">{{ _heading }}</div>
+      {% endunless %}
+
+      {% if block.settings.email_type == 'mailchimp' %}
+      	{% include 'mailchimp-form' %}
+
+      {% else %}
+        {% include 'klaviyo-form' %}
+
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>

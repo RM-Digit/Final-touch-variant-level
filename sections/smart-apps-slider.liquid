@@ -1,0 +1,24 @@
+<div class="smartSlideshow-wrapper js-smartSlideshow" data-slideshow-id="{{ section.settings.slideshow_id }}" data-section-id="{{ section.id }}"></div>
+
+{% schema %}
+{
+  "name": "IQ Slider",
+  "settings": [
+      
+      {
+        "type": "text",
+        "id": "no_slides",
+        "label": "First create some slideshows then come back here",
+        "info": "You can create slideshows here: https://ada-shopper.herokuapp.com/",
+        "default": "https://ada-shopper.herokuapp.com/"
+      }
+      
+  ],
+  "presets": [
+    {
+      "name": "IQ Slider",
+      "category": "Ada Apps"
+    }
+  ]
+}
+{% endschema %}

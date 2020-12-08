@@ -1,0 +1,153 @@
+{% include 'nav-label' %}
+
+{% assign submenu = l.title | handleize %}
+{% if linklists[submenu].links.size > 0 %}
+
+  {% if section.settings.use_super_megamenu == false %}
+    {% include 'dropdown-menu' %}
+
+  {% else %}
+    {% assign have_super_menu = false %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'mega-menu-trigger' or block.type == 'mega-menu-tab' %}
+      	{% assign super_menu_handle = block.settings.mega_navigation %}
+
+        {% if super_menu_handle == l.title %}
+          {% assign have_super_menu = true %}
+
+          {% if have_super_menu == true %}
+            {% assign number = forloop.index | plus: 1 %}
+
+            <li class="dropdown mega-menu{% if l.active %} active{% endif %}"{{block.shopify_attributes}}>
+              <div class="dropdown-inner">
+                <a href="{{ l.url }}" class="dropdown-link">
+                  {% if _nav_linklist_icon %}
+                    {% if _header_style == 11 or _header_style == 24 or _header_style == 25 %}
+                      {% if _nav_thumbnail_icon_upload == 'metafield' %}
+                        {% assign _tab_title_handle = l.title | handleize %}
+                        {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+                      {% else %}
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                  <span>{{ l.title }}</span>
+                  {% include 'menu-label' %}
+                </a>
+                <span class="expand"></span>
+              </div>
+
+              {% if block.type == 'mega-menu-trigger' %}
+                {% include 'horizontal-mega-menu' %}
+              {% elsif block.type == 'mega-menu-tab' %}
+                {% include 'horizontal-mega-menu-02' %}
+              {% else %}
+              {% endif %}
+            </li>
+
+          {% break %}
+          {% endif %}
+
+        {% endif %}					
+
+      {% endif %}
+    {% endfor %}
+
+	{% unless have_super_menu == true %}
+    {% include 'dropdown-menu' %}
+	{% endunless %}  
+
+  {% endif %}
+
+{% else %}
+
+  {% if section.settings.use_super_megamenu == false %}
+    <li class="{% if l.active %}active{% endif %}">
+      <a href="{{ l.url }}">
+        {% if _nav_linklist_icon %}
+          {% if _header_style == 11 or _header_style == 24 or _header_style == 25 %}
+            {% if _nav_thumbnail_icon_upload == 'metafield' %}
+              {% assign _tab_title_handle = l.title | handleize %}
+              {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+            {% else %}
+              <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+            {% endif %}
+          {% endif %}
+        {% endif %}
+        <span>{{ l.title }}</span>
+        {% include 'menu-label' %}
+      </a>
+    </li>
+
+  {% else %}
+    {% assign have_super_menu = false %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'mega-menu-trigger' or block.type == 'mega-menu-tab' %}
+        {% assign super_menu_handle = block.settings.mega_navigation %}
+
+        {% if super_menu_handle == l.title %}
+          {% assign have_super_menu = true %}
+
+          {% if have_super_menu == true %}
+            {% assign number = forloop.index | plus: 1 %}
+
+            <li class="dropdown mega-menu{% if l.active %} active{% endif %}"{{block.shopify_attributes}}>
+
+              <a href="{{ l.url }}" class="dropdown-link">
+                {% if _nav_linklist_icon %}
+                  {% if _header_style == 11 or _header_style == 24 or _header_style == 25 %}
+                    {% if _nav_thumbnail_icon_upload == 'metafield' %}
+                      {% assign _tab_title_handle = l.title | handleize %}
+                      <svg height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Semiconductor-chip-electronics"><path d="m11 57h2v3h-2z"/><path d="m57 43h3v2h-3z"/><path d="m57 51h3v2h-3z"/><path d="m19 57h2v3h-2z"/><path d="m35 57h2v3h-2z"/><path d="m27 57h2v3h-2z"/><path d="m57 11h3v2h-3z"/><path d="m60 4h-5v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-5v5h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v5h5v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h5v-5h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4zm-11 44a1 1 0 0 1 -1 1h-32a1 1 0 0 1 -1-1v-3a1 1 0 0 1 1-1 2 2 0 0 0 0-4 1 1 0 0 1 -1-1v-23a1 1 0 0 1 1-1h32a1 1 0 0 1 1 1z"/><path d="m43 57h2v3h-2z"/><path d="m17 38.126a4 4 0 0 1 0 7.748v1.126h30v-30h-30z"/><path d="m57 19h3v2h-3z"/><path d="m57 27h3v2h-3z"/><path d="m57 35h3v2h-3z"/><path d="m19 4h2v3h-2z"/><path d="m4 11h3v2h-3z"/><path d="m35 4h2v3h-2z"/><path d="m51 4h2v3h-2z"/><path d="m43 4h2v3h-2z"/><path d="m11 4h2v3h-2z"/><path d="m27 4h2v3h-2z"/><path d="m51 57h2v3h-2z"/><path d="m4 51h3v2h-3z"/><path d="m4 43h3v2h-3z"/><path d="m4 19h3v2h-3z"/><path d="m4 35h3v2h-3z"/><path d="m4 27h3v2h-3z"/></g></svg>
+                      {% comment %}{%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}{% endcomment %}
+                    {% else %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+                <span>{{ l.title }}</span>
+                {% include 'menu-label' %}
+              </a>
+              <span class="expand"></span>
+
+              {% if block.type == 'mega-menu-trigger' %}
+                {% include 'horizontal-mega-menu' %}
+              {% elsif block.type == 'mega-menu-tab' %}
+                {% include 'horizontal-mega-menu-02' %}
+              {% else %}
+              {% endif %}
+            </li>
+
+          {% break %}
+          {% endif %}
+
+        {% endif %}
+
+      {% endif %}
+    {% endfor %}
+
+  	{% unless have_super_menu == true %}
+        <li class="{% if l.active %}active{% endif %}">
+          <a href="{{ l.url }}">
+            {% if _nav_linklist_icon %}
+              {% if _header_style == 11 or _header_style == 24 or _header_style == 25 %}
+                {% if _nav_thumbnail_icon_upload == 'metafield' %}
+                  {% assign _tab_title_handle = l.title | handleize %}
+                  <svg height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Semiconductor-chip-electronics"><path d="m11 57h2v3h-2z"/><path d="m57 43h3v2h-3z"/><path d="m57 51h3v2h-3z"/><path d="m19 57h2v3h-2z"/><path d="m35 57h2v3h-2z"/><path d="m27 57h2v3h-2z"/><path d="m57 11h3v2h-3z"/><path d="m60 4h-5v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-5v5h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v5h5v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h5v-5h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4zm-11 44a1 1 0 0 1 -1 1h-32a1 1 0 0 1 -1-1v-3a1 1 0 0 1 1-1 2 2 0 0 0 0-4 1 1 0 0 1 -1-1v-23a1 1 0 0 1 1-1h32a1 1 0 0 1 1 1z"/><path d="m43 57h2v3h-2z"/><path d="m17 38.126a4 4 0 0 1 0 7.748v1.126h30v-30h-30z"/><path d="m57 19h3v2h-3z"/><path d="m57 27h3v2h-3z"/><path d="m57 35h3v2h-3z"/><path d="m19 4h2v3h-2z"/><path d="m4 11h3v2h-3z"/><path d="m35 4h2v3h-2z"/><path d="m51 4h2v3h-2z"/><path d="m43 4h2v3h-2z"/><path d="m11 4h2v3h-2z"/><path d="m27 4h2v3h-2z"/><path d="m51 57h2v3h-2z"/><path d="m4 51h3v2h-3z"/><path d="m4 43h3v2h-3z"/><path d="m4 19h3v2h-3z"/><path d="m4 35h3v2h-3z"/><path d="m4 27h3v2h-3z"/></g></svg>
+                  {% comment %}{%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}{% endcomment %}
+                {% else %}
+                  <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            <span>{{ l.title }}</span>
+            {% include 'menu-label' %}
+          </a>
+        </li>
+  	{% endunless %}
+
+  {% endif %}
+
+{% endif %}

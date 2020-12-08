@@ -1,0 +1,59 @@
+{% assign _lazyload = settings.use_lazyload %}
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _limit = section.settings.blog_pagination_limit -%}
+
+{% if _layout == 'none-sidebar' %}
+  {%- assign _main_class = "col-12" -%}
+  {%- assign _article_class = "first-item col-12" -%}
+{% else %}
+  {%- assign _sb_class = "col-lg-3 col-md-12 d-none d-lg-block" -%}
+  {%- assign _main_class = "col-lg-9 col-md-12 col-sm-12 col-12" -%}
+  {%- assign _article_class = "col-md-6 col-12" -%}
+{% endif %}
+
+<div class="page-blog blog-v1 layout-{{ _layout }}">
+  <div class="container">
+    <div class="row">
+
+      {% if _layout == 'left-sidebar' %}
+        {% include 'sidebar-blog' %}
+      {% endif %}
+
+      <div class="{{ _main_class }}">
+
+        {% paginate blog.articles by _limit %}
+
+          {% if blog.articles.size > 0 %}
+
+            <div id="col-main" class="page-blog-content">
+              <div class="row">
+                {% for article in blog.articles %}
+
+                  <article class="post-item {% if forloop.first %}first-item col-12{% else %}{{ _article_class }}{% endif %}">
+                    {% include 'featured-blog-item' %}       
+                  </article>
+
+                {% endfor %}
+              </div>
+            </div>
+
+            {% include 'pagination' %}
+
+          {% else %}
+
+            <p>{{'blogs.article.no_acticles' | t }}</p>
+
+          {% endif %}
+
+        {% endpaginate %}
+
+      </div>
+
+      {% if _layout == 'right-sidebar' %}
+        {% include 'sidebar-blog' %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>

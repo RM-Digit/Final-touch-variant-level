@@ -1,0 +1,204 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+
+{%- assign _border = section.settings.border_style -%}
+{%- assign _border_width = section.settings.border_width -%}
+{%- assign _border_color = section.settings.border_color -%}
+
+{%- assign _bg_style = section.settings.bg_style -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _bg_image = section.settings.bg_image -%}
+
+{%- assign _heading_color = section.settings.heading_color -%}
+{%- assign _subheading_color = section.settings.subheading_color -%}
+{%- assign _placeholder_color = section.settings.placeholder_color -%}
+
+{%- assign _blog = section.settings.blog -%}
+{%- assign _blog_position = section.settings.blog_position -%}
+
+{% if _layout == 'bar-boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% elsif _layout == 'wide-padding' %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+{% capture background_section %}
+  {% if _bg_style == 'color' %}
+    style="background: {{ _bg_color }};"
+  {% else %}
+    {% unless _bg_image == blank %}
+      {% if _lazyload %}
+        data-bgset = "{{ _bg_image | img_url: '1920x' }} 1920w"
+      {% else %}
+        style="background: url({{ _bg_image | img_url: '1920x' }}) no-repeat; background-size: cover;"
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endcapture %}
+
+{% if _bg_style == 'color' %}
+  {% if _bg_color == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' %}
+    {%- assign _bg_color_none = 'bg-color-none' -%}
+  {% endif %}
+{% endif %}
+
+<div id="section-newsletter-{{ section.id }}" class="newsletter-section{% if _hide_mobile %} d-none d-md-block{% endif %} {{ _bg_color_none }}{% if _border == 'full' %} border-newsletter{% endif %}"{% unless _layout == 'boxed-bg' %}style="background-color: {{ _bg_color }};"{% endunless %}>
+  <div class="layout-{{_layout }}{% if _layout == 'wide-padding' %} {{ _layout_class }}{% endif %}">
+    {%- assign _newsletter_layout = section.settings.newsletter_layout -%}
+
+    <div class="newsletter-container newsletter-layout-{{ _newsletter_layout }}{% if _border == 'container' %} border-newsletter{% endif %}{% if _lazyload and _newsletter_layout != 5 %} lazyload{% endif %}"{% unless _newsletter_layout == 5 %}{{ background_section | strip }}{% endunless %}>
+      <div class="{% if _layout == 'bar-boxed' %}{{ _layout_class }}{% endif %}">
+
+        {% unless _blog == blank or _newsletter_layout == 5 %}
+          <div class="row row-1 blog-{{ _blog_position }}">
+            {% if _blog_position == 'left' %}
+              <div class="blog-col col-md-6 col-sm-12 col-12">
+                <div class="blog-inner">
+
+                  {%- assign blog = blogs[_blog] -%}
+
+                  {% for article in blog.articles limit: 1 %}
+                    <div class="post-item-inner">
+                      {% if article.image %}
+                        <div class="post-image">
+                          <a href="{{ article.url }}">
+                            {% include 'image-lazysize' with image: article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}       
+                          </a>  
+                        </div>
+                      {% endif %}
+
+                      <div class="post-content">
+                        <div class="info text-center">
+                          <h4 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+
+                          <div class="meta-data">
+                            <span class="post-author">{{ article.author | escape }}. on</span>
+                            <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div> 
+                  {% endfor %}
+
+                </div>
+              </div>
+            {% endif %}
+        {% endunless %}
+
+        <div class="newsletter-inner{% unless _blog == blank or _newsletter_layout == 5 %} col-md-6 col-sm-12 col-12 blog-true{% endunless %}">
+          {% unless _blog == blank or _newsletter_layout == 5 %}<div class="newsletter-inner-content">{% endunless %}
+      
+          <div class="nt-content">
+            {%- assign _condition = section.settings.condition -%}
+            {%- assign _condition_text = section.settings.html -%}
+            {%- assign _heading = section.settings.heading -%}
+            {%- assign _subheading = section.settings.subheading -%}
+            {%- assign _bigger_size = section.settings.bigger_size -%}
+            {%- assign _form_action = section.settings.form_action -%}
+            {%- assign _input_placeholder = section.settings.input_placeholder -%}
+            {%- assign _button_style = section.settings.button_style -%}
+
+            {% unless _heading == blank and _subheading == blank %}
+              <div class="nt-wrapper{% if _bigger_size %} bigger-size{% endif %}">
+                {% unless _heading == blank %}
+                  <div class="newsletter-title">{{ _heading }}</div>
+                {% endunless %}
+
+                {% unless _subheading == blank %}<p class="subtext">{{ _subheading }}</p>{% endunless %}
+              </div>
+            {% endunless %}
+
+            <div class="line"></div>
+
+            {%- if section.settings.email_type == 'mailchimp' -%}
+              {% include 'mailchimp-form' %}
+
+            {% else %}
+              {% assign klaviyo_link = section.settings.mailing_form_action %}
+              {% include 'klaviyo-form' %}
+
+            {% endif %}
+          </div>
+          
+          {% if _newsletter_layout == 5 %}
+          	{%- assign _image = section.settings.bg_image -%}
+          	{%- assign _image_size = '920x' -%}
+            <div class="block-image">
+              {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+            </div>
+          {% endif %}
+
+          <style type="text/css">
+            .newsletter-section .newsletter-layout-3 form{
+              background: {{ _bg_color }};
+            }
+            .newsletter-section .newsletter-container .nt-wrapper .newsletter-title {
+              color: {{ _heading_color }};
+            }
+            .newsletter-section .newsletter-container .nt-wrapper .subtext{
+              color: {{ _subheading_color }};
+            }
+            .newsletter-section .newsletter-container form input[type="email"],
+            .newsletter-section .newsletter-container form input::-webkit-input-placeholder {
+              color: {{ _placeholder_color }};
+            }
+            .newsletter-section .newsletter-container form .newsletter-checkbox label{
+              color: {{ _heading_color }};
+            }
+            #section-newsletter-{{ section.id }}.border-newsletter{
+              border-top: {{ _border_width }}px solid {{ _border_color }};
+            }
+            #section-newsletter-{{ section.id }} .newsletter-container.border-newsletter{
+              border: {{ _border_width }}px solid {{ _border_color }};
+            }
+          </style>
+
+          {% unless _blog == blank or _newsletter_layout == 5 %}</div>{% endunless %}
+
+        </div>
+
+        {% unless _blog == blank or _newsletter_layout == 5 %}
+          {% if _blog_position == 'right' %}
+              <div class="blog-col col-md-6 col-sm-12 col-12">
+                <div class="blog-inner">
+
+                  {%- assign blog = blogs[_blog] -%}
+
+                  {% for article in blog.articles limit: 1 %}
+                    <div class="post-item-inner">
+                      {% if article.image %}
+                        <div class="post-image">
+                          <a href="{{ article.url }}">
+                            {% include 'image-lazysize' with image: article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}       
+                          </a>  
+                        </div>
+                      {% endif %}
+
+                      <div class="post-content">
+                        <div class="info text-center">
+                          <h4 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+
+                          <div class="meta-data">
+                            <span class="post-author">{{ article.author | escape }}. on</span>
+                            <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div> 
+                  {% endfor %}
+
+                </div>
+              </div>
+          {% endif %}
+          </div>
+        {% endunless %}
+      </div>
+    </div>
+
+  </div>
+</div>

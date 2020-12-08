@@ -1,0 +1,22 @@
+{% unless _nav_linklist == blank %}
+  {% assign _uppercase_nav = section.settings.uppercase_nav %}
+  {% assign _bold_nav = section.settings.bold_nav %}
+  {% assign _nav_linklist_icon = section.settings.nav_linklist_icon %}
+  {% assign _nav_thumbnail_icon_upload = section.settings.thumbnail_icon_upload %}
+
+  <div class="horizontal-menu dropdown-fix d-none d-lg-block">
+    <div class="sidemenu-holder{% if _uppercase_nav %} text-uppercase{% endif %}{% if _bold_nav %} bold-text{% endif %}">
+
+      <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+          <ul class="menu-list">
+            {% for l in linklists[_nav_linklist].links %}
+              {% include 'nav-link' with 0 %}
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+{% endunless %}

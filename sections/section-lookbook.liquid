@@ -1,0 +1,246 @@
+{% include 'lookbook-snippet' %}
+
+{% schema %}
+{
+  "name": "Lookbookt",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Lookbook' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Lookbook"
+    }, 
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        {  "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 15,
+      "max": 80,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading font size",
+      "min": 15,
+      "max": 80,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Pin"
+    },
+    {
+      "type": "color",
+      "id": "pin_bg",
+      "label": "Background color",
+      "default": "#0046c3"
+    },
+    {
+      "type": "color",
+      "id": "pin_border",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pin_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Lookbook",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "column_width",
+          "label": "Column width",
+          "default": "12",
+          "options": [
+            { "value": "6", "label": "Half width" },
+            { "value": "12", "label": "Full width" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background image"
+        },
+        {
+          "type": "header",
+          "content": "Text Box"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "range",
+          "id": "text_top",
+          "label": "Top position",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "text_left",
+          "label": "Left position",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 25,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "default": 60,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading",
+          "min": 15,
+          "max": 80,
+          "default": 40,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading",
+          "default": "#0046c3"
+        }
+      ]
+    },
+    {
+      "type": "pin",
+      "name": "Pin",
+      "settings": [ 
+        {
+          "label": "Product",
+          "id": "product_1",
+          "type": "product"
+        },
+        {
+          "type": "header",
+          "content": "Pin"
+        },
+        {
+          "type": "range",
+          "id": "pin_top",
+          "label": "Top position",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "pin_left",
+          "label": "Left position",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 25,
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

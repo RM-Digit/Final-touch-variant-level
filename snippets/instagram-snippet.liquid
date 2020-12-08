@@ -1,0 +1,96 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _random_layout = section.settings.random_layout -%}
+{%- assign _heading_relative = section.settings.heading_relative -%}
+{%- assign _remove_padding_top = section.settings.remove_padding_top -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _heading_size = section.settings.heading_font_size -%}
+
+{%- assign _instagram_token = section.settings.instagram_token -%}
+{%- assign _instagram_userid = section.settings.instagram_userid -%}
+{%- assign _item_width = section.settings.item_width -%}
+{%- assign _limit = section.settings.limited -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% elsif _layout == 'wide-padding' %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+{% if _item_width == 0 %}
+{%- assign _item_col = 'col-fix col' -%}
+{% else %}
+{%- assign _item_col = 'col-fix col-' | append: _item_width -%}
+{% endif %}
+
+{% if _bg_color == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' or _remove_padding_top %}
+  {%- assign _bg_class  = 'bg-color-none' -%}
+{% endif %}
+
+{% if _heading_size > 20 %}
+  {%- assign _title_margin_class  = '22' -%}
+{% else %}
+  {%- assign _title_margin_class  = '9' -%}
+{% endif %}
+
+<div id="section-instagram-{{ section.id }}"  class="section-instagram layout-{{ _layout }}{% if _hide_mobile %} d-none d-md-block{% endif %} {{ _bg_class }}" style="background: {{ _bg_color }};" data-section-type="reload_insta" data-section-id="{{ section.id }}">
+  <div class="instagram-container mar-{{ _title_margin_class }} {{ _layout_class }}{% if _heading_relative %} heading-relative{% endif %}">
+
+    {% if _layout == 'full' %}
+      <div class="container">{% include 'heading-block' %}</div>
+    {% else %}
+      {% include 'heading-block' %}
+    {% endif %}
+
+    <style type="text/css">
+      #section-instagram-{{ section.id }} .title-wrapper h3{
+        font-size: {{ _heading_size }}px;
+      } 
+    </style>
+
+    <div class="footer-instagram-items{% if _random_layout %} random-layout{% endif %}{% if _limit < 7 %} item-6{% endif %}">
+
+      <div class="{% if _type == 'row' %}row-table row-padding-{{ _padding_section }}{% else %} instagram-carousel{% endif %}">
+        <div id="instagram_list_{{ section.id }}" class="instagram_list row" data-id="{{ section.id }}" data-token-key="{{ _instagram_token }}" data-uid="{{ _instagram_userid }}" data-limit="{{ _limit }}"></div>
+
+        <div class="insta_layout hide" data-id="{{ section.id }}">
+          {% if _lazyload %}
+            <div class="{{ _item_col }} padding-{{ _padding_section }}">
+              <a class="lazyload waiting" href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}" target="_blank">
+                <img class="lazyload" data-src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" />
+              </a>
+            </div>
+          {% else %}
+            <div class="{{ _item_col }} padding-{{ _padding_section }}">
+              <a href="{% raw %}{{{% endraw %}link{% raw %}}}{% endraw %}" target="_blank">
+                <img src="{% raw %}{{{% endraw %}image{% raw %}}}{% endraw %}" />
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+  {% if _type == 'carousel' %}
+
+    <input type="hidden" name="carousel_properties_disabled" id="carousel_{{section.id}}"
+    data-id="#instagram_list_{{ section.id }}"
+    data-margin="{{_padding_section}}"
+    data-resp="8.3"
+    data-items-1="1"
+    data-items-2="2"
+    data-items-3="3"
+    data-items-4="4"
+    data-items-5="5"
+    data-items-6="6"
+    data-items-7="7"
+    data-items-8="8">
+  {% endif %}

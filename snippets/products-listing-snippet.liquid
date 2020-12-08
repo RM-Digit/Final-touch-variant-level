@@ -1,0 +1,75 @@
+{% include 'products-listing-config' %}
+
+<div id="product-listing-{{ section.id }}" class="product-listing-section{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}" style="background-color: {{ _bg_color }};">
+  <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+    <div class="row row-1 row-padding-{{ _padding_section }}">
+      
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+
+          {%- assign block_width = block.settings.width -%}
+          {%- assign block_border_right = block.settings.border_right -%}
+          {%- assign block_heading = block.settings.heading -%}
+          {%- assign _remove_space = block.settings.remove_space -%}
+          {%- assign _push_down = block.settings.push_down -%}
+
+          <div class="col-lg-{{ block_width }} col-md-6 col-sm-6 col-12 padding-{{ _padding_section }}">
+            <div class="product-listing-content type-{{ block.type }}{% if block_border_right %} pl-border-right{% endif %}">
+
+              {% unless block_heading == blank and _remove_space %}
+                <div class="block-heading{% if _bigger_size %} bigger-size{% endif %}{% if _remove_space %} remove-space{% endif %}">
+                  {% if _border_line %}<span class="line-heading"></span>{% endif %}
+                  {% unless block_heading == blank %}<h3>{{ block_heading }}</h3>{% endunless %}
+                  {% if _border_line %}<span class="line-heading"></span>{% endif %}
+                </div>
+              {% endunless %}
+
+              <div class="block-content{% if _push_down %} push-down{% endif %}">
+                {% if block.type == 'product' %}
+                  {%- assign block_collection = block.settings.collection -%}
+                  {%- assign collection = collections[block_collection] -%}
+
+                  {% unless block_collection == blank or collection.products_count == 0 %}
+          
+                    {% for product in collection.products limit: 3 %}
+                      {% include 'products-listing-item' %}
+                    {% endfor %}
+
+                  {% else %} 
+                      {{ emptyProduct }}
+
+                  {% endunless %}
+
+                {% else %} 
+                  {%- assign _image = block.settings.image -%}
+                  {%- assign _image_size = '370x' -%}
+
+                  {% unless _image == blank %}
+                    {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endunless %}
+
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+
+        {% endfor %}
+
+      {% else %}
+        
+        {% for j in (1..4) %}
+          <div class="col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}">
+            <div class="product-listing-content type-product">
+              {{ emptyProduct }}
+            </div>
+          </div>
+        {% endfor %}
+
+      {% endif %}
+
+    </div>
+  </div>
+</div>

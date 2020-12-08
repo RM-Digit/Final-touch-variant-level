@@ -1,0 +1,265 @@
+{% comment %}
+=================
+  Mega Menu Tab
+=================
+{% endcomment %}
+
+{% assign min_height = block.settings.mega_menu_min_height %}
+{% assign menu_bg = block.settings.mega_menu_bg %}
+{% assign menu_bg_img = block.settings.mega_menu_bg_img %}
+{% assign menu_bg_img_size = block.settings.mega_menu_bg_img_size %}
+{% assign menu_bg_color = block.settings.mega_menu_bg_color %}
+{% assign menu_bg_vertical_position = block.settings.mega_menu_bg_vertical_position %}
+{% assign menu_bg_position = block.settings.mega_menu_bg_position %}
+{% assign _tab_icon_upload = block.settings.tab_icon_upload %}
+
+{% if menu_bg == 'bg_image' %}
+  {% if _lazyload %}
+    {% capture background %}{{ menu_bg_img | img_url: menu_bg_img_size }}{% endcapture %}
+  {% else %}
+    {% capture background %}url({{ menu_bg_img | img_url: menu_bg_img_size }}) no-repeat {{ menu_bg_vertical_position }} {{ menu_bg_position }} {{ menu_bg_color }}{% endcapture %}
+  {% endif %}
+{% else %}
+  {% capture background %}{{ menu_bg_color }}{% endcapture %}
+{% endif %}
+
+<div class="dropdown-menu dropdown-menu-tabs column-4">
+  <div class="row row-1">
+
+    <div class="mm-tab-col-title col-lg-3{% if _lazyload and menu_bg == 'bg_image'%} lazyload{% endif %}" {% if _lazyload and menu_bg == 'bg_image' %}data-bgset="{{background}}" style="min-height: {{ min_height }}px; background-repeat: no-repeat; background-position: {{ menu_bg_vertical_position }} {{ menu_bg_position }}; background-color: {{ menu_bg_color }};"
+    {% else %} style="min-height: {{ min_height }}px; background: {{ background }};"{% endif %}>
+      <ul class="tab-title">
+
+        {% assign _index = forloop.index %}
+        {% assign j = 0 %}
+
+        {% for block in section.blocks offset: _index %}
+          {% case  block.type %}
+
+            {% when 'tab-menu' %}
+              {% assign _tab_title = block.settings.tab_title %} 
+              {% assign _tab_icon = block.settings.tab_icon %}
+              {% assign _index = _index | plus: 1 %}
+              {% assign j = j | plus: 1 %}
+
+              <li data-id="mm-tabs-{{ j }}" class="title-item{% if j == 1 %} active{% endif %} title-item-{{ j }}" {{ block.shopify_attributes }}>
+                {% unless _tab_icon_upload == 'none' %}
+                  {% if _tab_icon_upload == 'metafield' %}
+                    {% assign _tab_title_handle = _tab_title | handleize %}
+                    <svg height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Semiconductor-chip-electronics"><path d="m11 57h2v3h-2z"/><path d="m57 43h3v2h-3z"/><path d="m57 51h3v2h-3z"/><path d="m19 57h2v3h-2z"/><path d="m35 57h2v3h-2z"/><path d="m27 57h2v3h-2z"/><path d="m57 11h3v2h-3z"/><path d="m60 4h-5v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-2v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1-1v-4h-5v5h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v2h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4v5h5v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h2v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4h5v-5h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4v-2h-4a1 1 0 0 1 -1-1v-4a1 1 0 0 1 1-1h4zm-11 44a1 1 0 0 1 -1 1h-32a1 1 0 0 1 -1-1v-3a1 1 0 0 1 1-1 2 2 0 0 0 0-4 1 1 0 0 1 -1-1v-23a1 1 0 0 1 1-1h32a1 1 0 0 1 1 1z"/><path d="m43 57h2v3h-2z"/><path d="m17 38.126a4 4 0 0 1 0 7.748v1.126h30v-30h-30z"/><path d="m57 19h3v2h-3z"/><path d="m57 27h3v2h-3z"/><path d="m57 35h3v2h-3z"/><path d="m19 4h2v3h-2z"/><path d="m4 11h3v2h-3z"/><path d="m35 4h2v3h-2z"/><path d="m51 4h2v3h-2z"/><path d="m43 4h2v3h-2z"/><path d="m11 4h2v3h-2z"/><path d="m27 4h2v3h-2z"/><path d="m51 57h2v3h-2z"/><path d="m4 51h3v2h-3z"/><path d="m4 43h3v2h-3z"/><path d="m4 19h3v2h-3z"/><path d="m4 35h3v2h-3z"/><path d="m4 27h3v2h-3z"/></g></svg>
+                    {% comment %}{%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}{% endcomment %}
+                  {% else %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _tab_icon | img_url: '30x' }}" alt="Icon" />
+                  {% endif %}
+                {% endunless %}
+                <span>{{ _tab_title }}</span>
+              </li>       
+
+            {% when 'tab-menu-row' or 'tab-menu-column' %}
+            {% else %}
+              {% break %}
+
+          {% endcase %}          
+        {% endfor %}
+
+      </ul>
+    </div>
+
+    <div class="mm-tab-col-content col-lg-9" style="min-height: {{ min_height }}px;">
+      {% assign _index = forloop.index %}
+      {% assign _i = 0 %}
+      {% assign j = 0 %}
+
+      {% for block in section.blocks offset: _index %}
+        {% case  block.type %}
+
+        {% when 'tab-menu' %}
+          {% assign _index = _index | plus: 1 %}
+          {% assign j = j | plus: 1 %}
+
+          {% assign tab_menu_bg = block.settings.mega_menu_bg %}
+          {% assign tab_menu_bg_img = block.settings.mega_menu_bg_img %}
+          {% assign tab_menu_bg_img_size = block.settings.mega_menu_bg_img_size %}
+          {% assign tab_menu_bg_color = block.settings.mega_menu_bg_color %}
+          {% assign tab_menu_bg_vertical_position = block.settings.mega_menu_bg_vertical_position %} 
+          {% assign tab_menu_bg_position = block.settings.mega_menu_bg_position %} 
+
+          {% if tab_menu_bg == 'bg_image' %}
+            {% if _lazyload %}
+              {% capture tab_background %}{{ tab_menu_bg_img | img_url: tab_menu_bg_img_size }}{% endcapture %}
+            {% else %}
+              {% capture tab_background %}url({{ tab_menu_bg_img | img_url: tab_menu_bg_img_size }}) no-repeat {{ tab_menu_bg_vertical_position }} {{ tab_menu_bg_position }} #fff{% endcapture %}
+            {% endif %}
+          {% else %}
+            {% capture tab_background %}{{ tab_menu_bg_color }}{% endcapture %}
+          {% endif %}
+
+          <div class="mega-tab-item tab-content-inner{% if j == 1 %} active{% endif %} mm-tabs-{{ j }}{% if _lazyload and tab_menu_bg == 'bg_image'%} lazyload{% endif %}" id="mm-tabs-{{ j }}" {% if _lazyload and tab_menu_bg == 'bg_image' %} data-bgset="{{tab_background}}" style="min-height: {{ min_height }}px; background-repeat: no-repeat; background-position: {{ tab_menu_bg_vertical_position }} {{ tab_menu_bg_position }};  background-color: {{ tab_menu_bg_color }};" {% else %} style="min-height: {{ min_height }}px; background: {{ tab_background }};"{% endif %}{{block.shopify_attributes}}>
+
+            {% for block in section.blocks offset: _index %}
+
+              {% if block.type == 'tab-menu-row' and _i < 3 %}
+                {% assign _index = _index | plus: 1 %}
+                {% assign _i = _i | plus: 1 %}
+
+                <div class="row row-{{ _i }}"{{block.shopify_attributes}}>
+                  {% for block in section.blocks offset: _index %}
+
+                    {% if block.type == 'tab-menu-column' %}
+                      {% assign _index = _index | plus: 1 %}
+                      {% assign _colTab = block.settings.mega_menu_tab_col %}
+                      {% assign _colTabWidth = block.settings.mega_menu_tab_width_col %}
+                      {% assign _colTabTitle = block.settings.mega_menu_tab_title_col %}
+                      {% assign _enableColTabTitle = block.settings.mega_menu_tab_image_title_col %}
+                      {% assign _colTabLink = block.settings.mega_menu_tab_link_col %}
+
+                      {% unless _colTab == 'none' %}
+                        <div class="col-item {% if _colTabWidth == 0 %}col{% else %}col-lg-{{ _colTabWidth }}{% endif %}"{{block.shopify_attributes}}>
+
+                          {% case _colTab %}
+
+                            {% when 'menu' %}
+                              {% assign _colTabLL = block.settings.mega_menu_tab_ll_col %}
+
+                              <div class="dropdown mega-sub-link{% if _colTabTitle == blank %} no-title-0{% endif %}">
+                                <a href="{{ _colTabLink }}"{% if _enableColTabTitle %} class="d-lg-none"{% endif %}>
+                                  <span>{{ _colTabTitle }}</span>
+                                </a>
+
+                                <span class="expand"></span>
+
+                                <ul class="m-list dropdown-menu dropdown-menu-sub">
+                                  {% for ml in linklists[_colTabLL].links %}
+                                    <li><a href="{{ ml.url }}">{{ ml.title }}</a></li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+
+                            {% when 'multi-menu' %}
+                              {% assign _colTabLL = block.settings.mega_menu_tab_ll_col %}
+                              {% assign _colTabHorizontal = block.settings.mega_menu_tab_multiple_horizontal_col %}
+                              {% assign _colTabHorizontalStyle = block.settings.mega_menu_tab_multiple_horizontal_style_col %}
+                              {% assign _colTabHorizontalManually = block.settings.mega_menu_tab_multiple_horizontal_manually_col %}
+
+                              {% assign i_block = 0 %}
+
+                              {% if _colTabHorizontalStyle == 'auto' %}
+                                {% if linklists[_colTabLL].links.size > 6 %}
+                                  {% assign _size = 6 %}
+                                {% else %}
+                                  {% assign _size = linklists[_colTabLL].links.size %}
+                                {% endif %}
+                              {% else %}
+                                {% assign _size = _colTabHorizontalManually %}
+                              {% endif %}
+
+                              {% for ml in linklists[_colTabLL].links %}
+                                {% assign submenu = ml.title | handleize %}
+
+                                {% if linklists[submenu].links.size > 0 %}
+                                  <div class="dropdown mega-sub-link{% if _colTabHorizontal %} horizontal-mode{% endif %} size-{{ _size }}">
+                                    {% if mColLLHeading %}
+                                      {% if i_block == 1 %}
+                                        <a href="{{ ml.url }}" class="dropdown-link">
+                                          <span>{{ ml.title }}</span>
+                                        </a>
+                                        <span class="expand"></span>
+                                      {% else %}
+                                        <a href="{{ ml.url }}" class="dropdown-link"></a>
+                                      {% endif %}
+                                    {% else %}
+                                      <a href="{{ ml.url }}" class="dropdown-link">
+                                        <span>{{ ml.title }}</span>
+                                      </a>
+                                      <span class="expand"></span>
+                                    {% endif %} 
+
+                                    <ul class="dropdown-menu dropdown-menu-sub">
+                                      {% for l in linklists[submenu].links %}
+                                        <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                                      {% endfor %}
+                                    </ul>
+                                  </div>
+                          
+                                {% else %}
+                                  <div class="mega-sub-link"><a href="{{ ml.url }}"><span>{{ ml.title }}</span></a></div>
+                                {% endif %}
+
+                              {% endfor %}
+
+                            {% when 'collection' %}
+                              {% assign colTabCollection = block.settings.mega_menu_tab_collection_col %}
+                              {% assign _colTabCollection = collections[colTabCollection] %}
+                              {% assign _colTabCollectionHeading = block.settings.mega_menu_tab_collection_heading_col %}
+                            
+                              <div class="dropdown mega-sub-link{% if _colTabCollectionHeading  %} big-size{% endif %}{% if _colTabTitle == blank %} no-title-0{% endif %}">
+                                <a href="{{ _colTabLink }}"{% if _enableColTabTitle %} class="d-lg-none"{% endif %}>
+                                  <span>{{ _colTabTitle }}</span>
+                                </a>
+
+                                <span class="expand"></span>
+
+                                <ul class="dropdown-menu dropdown-menu-sub row row-product">
+                                  {% for product in _colTabCollection.products limit: 2 %} 
+                                    <li class="col-lg-6">{% include 'product-item' %}</li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                          
+                            {% when 'image' %}
+
+                              <div class="dropdown banners mega-sub-link{% if _colTabTitle == blank %} no-title-0{% endif %}">
+                                <a href="{{ _colTabLink }}"{% if _enableColTabTitle %} class="d-lg-none"{% endif %}>
+                                  <span>{{ _colTabTitle }}</span>
+                                </a>
+
+                                <span class="expand"></span>
+
+                                <ul class="dropdown-menu dropdown-menu-sub">
+                                  {% assign _colTabImage = block.settings.mega_menu_tab_image_col %}
+                                  {% assign _colTabImageSize = block.settings.mega_menu_tab_image_size_col %}
+                                  {% assign _colTabImageLink = block.settings.mega_menu_tab_image_link_col %}
+
+                                  <li>
+                                    <a href="{{ _colTabImageLink }}">
+                                      {% include 'image-lazysize' with image: _colTabImage, image_size: _colTabImageSize, image_class: '', image_alt: 'Banner' %}
+                                    </a>
+                                  </li>
+                                </ul>
+
+                              </div>
+
+                          {% endcase %}
+
+                        </div>
+                      {% endunless %}
+
+                    {% else %}
+                      {% break %}
+                    {% endif %}
+
+                  {% endfor %}
+                </div>
+
+                {% if _i == 2 %}{% assign _i = 0 %}{% endif %}
+              {% elsif block.type == 'tab-menu-column' %}
+              {% else %}
+                {% break %}
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+
+        {% when 'tab-menu-row' or 'tab-menu-column' %}
+        {% else %}
+          {% break %}
+
+        {% endcase %}
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>

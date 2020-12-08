@@ -1,0 +1,11 @@
+{%- assign _header_email_text = section.settings.header_email_text -%}
+{%- assign _header_email = section.settings.header_email -%}
+
+{% unless _header_email_text and _header_email == blank %}
+	<ul class="welcome-text {% if settings.topbar_bg_color == settings.main_color %} fix-color{% endif %}">
+		<li>
+		  <span>{{ _header_email_text }}</span>
+		  <a href="mailto:{{ _header_email }}">{{ _header_email }}</a>
+		</li>
+	</ul>
+{% endunless %}

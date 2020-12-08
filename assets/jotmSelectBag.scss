@@ -1,0 +1,155 @@
+.new-buy-flow {
+  background: #2a2a2a;
+  padding: 1rem 0rem;
+  @media (min-width: 740px) {
+    padding: 4rem 0rem;
+  }
+  @media (max-width: 1000px) {
+    height: auto;
+  }
+   @media (max-width: 450px) {
+    background: #ffffff;
+    padding: 0;
+  }
+}
+
+.meat-type-container {
+  display: flex !important;
+  margin: 0 auto 1rem !important;
+  background: #e5e5e5 !important;
+  height: 56px !important;
+  justify-content: space-between !important;
+}
+
+.meat-type {
+  display: flex;
+  margin: 0 auto 0.1rem;
+  background: #e5e5e5;
+  height: 56px;
+  justify-content: space-between;
+}
+
+.meat-flavor-select-container {
+  background: #e5e5e5 !important;
+  height: 56px;
+  margin: 0 auto 1rem;
+  color: #555555 !important;
+  font-weight: bold;
+  padding-left: 1rem;
+  border: none !important;
+}
+
+.meat-flavor-select-container optgroup {
+  display: none;
+}
+
+.meat-type-container.selected {
+  background: #c8c8c8 !important;
+  border: 2px solid #1d1d1d !important;
+}
+
+.meat-name {
+  font-family: "Helvetica";
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  opacity: 0.6;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.meat-name.selected {
+  opacity: 1;
+}
+
+.extra-margin-right {
+  margin-right: 1rem;
+}
+
+.meat-icon {
+  height: 28px;
+  width: 42px;
+  opacity: 0.3;
+}
+
+.meat-icon.selected {
+  opacity: 1;
+}
+
+.meat-flavor-beef {
+  display: none;
+}
+
+.meat-flavor-beef.selected {
+  display: block;
+}
+
+.meat-flavor-pork {
+  display: none;
+}
+
+.meat-flavor-pork.selected {
+  display: block;
+}
+
+.meat-flavor-turkey {
+  display: none;
+}
+
+.meat-flavor-turkey.selected {
+  display: block;
+}
+
+.meat-flavor-default.hide {
+  display: none;
+}
+
+.select-container {
+  margin: 0 2rem;
+  text-align: left;
+}
+
+.select-container-title {
+  width: fit-content;
+  padding-bottom: 0 !important;
+  padding-top: 2rem !important;
+  margin: 15px auto !important;
+}
+
+.meat-extra-option {
+  font-family: Helvetica !important;
+  font-size: 16px !important;
+  height: 100%;
+  padding: 1rem;
+}
+
+.meat-extra-option.selected {
+  background: #c8c8c8 !important;
+  color: #191919 !important;
+  border: 2px solid #000000;
+}
+
+.swatch-meat-label {
+  width: 100% !important;
+  padding: 0 !important;
+  text-transform: capitalize !important;
+  color: gray !important;
+}
+
+.swatch-meat-label.selected {
+  width: 100% !important;
+  padding: 0 !important;
+  text-transform: capitalize !important;
+  color: white !important;
+}
+
+#cross-loading-icon {
+  display: none;
+}
+
+.add-extra-bag-description {
+  font-family: Helvetica;
+  font-size: 18px;
+  color: #1d1d1d;
+  text-align: center;
+}

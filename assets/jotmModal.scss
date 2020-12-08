@@ -1,0 +1,190 @@
+.modal {
+  border-radius: 0px !important;
+  width: 100% !important;
+  padding: 0 !important;
+  max-width: 1000px !important;
+}
+
+.modal a.close-modal {
+  position: fixed !important;
+  top: 6.5px !important;
+  right: 10.5px !important;
+  background-color: white;
+  border-radius: 56px;
+  background-image: url("https://img.icons8.com/ios/50/000000/cancel.png") !important;
+  @media (min-width: 740px) {
+    position: fixed !important;
+    width: 40px;
+    height: 40px;
+    top: 3% !important;
+    right: calc((100vw - 700px) / 2) !important;
+  }
+  @media (min-width: 1000px) {
+    right: calc((100vw - 950px) / 2) !important;
+  }
+  @media (min-width: 1200px) {
+    right: calc((100vw - 985px) / 2) !important;
+  }
+}
+
+.modal-container {
+  background: #000000 !important;
+  padding: 4rem;
+  display: grid;
+  grid-column-gap: 2rem;
+  justify-content: center;
+  grid-template-columns: minmax(450px, 600px) minmax(284px, 384px);
+  grid-template-areas:
+    "modalMeatDescription modalMeatBuildYourBag"
+    "modalMeatDescription modalMeatImg"
+    "modalMeatSource modalMeatImg"
+    "modalMeatDiagram modalMeatImg"
+    "modalMeatIngredients modalMeatImg"
+    "modalMeatFlavor modalMeatImg";
+  @media (max-width: 1000px) {
+    grid-template-columns: minmax(350px, 600px) minmax(200px, 384px);
+    grid-template-areas:
+      "modalMeatDescription modalMeatBuildYourBag"
+      "modalMeatSource modalMeatBuildYourBag"
+      "modalMeatDiagram modalMeatBuildYourBag"
+      "modalMeatIngredients modalMeatBuildYourBag"
+      "modalMeatFlavor modalMeatImg";
+  }
+  @media (max-width: 850px) {
+    padding: 4rem;
+    grid-template-columns: minmax(325px, auto);
+    grid-gap: 0;
+    grid-template-areas:
+      "modalMeatDescription"
+      "modalMeatSource "
+      "modalMeatDescription1"
+      "modalMeatDiagram "
+      "modalMeatIngredients "
+      "modalMeatFlavor "
+      "modalMeatBuildYourBag"
+      "modalMeatImg";
+  }
+  @media (max-width: 550px) {
+    padding: 0;
+  }
+}
+
+.modal-meat-description {
+  grid-area: modalMeatDescription;
+  background: #000000;
+  padding: 2rem 1.5rem;
+  @media (min-width: 850px) {
+    padding: 0 1.5rem 2rem;
+  }
+}
+
+.modal-meat-description-1 {
+  grid-area: modalMeatDescription1;
+  background: #000000;
+  padding: 2rem 1.5rem;
+  @media (min-width: 740px) {
+    display: none;
+  }
+}
+
+.modal-meat-ingredients {
+  grid-area: modalMeatIngredients;
+  background: #000000;
+  padding: 2rem 1.5rem;
+}
+
+.modal-meat-build-your-bag {
+  grid-area: modalMeatBuildYourBag;
+  background: #000000;
+  padding: 2rem 1.5rem;
+  @media (min-width: 740px) {
+    padding: 0 1.5rem 2rem;
+  }
+}
+
+.modal-content-bordered-wrapper {
+  border: 4px solid #ffffff;
+  padding: 0.5rem 1rem;
+}
+
+.modal-meat-source {
+  grid-area: modalMeatSource;
+  background: #ffffff;
+  padding: 2rem 1.5rem;
+  @media (min-width: 740px) {
+    background: #000000;
+    color: white;
+  }
+}
+
+.modal-content-wrapper {
+  padding: 0.5rem 1rem;
+}
+
+.modal-img {
+  grid-area: modalMeatImg;
+  display: grid;
+  overflow: auto;
+  height: fit-content;
+}
+
+.beef-img {
+  height: 243px;
+  width: 243px;
+}
+
+.modal-image-container {
+  grid-area: modalMeatDiagram;
+  background: #000000;
+  padding: 0rem 1.5rem;
+}
+
+.modal-image-wrapper {
+  padding: 0rem 1rem;
+}
+
+.modal-flavor-container {
+  grid-area: modalMeatFlavor;
+  display: flex;
+  justify-content: left;
+  background: #000000;
+  padding: 0.5rem 1.5rem;
+}
+
+.modal-footer-header {
+  font-family: "asphaltic_scratch_rounded_pRg";
+  font-size: 48px;
+  font-weight: normal;
+  color: #ffffff !important;
+  letter-spacing: 0.1em;
+}
+
+.modal-footer-description {
+  font-family: "Helvetica";
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.modal-button {
+  font-size: 19px;
+  color: #ffffff;
+  font-weight: bold;
+  background: green;
+  padding: 0.5rem 3.5rem;
+  cursor: pointer;
+  :hover {
+    color: #ffffff !important;
+  }
+}
+
+.option-title-black-modal {
+  font-family: "asphaltic_scratch_rounded_pRg";
+  font-size: 32px;
+  font-weight: normal;
+  text-align: left;
+  color: #000000 !important;
+  letter-spacing: 0.1em;
+  @media (min-width: 740px) {
+    color: white !important;
+  }
+}

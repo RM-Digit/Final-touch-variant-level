@@ -1,0 +1,83 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _lazyload = settings.use_lazyload -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _class = 'container' -%}
+{% else %}
+  {%- assign _class = '' -%}
+{% endif %}
+
+{% capture emptyImage %}
+  <div class="image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+{% endcapture %}
+
+<div id="search-widget-{{ section.id }}" class="search-widget-section layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="search-widget-content">
+    <div class="{{ _class }}">
+      <div class="search-widget-inner">
+      
+        {% if section.blocks.size > 0 %}
+        
+            {% for block in section.blocks %}
+            	{% if block.type == 'search-form' %}
+                {%- assign _title = block.settings.image_title -%}
+                {%- assign _title_color = block.settings.title_color -%}
+                {%- assign _title_size = block.settings.title_size -%}
+                {%- assign _placeholder = block.settings.placeholder -%}
+                {%- assign _search_font_icon = settings.search_font_icon -%}
+            
+                <div class="search-form">
+                  {% unless _title == blank %}
+                  	<div class="title" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                  {% endunless %}
+
+                  <form class="sf-action" action="/search" method="get">
+                    <input type="hidden" name="type" value="product" />
+                    <input type="text" name="q" class="form-control"  placeholder="{{ _placeholder }}" autocomplete="off" />
+
+                    <button type="submit" class="search-icon">
+                      <span><i class="demo-icon {{ _search_font_icon }}"></i></span>
+                    </button>
+                  </form>
+                </div>
+            
+            	{% else %}
+                {%- assign _image = block.settings.image -%}
+                {%- assign _image_size = block.settings.image_size -%}
+            
+                {% unless _image == blank %}
+                  <div class="block-image">
+                    {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                  </div>
+                {% endunless %}
+            
+            	{% endif %}
+
+            {% endfor %}
+        
+        {% else %}
+        
+            <div class="block-text">
+              <div class="title h5" style="color: #000000;">{{ 'homepage.onboarding.banner_title' | t }}</div>
+              <form class="sf-action" action="/search" method="get">
+                <input type="hidden" name="type" value="product" />
+                <input type="text" name="q" class="form-control"  placeholder="{{ _placeholder }}" autocomplete="off" />
+
+                <button type="submit" class="search-icon">
+                  <span><i class="demo-icon {{ _search_font_icon }}"></i></span>
+                </button>
+              </form>
+            </div>  
+            
+            <div class="block-image">
+              {{ emptyImage }}
+            </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

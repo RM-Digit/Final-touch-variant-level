@@ -1,0 +1,94 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _background = section.settings.bg_color -%}
+{%- assign _border_line = section.settings.border_line -%}
+{%- assign _menu_item = section.settings.menu_item -%}
+
+{%- assign _image_size = section.settings.image_size -%}
+
+{% if _layout == 'full' %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% else %}
+  {%- assign _layout_class = 'container' -%}
+{% endif %}
+
+{% capture emptyList %}
+  <div class="item col-lg-2 col-md-2 col-sm-4 col-12">
+    <div class="image">
+      {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+      {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+
+    <h6>{{ 'homepage.onboarding.collection_title' | t }}</h6>
+
+    <ul class="list">
+      {% for i in (1..7) %}
+        <li>{{ 'homepage.onboarding.collection_title' | t }}</li>
+      {% endfor %}
+    </ul>
+ 
+  </div>
+{% endcapture %}
+
+<div id="list-collection-{{ section.id }}" class="section-list-collection-v3{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}" style="background: {{ _background }}">
+  <div class="lc-container-v3">
+    <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+
+      {% include 'heading-block' %}
+
+      {% unless _menu_item == blank %}
+        {% assign _i = 0 %}
+        {% assign _j = 0 %}
+
+        <div class="list-collection-v3">       
+          <div class="row">
+            {% for l in linklists[_menu_item].links %}
+              {% assign submenu = l.title | handleize %}
+
+              {% if linklists[submenu].links.size > 0 %}
+                {% assign _i = _i | plus: 1 %}
+
+                <div class="item col-lg-2 col-md-2 col-sm-4 col-12">
+                  <div class="image">
+                    {% for block in section.blocks %}
+                      {% if forloop.index == _i %}
+                        {%- assign _image = block.settings.image -%}
+
+                        {% unless _image == blank %}
+                          <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ _image | img_url: _image_size  }}" alt="" /> 
+                        {% endunless %}
+                      {% endif %}
+                    {% endfor %} 
+                  </div>
+                  
+                  <h6><a href="{{ l.url }}" class="heading">{{ l.title }}</a></h6>
+
+                  <ul class="list">
+                    {% for link in linklists[submenu].links %}
+                      <li>{{ link.title }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+              {% endif %}
+
+            {% endfor %}
+          </div>  
+        </div>
+
+      {% else %}
+
+        <div class="list-collection-v3">
+          <div class="row">
+            {% for i in (1..6) %}
+              {{ emptyList }}
+            {% endfor %}
+          </div>
+        </div>
+
+      {% endunless %}
+  
+    </div>
+  </div>
+</div>

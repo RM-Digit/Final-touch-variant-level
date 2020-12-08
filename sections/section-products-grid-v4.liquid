@@ -1,0 +1,343 @@
+{% include 'products-grid-snippet-v4' %}
+
+{% schema %}
+{
+  "name": "Products Grid V4",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Products Grid V4' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Grid V4"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay_image",
+      "label": "Overlay the products on Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_right",
+      "label": "Border right",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_item_color",
+      "label": "Background item"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Product",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Block Heading"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+		{
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ]
+        },
+		{
+          "type": "checkbox",
+          "id": "border_line",
+          "label": "Border line"
+        },
+        {
+          "type": "header",
+          "content": "Block image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "heading_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "subheading_bold",
+          "label": "Bold Subeading"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_label_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection item"
+        },
+        {
+          "type": "range",
+          "id": "limited",
+          "label": "Total items",
+          "min": 1,
+          "max": 9,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 1,
+      "settings": [ 
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Layout",
+          "info": "Heading, Subheading, Button"
+        },  
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        },
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "image_subtitle",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "select",
+          "id": "text_box_position",
+          "label": "Position",
+          "default": "bottom",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "subtitle_text_bold",
+          "label": "Bold Subheading"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_text_bold",
+          "label": "Bold Button"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subheading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "label": "Subheading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Button label",
+          "min": 11,
+          "max": 20,
+          "unit": "px",
+          "default": 13
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid V4",
+      "category": "Collection",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

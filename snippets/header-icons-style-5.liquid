@@ -1,0 +1,79 @@
+{% if settings.enable_product_compare %}
+  <li class="compare-target">
+    <a data-arn-action="show" class='{{ shop.metafields.arena.wl_cp_settings.compare_settings.compare_show_class }} {% if shop.metafields.arena.wl_cp_settings.compare_settings.compare_enable == false %}disabled{% endif %}' href="javascript:;">
+      <span class="compare-icon">
+        <svg width="22" height="22" class="arn_icon arn_icon-show-compare"><use xlink:href="#arn_icon-show-compare"></use></svg>
+        {%if shop.metafields.arena.wl_cp_settings.general_settings.show_number_status == true%}
+          <span class="number"><span class="n-item">0</span></span>
+        {%endif%}
+      </span>
+    </a> 
+  </li>
+{% endif %}
+
+{% if settings.enable_product_wishlist %}
+  <li class="wishlist-target">
+    <a data-arn-action="show" class='{{ shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_show_class }} {% if shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_enable == false %}disabled{% endif %}' href="javascript:;">
+      <span class="wishlist-icon">
+        <svg width="22" height="22" class="arn_icon arn_icon-show-wishlist"><use xlink:href="#arn_icon-show-wishlist"></use></svg>
+        {%if shop.metafields.arena.wl_cp_settings.general_settings.show_number_status == true%}
+        <span class="number"><span class="n-item">0</span></span>
+        {%endif%}
+      </span>
+    </a>
+  </li>
+{% endif %}
+
+{% if settings.show_cart %}   
+  {% assign _cart_icon_type = settings.cart_icon_type %}
+  {% assign _cart_font_icon = settings.cart_font_icon %}
+  {% assign _cart_icon = settings.cart_icon %}
+
+  <li class="top-cart-holder{% if settings.cart_styles == 'dropdown' %} hover-dropdown{% endif %}">
+    <div class="cart-target">
+
+      {% if settings.cart_styles == 'dropdown' %}
+        <a href="javascript:void(0)" class="basket dropdown-toggle{% if _lazyload and _cart_icon_type == 'image' %} lazyload waiting{% endif %}" title="cart">
+          {% if _cart_icon_type == 'font-icon' %}
+            <i class="demo-icon {{ _cart_font_icon }}"></i>
+
+          {% else %}
+            <img {% if _lazyload %}class="lazyload"
+                 data-srcset="{{ _cart_icon | img_url: '20x'}} 1x, {{ _cart_icon | img_url: '40x'}} 2x"
+                 {% else %}src="{{ _cart_icon | img_url: '20x'}}"{% endif %}
+                 alt="Cart" />
+
+          {% endif %}
+
+          <span class="number"><span class="n-item">{{ cart.item_count }}</span></span>
+        </a>
+
+        <div class="cart-dd">
+          <div id="cart-info">
+            <div id="cart-content" class="cart-content">
+              <div class="cart-loading"></div>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <a href="javascript:void(0)" class="basket cart-toggle{% if _lazyload and _cart_icon_type == 'image' %} lazyload waiting{% endif %}" title="cart">
+          {% if _cart_icon_type == 'font-icon' %}
+            <i class="demo-icon {{ _cart_font_icon }}"></i>
+
+          {% else %}
+            <img {% if _lazyload %}class="lazyload"
+                 data-srcset="{{ _cart_icon | img_url: '20x'}} 1x, {{ _cart_icon | img_url: '40x'}} 2x"
+                 {% else %}src="{{ _cart_icon | img_url: '20x'}}"{% endif %}
+                 alt="Cart" />
+
+          {% endif %}
+
+          <span class="number"><span class="n-item">{{ cart.item_count }}</span></span>
+        </a>
+
+      {% endif %}
+
+    </div>
+  </li>            
+{% endif %}

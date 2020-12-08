@@ -1,0 +1,293 @@
+{% assign _lazyload = settings.use_lazyload %}
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+{%- assign _main_class = "col-12" -%}
+
+{%- assign new_comment = false -%}
+{% if comment and comment.created_at %}
+  {%- assign new_comment = true -%}
+  {%- assign new_comment_id = comment.id -%}
+{% endif %}
+
+{% if new_comment %}
+  {%- assign duplicate_comment = false %}
+  {% for comment in article.comments %}
+    {% if comment.id == new_comment_id %}
+      {%- assign duplicate_comment = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if duplicate_comment %}
+    {%- assign number_of_comments = article.comments_count -%}
+  {% else %}
+    {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+  {% endif %}
+{% else %}
+  {%- assign number_of_comments = article.comments_count -%}
+{% endif %}
+
+<div class="page-article">
+  <div class="container">
+
+        <article class="post">
+          {% if article.image %}
+            <div class="post-image">
+              {% include 'image-lazysize' with image: article.image, image_size: '1170x', image_class: '', image_alt: 'Blog' %}       
+            </div>
+          {% endif %}
+
+          <div class="post-heading">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <h2 class="post-title">{{ article.title }}</h2>
+
+                <div class="meta-data">
+                  <span class="post-author">{{ article.author | escape }}. on</span>
+                  <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                </div>
+
+                <div class="comments">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-content">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+               <div class="post-des">{{ article.content }}</div> 
+              </div>
+            </div>    
+          </div>
+        </article>
+
+        {%- assign _show_image_gallery = section.settings.show_image_gallery -%}
+        {%- assign _image_gallery_heading = section.settings.image_gallery_heading -%}
+
+        {% if _show_image_gallery and section.blocks.size > 0 %}
+          <div class="image-gallery">
+
+            {% unless _image_gallery_heading == blank %}
+              <div class="row">
+                <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                  <div class="title-wrapper text-left}"><h3>{{ _image_gallery_heading }}</h3></div>
+                 </div>
+              </div>
+            {% endunless %}
+
+            <div class="gallery-content">
+              <div class="row">
+                {% for block in section.blocks %} 
+                  {%- assign _image = block.settings.image -%}
+
+                  {% unless _image == blank %}
+                    <div class="col-md-4 col-sm-6 col-12">
+                      <a class="fancybox-gallery" data-fancybox="gallery" href="{{ _image | img_url: '900x' }}">
+                        {% include 'image-lazysize' with image: _image, image_size: '390x', image_class: '', image_alt: 'Image' %}
+                      </a>
+                    </div>
+                  {% endunless %}
+
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        {% endif %}
+
+        {%- assign _display_type = section.settings.display_type -%}
+        {%- assign _related_products_heading = section.settings.related_products_heading -%}
+        {%- assign _related_products_limited = section.settings.related_products_limited -%}
+
+        {% unless _display_type == 'none' %}
+          <div class="related-products">
+
+            {% unless _related_products_heading == blank %}
+              <div class="row">
+                <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                  <div class="title-wrapper text-left"><h3>{{ _related_products_heading }}</h3></div>
+                 </div>
+              </div>
+            {% endunless %}
+
+            <div class="box-content">
+              {% if _display_type == 'tag' %}
+                {% for tag in article.tags %}
+                  {%- assign _tag = tag | downcase -%}
+
+                  {%- if _tag contains 'relatedproducts' -%}
+                    {% assign _collection = _tag | split: '_' | last %}
+                    {% break %}
+                  {% endif %}
+
+                {% endfor %}
+
+              {% else %}
+                {%- assign _collection = section.settings.related_products_col -%}
+              {% endif %}
+
+              {% unless _collection == blank %}
+                {%- assign collection = collections[_collection] -%} 
+
+                <div class="box-product box-product-carousel">
+                  {% for product in collection.products limit: _related_products_limited %}
+                    {% include 'product-item' %}
+                  {% endfor %}
+                </div>
+              {% endunless %}
+
+            </div>
+
+          </div>
+        {% endunless %}
+
+        {%- assign _show_related_articles = section.settings.show_related_articles -%}
+        {%- assign _related_articles_heading = section.settings.related_articles_heading -%}
+
+        {% if _show_related_articles %}
+        <div class="related-posts">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="info">
+                <div class="tags">
+                  {% for tag in article.tags %}
+                    {%- assign _tag = tag | downcase -%}
+                    {%- unless _tag contains 'relatedproducts' -%}
+                      {{ tag | link_to_tag: tag }}
+                    {% endunless %}
+                  {% endfor %}
+                </div>
+
+                <div class="meta-data">
+                  <span class="post-author">{{ article.author | escape }}. on</span>
+                  <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                </div>
+
+                <div class="comments">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</div>
+              </div>
+
+              <div class="blog-module">
+                {% unless _related_articles_heading == blank %}
+                  <div class="title-wrapper text-left"><h3>{{ _related_articles_heading }}</h3></div>
+                {% endunless %}
+
+                <div class="box-content box-popular-posts">
+                  <ul class="blog-list-default">
+
+                    {% for _article in blog.articles limit: 4 %}
+                      {% unless _article.id == article.id %} 
+                        {% include 'sb-blog-post-item' %}
+                      {% endunless %}
+                    {% endfor %}
+
+                  </ul>
+                </div> 
+              </div>
+
+             </div>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if section.settings.show_share_buttons and settings.share_js != blank %}
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              {% include 'social-sharing' %}
+            </div>
+          </div>
+        {% endif %}
+            
+        {% if blog.comments_enabled? %}
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              {% if number_of_comments > 0 %}
+                <div class="grid-comments">
+                  <h5>{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h5>
+
+                  {% paginate article.comments by 5 %}
+
+                  {% comment %}
+                    #comments is required, it is used as an anchor link by Shopify.
+                  {% endcomment %}
+                  
+                    <div id="comments">
+
+                        {% if new_comment %}
+                          <p class="note form-success">
+                            {% if blog.moderated? %}
+                              {{ 'blogs.comments.success_moderated' | t }}
+                            {% else %}
+                              {{ 'blogs.comments.success' | t }}
+                            {% endif %}
+                          </p>
+                        {% endif %}
+
+                        <ul class="comments">
+                          {% comment %}
+                            If a comment was just submitted with no blank field, show it.
+                          {% endcomment %}
+                          {% if new_comment %}
+                            <li id="{{ comment.id }}" class="comment">
+                              {% include 'comment' %}
+                            </li>
+                          {% endif %}
+
+                          {% for comment in article.comments %}
+                            {% unless comment.id == new_comment_id %}
+                              <li id="{{ comment.id }}" class="comment">
+                                {% include 'comment' %}
+                              </li>
+                            {% endunless %}
+                          {% endfor %}
+                        </ul>
+
+                        {% if paginate.pages > 1 %}
+                          {% include 'pagination' %}
+                        {% endif %}
+
+                    </div>
+                      
+                  {% endpaginate %}
+                </div>
+              {% endif %}
+              
+              <div class="comment-form">
+                {% form 'new_comment', article %}
+
+                  <h3>{{ 'blogs.comments.title' | t }}</h3>
+
+                  {{ form.errors | default_errors }}
+
+                  {% if blog.moderated? %}
+                    <p class="moderated">{{ 'blogs.comments.moderated' | t }}</p>
+                  {% endif %}
+
+                  <div class="grid-form">
+                    <div class="row">
+                      <div class="control-wrapper col-md-6 col-sm-12">
+                        <input type="text" name="comment[author]" id="comment-author" class="{% if form.errors contains 'author' %} input-error{% endif %}" placeholder="{{'blogs.comments.name' | t }}" value="{{ form.author }}">
+                      </div>
+
+                      <div class="control-wrapper col-md-6 col-sm-12">
+                        <input type="email" name="comment[email]" id="comment-email" class="{% if form.errors contains 'email' %} input-error{% endif %}" placeholder="{{'blogs.comments.email' | t }}" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+                      </div>
+                    </div>
+
+                    <div class="control-wrapper">
+                      <textarea name="comment[body]" id="comment-body" class="{% if form.errors contains 'body' %} input-error{% endif %}" placeholder="{{'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+                    </div>
+                  </div>
+
+                  <input type="submit" class="btn btn-1" value="{{ 'blogs.comments.submit' | t }}">
+                {% endform %}
+              </div>
+
+            </div>
+          </div>
+            
+        {% endif %}
+        
+  </div>
+</div>

@@ -1,0 +1,131 @@
+{% assign _header_left            = settings.header_left %}
+{% assign _shadow_menu            = section.settings.shadow_menu %}
+{% assign _header_icon_square     = section.settings.header_icon_square %}
+{% assign _header_icon_left       = section.settings.header_icon_left %}
+{% assign _sticky_bar_mobile      = section.settings.show_sticky_bar_mobile %}
+{% assign _header_border_bottom   = section.settings.header_border_bottom %}
+{% assign _megamenu_width         = section.settings.megamenu_width %}
+
+{% assign _search_input_bg = settings.header_search_bg %}
+{% if _search_input_bg == blank or _search_input_bg == 'none' or _search_input_bg == 'rgba(0,0,0,0)' %}
+  {%- assign _search_input_class = 'input-bg-none' -%}
+{% elsif _search_input_bg == '#ffffff' or _search_input_bg == '#000000' %}
+  {%- assign _search_input_class = 'input-bg-white' -%}
+{% endif %}
+
+{% if _header_left %}
+  <header data-section-type="header" data-section-id="{{ section.id }}" class="header-content header-left{% if _header_icon_square %} icon-square{% endif %}{% if _header_icon_left %} h-icon-left{% endif %} {{ _search_input_class }}" data-stickymobile="{{ _sticky_bar_mobile }}" data-shadow="{{ _shadow_menu }}">
+    {%- assign _lazyload = settings.use_lazyload -%}
+    {%- assign _show_search = settings.show_search -%}
+
+    <div class="header-container {{ _search_input_class}}">
+      {% include 'header-left' %}
+      {% include 'navigation-mobile' %}
+    </div>
+
+    {% include 'header-mobile-search' %}
+  </header>
+
+{% else %}
+  {% assign _header_overlay = section.settings.header_overlay %}
+
+  <header data-section-type="header" data-section-id="{{ section.id }}" class="header-content{% if _header_overlay %} header-overlay{% endif %}{% if _header_border_bottom %} header-border-bottom{% endif %}{% if _header_icon_square %} icon-square{% endif %}{% if _header_icon_left %} h-icon-left{% endif %} {{ _search_input_class }}" data-stick="{{ section.settings.show_sticky_bar }}" data-stickymobile="{{ _sticky_bar_mobile }}" data-shadow="{{ _shadow_menu }}">
+    {%- assign _header_style = section.settings.header_style -%}
+    {%- assign _lazyload = settings.use_lazyload -%}
+    {%- assign _layout = section.settings.layout -%}
+    {%- assign _show_search = settings.show_search -%}
+
+    {% if _layout == 'boxed' %}
+      {%- assign _layout_class = 'container' -%}
+    {% else %}
+        {%- assign _layout_class = 'container-fluid' -%}
+    {% endif %}
+
+    {%- assign _nav_linklist = section.settings.nav_linklist -%}
+    {%- assign _secondary_nav_linklist = section.settings.secondary_nav_linklist -%}
+    {%- assign _vertical_nav_linklist = section.settings.vertical_nav_linklist -%}
+
+    <div class="header-container layout-{{ _layout }} style-{{ _header_style }}{% if _megamenu_width %} mm-layout-boxed{% endif %}" data-style="{{ _header_style }}">
+      {% case _header_style %}
+          {% when 1 %}
+            {% include 'header-style-1' %}
+          {% when 2 %}
+            {% include 'header-style-2' %}
+          {% when 3 %}
+            {% include 'header-style-3' %}
+          {% when 4 %}
+            {% include 'header-style-4' %}
+          {% when 5 %}
+            {% include 'header-style-5' %}
+          {% when 6 %}
+            {% include 'header-style-6' %}
+          {% when 7 %}
+            {% include 'header-style-7' %}
+          {% when 8 %}
+            {% include 'header-style-8' %}
+          {% when 9 %}
+            {% include 'header-style-9' %}
+          {% when 10 %}
+            {% include 'header-style-10' %}
+          {% when 11 %}
+            {% include 'header-style-11' %}
+          {% when 12 %}
+            {% include 'header-style-12' %}
+          {% when 13 %}
+            {% include 'header-style-13' %}
+          {% when 14 %}
+            {% include 'header-style-14' %}
+          {% when 15 %}
+            {% include 'header-style-15' %}
+          {% when 16 %}
+            {% include 'header-style-16' %}
+          {% when 17 %}
+            {% include 'header-style-17' %}
+          {% when 18 %}
+            {% include 'header-style-18' %}
+          {% when 19 or 26 %}
+            {% include 'header-style-19' %}
+          {% when 20 %}
+            {% include 'header-style-20' %}
+          {% when 21 %}
+            {% include 'header-style-21' %}
+      	  {% when 22 %}
+            {% include 'header-style-22' %}
+          {% when 23 %}
+            {% include 'header-style-23' %}
+          {% when 24 %}
+            {% include 'header-style-24' %}
+          {% when 25 %}
+            {% include 'header-style-25' %}
+          {% when 27 %}
+            {% include 'header-style-27' %}
+          {% when 28 %}
+            {% include 'header-style-28' %}
+          {% when 29 %}
+            {% include 'header-style-29' %}
+          {% when 30 %}
+            {% include 'header-style-30' %}
+          {% else %}
+            {% include 'header-style-31' %}
+      {% endcase %}
+
+      {% include 'navigation-mobile' %}
+    </div>
+
+    {% include 'header-mobile-search' %}
+
+
+  </header>
+{% endif %} 
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    if(($('#body-content').hasClass('container-width-auto')) && ($('.header-container').hasClass('layout-full'))){
+      $('.boxed-wrapper').addClass('fix-container-width');
+    } 
+  })
+</script>
+
+<style>header .header-navigation .table-row{justify-content: {{section.settings.nav_align}};}
+  {{- section_css -}}
+</style>

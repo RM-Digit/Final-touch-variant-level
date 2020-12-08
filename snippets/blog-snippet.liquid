@@ -1,0 +1,118 @@
+{% include 'blog-config' %}
+
+<div id="section-blog-{{ section.id }}" class="blog-section bg-{{ _bg_style }}{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}" data-section-type="reload_section" data-section-id="{{ section.id }}">
+  <div class="blog-container{% if _lazyload and _bg_style == 'image' %} lazyload{% endif %} {{ _bg_color_none }}" {{ background_section | strip }}>
+
+    <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}{% if _border_right_item %} border-right-item{% endif %}">
+      <div class="blog-content">
+
+        {%- assign _blog = section.settings.blog -%}
+        {%- assign _show_all_button = section.settings.show_all_button -%}
+        {%- assign _show_excerpt = section.settings.show_excerpt -%}
+        {%- assign blog = blogs[_blog] -%}
+
+        {% include 'heading-block' %}
+
+        {% unless _blog == blank or blog.articles_count == 0 %}
+
+          <div class="box-content {% if _type == 'row' %}row row-padding-{{ _padding_section }}{% else %}blog-carousel{% endif %}">
+            {% for article in blog.articles limit: _limit %}
+
+              {% if _item_per_row == 1 %}
+                <div class="post-item one-item {% if _type == 'row' %}col-12 padding-{{ _padding_section }}{% endif %}">
+                  <div class="post-item-inner{% unless _full_image %} fix-content{% endunless %}">
+
+                    <div class="post-content {{ _article_bg_none }}">
+                      <div class="info">
+                        {% if _article_show_tag %}
+                          <div class="tags">
+                            {% for tag in article.tags %}
+                              {%- assign _tag = tag | downcase -%}
+                              {%- unless _tag contains 'relatedproducts' -%}
+                                {{ tag | link_to_tag: tag }}
+                              {% endunless %}
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+
+                        <h4 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+
+                        <div class="meta-data">
+                          <span class="post-author">{{ article.author | escape }}. on</span>
+                          <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                        </div>
+
+                        {% if _show_excerpt and article.excerpt != blank %}
+                          <div class="post-excerpt">{{ article.excerpt }}</div>
+                        {% endif %}
+
+                        {% if _article_read_more_btn %}
+                          <a href="{{ article.url }}" class="btn btn-1 btn-read-more">{{ 'general.text.read_more' | t }}</a>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    {% if article.image %}
+                      <div class="post-image">
+                        <a href="{{ article.url }}">
+                          {%- assign _image_size = '1920x' -%}
+                          {% include 'image-lazysize' with image: article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}
+                        </a>
+                      </div>
+                    {% endif %}
+
+                  </div>
+                </div>
+
+              {% else %}
+                <div class="post-item item-per-row-{{ _item_per_row }} {% if _type == 'row' %}{{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} col-12 padding-{{ _padding_section }}{% endif %}">
+                  {% include 'featured-blog-item' %}
+                </div>
+              {% endif %}
+
+            {% endfor %}
+          </div>
+
+          {% if _show_all_button == 'below' or _show_all_button == 'btn-below' %}
+            <div class="show-all text-center"><a href="{{ blog.url }}" class="{% if _show_all_button == 'btn-below' %}btn btn-1{% else %}show-all-link{% endif %}">{{ 'general.text.view_all' | t }}</a></div>
+          {% endif %}
+
+        {% else %}
+
+          <div class="row">
+            {{ emptyBlog }}
+          </div>
+
+        {% endunless %}
+
+      </div>
+    </div>
+
+    <style type="text/css">
+      #section-blog-{{ section.id }}.blog-section .post-item.one-item .post-content,
+      #section-blog-{{ section.id }}.blog-section .post-item.item-per-row-2 .overlay-textbox .post-content{
+        background: {{ _article_bg }};
+      }
+      #section-blog-{{ section.id }} .post-item .post-title{
+        color: {{ _article_heading_color }};
+      }
+      #section-blog-{{ section.id }} .post-item .meta-data,
+      #section-blog-{{ section.id }} .post-item .post-excerpt{
+        color: {{ _article_text_color }};
+      }
+    </style>
+
+  </div>
+</div>
+
+{%- if _type == 'carousel' -%}
+<input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+        data-id="#section-blog-{{ section.id }} .blog-carousel"
+        data-nav="{{ _navigator }}"
+        data-margin="{{ _padding_section }}"
+        data-resp="4"
+        data-items-1="1"
+        data-items-2="{{ _item_per_row_mobile }}"
+        data-items-3="{{ _item_per_row_tablet }}"
+        data-items-4="{{ _item_per_row }}">
+{%- endif -%}

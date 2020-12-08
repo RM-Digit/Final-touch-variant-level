@@ -1,0 +1,67 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+{% if section.blocks.size > 0 %}
+  <div class="container">
+    <div id="col-main" class="page-content page-faq">
+
+      <h1 class="page-heading">{{ page_title }}</h1>
+
+      <div id="accordion">
+        <div id="faq-questions" class="faq-questions">
+          {% for block in section.blocks %}
+
+            {%- assign _heading = block.settings.heading -%}
+            {%- assign _content = block.settings.content -%}
+
+            {% unless _heading == blank or _content == blank %}
+              <div class="panel panel-faq">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#answer-{{ block.id }}" aria-expanded="false" aria-controls="answer-{{ block.id }}">{{ _heading }}</a>
+                  </h4>
+                </div>
+
+                <div id="answer-{{ block.id }}" class="panel-collapse collapse" data-parent="#faq-questions">
+                  <div class="panel-body">{{ _content }}</div>
+                </div>
+              </div>
+            {% endunless %}  
+
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "FAQ Page",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

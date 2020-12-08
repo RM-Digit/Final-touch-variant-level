@@ -1,0 +1,30 @@
+{%- assign _special_product = block.settings.product -%}
+
+{% unless _special_product == blank %}
+  {% assign product = all_products[_special_product] %}
+
+  {%- assign _heading_block = block.settings.heading -%}
+  {%- assign _bigger_size_block = block.settings.bigger_size -%}
+
+  {% if block.settings.alignment == blank %}
+    {%- assign _alignment_block = 'center' -%}
+  {% else %}
+    {%- assign _alignment_block = block.settings.alignment -%}
+  {% endif %}
+
+  <div class="product-grid-special col-md-5 padding-{{ _padding_section }}">
+
+    {% unless _heading_block == blank %}
+      <div class="title-wrapper text-{{ _alignment_block }}{% if _bigger_size_block %} bigger-size{% endif %}">
+        <h3>{{ _heading_block }}</h3>
+      </div>
+    {% endunless %}
+
+    <div class="box-content special-products">
+      <div class="box-product">
+        {% include 'special-product-item' %}
+      </div>
+    </div>
+  </div>
+
+{% endunless %}

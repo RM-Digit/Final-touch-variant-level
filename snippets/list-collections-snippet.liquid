@@ -1,0 +1,144 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _background = section.settings.bg -%}
+{%- assign _bg_image = section.settings.bg_image -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _border_content = section.settings.border_content -%}
+{%- assign _border_content_color = section.settings.border_content_color -%}
+{%- assign _border_content_size = section.settings.border_content_size -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{%- assign _show_all_btn = section.settings.show_all_btn -%}
+{%- assign _show_all_link = section.settings.show_all_link -%}
+
+{% assign _block_heading_bold = section.settings.heading_bold %}
+{% assign _block_heading_color = section.settings.heading_color %}
+{% assign _block_heading_size = section.settings.heading_size %}
+{% assign _block_content_bold = section.settings.content_bold %}
+{% assign _block_content_uppercase = section.settings.content_uppercase %}
+
+{% if _layout == 'boxed' or _layout == 'boxed-padding' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% if _background == 'bg-image' %}
+  {% if _lazyload %}
+    {% capture background %}{{ _bg_image | img_url: '1920x' }}{% endcapture %}
+  {% else %}
+    {% capture background %}url({{ _bg_image | img_url: '1920x' }}) no-repeat {{ _bg_color }}{% endcapture %}
+  {% endif %}
+{% else %}
+  {% capture background %}{{ _bg_color }}{% endcapture %}
+{% endif %}
+
+{% capture emptyCollection %}
+  <div class="col-lg-6 col-md-6 col-sm-12 col-12 item-col">
+    <div class="item">
+
+      <div class="text-box">
+        <ul>
+          {% for i in (1..12) %}
+            <li>{{ 'homepage.onboarding.collection_title' | t }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+{% endcapture %}
+
+<div id="list-collection-{{ section.id }}" class="list-collection-v1{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  <div class="lc-container-v1{% if _border_content %} border-content{% endif %} bg-style{{ _background }}{% if _lazyload and _background == 'bg-image' %} lazyload{% endif %}" {% if _lazyload and _background == 'bg-image' %}data-bgset="{{ background }}" style="background-repeat: no-repeat; background-color: {{ _bg_color }};"
+    {% else %} style="background: {{ background }};"{% endif %}>
+
+    <div class="lc-items{% if _border_bottom %} lc-border-bottom{% endif %}">
+      <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+
+        {% include 'heading-block' %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="list-collection"{% if _border_content %} style="border:{{ _border_content_size }}px solid {{ _border_content_color }}"{% endif %}>
+            <div class="row">
+
+              {% for block in section.blocks %}
+                {%- assign _width = block.settings.width -%}
+                {%- assign _margin_top = block.settings.margin_top -%}
+              	{%- assign _border_right_item = block.settings.border_right_item -%}
+                {%- assign _heading = block.settings.heading -%}
+                {%- assign _link = block.settings.link -%}
+                {%- assign _menu = block.settings.menu_item -%}
+                {%- assign _bg_image = block.settings.image -%}
+                {%- assign _image_size = block.settings.image_size -%}
+
+                {% capture background_section %}
+                  {% unless _bg_image == blank %}
+                    {% if _lazyload %}
+                      data-bgset = "{{ _bg_image | img_url: _image_size }}"
+                    {% else %}
+                      style="background-image: url({{ _bg_image | img_url: _image_size }});"
+                    {% endif %}
+                  {% endunless %}
+                {% endcapture %}
+
+                {% unless _menu == blank %}
+                  <div class="block-item-col-{{ block.id }} {% if _border_right_item %}border-right-item {% endif %}{% if _width == 0 %}col{% else %}col-lg-{{ _width }} col-md-{{ _width }} col-sm-6 col-12{% endif %} item-col{% if _lazyload and _bg_image != blank %} lazyload{% endif %}{% unless _bg_image == blank %} bg-image{% endunless %}"{% unless _bg_image == blank %} {{ background_section | strip }}{% endunless %}>
+                    <div class="item{% if _width < 4 or _layout == 'boxed-padding' %} one-column{% endif %}">
+   
+                      <div class="text-box">
+                        {% unless _heading == blank %}
+                          <h6 class="{% if _block_heading_bold %}bold-text{% endif %}" style="color: {{ _block_heading_color }}; font-size: {{ _block_heading_size }}px;"><a href="{{ _link }}">{{ _heading }}</a></h6>
+                        {% endunless %}
+
+                        <ul>  
+                          {% for link in linklists[_menu].links %}
+                            <li class="{% if _block_content_uppercase %}text-uppercase{% endif %}{% if _block_content_bold %} bold-text{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+                          {% endfor %} 
+                        </ul>
+                      </div>
+
+                    </div>
+                    
+                    {% if _margin_top > 0 %}
+                      <style type="text/css">
+                        .lc-container-v1 .block-item-col-{{ block.id }}.item-col{
+                          margin-top: {{ _margin_top }}px;
+                        }
+                      </style>
+                    {% endif %}
+                  </div> 
+
+                {% else %}
+                  {{ emptyCollection }}
+                  
+                {% endunless %}
+
+              {% endfor %}
+
+            </div>
+          </div>
+
+          {% if _show_all_btn %}
+            <div class="show-all"><a href="{{ _show_all_link }}" class="btn btn-3 show-all-link">{{ 'general.text.view_all' | t }}</a></div>
+          {% endif %}
+
+        {% else %}
+
+          <div class="list-collection">
+            <div class="row">
+              {% for i in (1..2) %}
+                {{ emptyCollection }}
+              {% endfor %}
+            </div>
+          </div>
+
+        {% endif %}
+    
+      </div>
+    </div>
+    
+  </div>
+</div>

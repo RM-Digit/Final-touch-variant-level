@@ -1,0 +1,361 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{% unless section.settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div id="col-main" class="page-content page-category-top" data-section-type="reload_page" data-section-id="{{ section.id }}">
+  {% if section.blocks.size > 0 %}
+
+    {% for block in section.blocks %}
+
+      <div class="block-{{ block.type }} page-category-top-block-{{ block.id }}">
+
+      {% case block.type %}
+
+        {% when 'banner' %}
+          {%- assign _type = block.settings.type -%}
+          {% if _type == 'row' %}
+            {%- assign _row_class = 'row row-1' -%}
+          {% else %}
+            {%- assign _row_class = 'ct-banner-carousel' -%}
+          {% endif %}
+
+          {%- assign _number = 0 -%}
+          {% for i in (1..3) %}
+          {%- assign _image = 'image_' | append: i -%}
+          {% unless block.settings[_image] == blank %}
+          {%- assign _number = _number | plus: 1 -%}
+          {% endunless %}
+          {% endfor %}
+          
+          {% if _number == 1 %}
+            {%- assign _class = 'col-12' -%}
+          {% elsif _number == 2 %}
+            {%- assign _class = 'col-6' -%}
+          {% else %}
+            {%- assign _class = 'col-md-4 col-sm-6 col-6' -%}
+          {% endif %}
+
+          <div class="container">
+            <div class="{{ _row_class }}">
+              {% for i in (1..3) %}
+                {%- assign _image = 'image_' | append: i -%}
+                {%- assign _image_border_right = 'image_border_right_' | append: i -%}
+                {%- assign _link = 'link_' | append: i -%}
+                {%- assign _text = 'text_' | append: i -%}
+
+                {% unless block.settings[_image] == blank %}
+                  <div class="image{% if _type == 'row' %} {{ _class }}{% endif %}{% if block.settings[_image_border_right] %} image-border-right{% endif %}">
+                    {% if block.settings[_link] == blank %}
+                      {% include 'image-lazysize' with image: block.settings[_image], image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                    {% else %}
+                      <a href="{{ block.settings[_link] }}">{% include 'image-lazysize' with image: block.settings[_image], image_size: _image_size, image_class: '', image_alt: 'Banner' %}</a>
+                    {% endif %}
+                    {% unless block.settings[_text] == blank %}
+                      <h6><a href="{{ block.settings[_link] }}">{{ block.settings[_text] }}</a></h6>
+                    {% endunless %}
+                  </div>
+                {% endunless %}
+
+              {% endfor %}
+            </div>
+          </div>
+
+        {% when 'product' %}
+          {%- assign _type = block.settings.type -%}
+          {%- assign _justify_content = block.settings.justify_content -%}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _show_all_text = block.settings.show_all_text -%}
+          {%- assign _collection = block.settings.collection -%}
+          {%- assign collection = collections[_collection] -%}
+          {%- assign _limited = block.settings.limited -%}
+
+          {% unless _collection == blank %}
+            <div class="container{% if settings.right_position %} owl-nav-right{% endif %}">
+              <div class="block-product-inner">
+
+                {% unless _heading == blank %}
+                  <div class="title-wrapper text-center subheading-position-float-right">
+                    <h3>{{ _heading }}</h3>
+                    {% if _show_all_text != blank and settings.template_skin == 'market-gray'  %}<a class="show-all-link" href="{{ collection.url }}">{{ _show_all_text }}</a>{% endif %}
+                  </div>
+                {% endunless %}
+
+                <div class="product-list">
+                  {% if _type == 'row' %}
+                    <div class="row{% if _justify_content %} justify-content-md-center{% endif %}">
+                      {% for product in collection.products limit: _limited %}
+                        <div class="{% if settings.template_skin == 'modern' or settings.template_skin == 'market-gray' %}col-xl-fix-7 col-lg-2 {% endif %}col-md-3 col-sm-4 col-6">
+                          {% include 'product-item' %}
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                  {% else %}
+                    <div class="product-list-carousel">
+                      {% for product in collection.products limit: _limited %}
+                        {% include 'product-item' %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if _show_all_text != blank and settings.template_skin == 'market-gray'  %}
+                  <div class="btn-link">
+                    <a class="show-all-link btn btn-3" href="{{ collection.url }}">{{ _show_all_text }}</a>
+                  </div>
+                {% endif %}
+
+              </div>
+            </div>
+          {% endunless %}
+
+        {% when 'banner-2' %}
+          {%- assign _image = block.settings.image -%}
+          {%- assign _text = block.settings.heading -%}
+          {%- assign _button_text = block.settings.button_text -%}
+          {%- assign _button_link = block.settings.button_link -%}
+
+          <div class="container">
+            <div class="box-with-image">
+              <div class="row">
+
+                {% unless _image == blank %}
+                  <div class="col-md-6 col-sm-5 col-12">
+                    <div class="image">
+                      {% include 'image-lazysize' with image: _image, image_size: '570x', image_class: '', image_alt: 'Banner' %}
+                    </div>
+                  </div>
+                {% endunless %}
+
+                <div class="col-md-6 col-sm-7 col-12">
+                  <div class="text">
+                    {% unless _text == blank %}<h2>{{ _text }}</h2>{% endunless %}
+                    {% unless _button_text == blank %}<a class="btn-banner btn btn-1" href="{{ _button_link }}">{{ _button_text }}</a>{% endunless %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        {% when 'menu' %}
+          {%- assign _justify_content = block.settings.justify_content -%}
+          <div class="container">
+            <div class="menu-list-item">
+              <div class="row{% if _justify_content %} justify-content-md-center{% endif %}">
+                {% for i in (1..3) %}
+                  {%- assign _mega_width = 'mega_width_' | append: i -%}
+                  {%- assign _menu_heading = 'menu_heading_' | append: i -%}
+                  {%- assign _menu = 'menu_' | append: i -%}
+
+                  {% unless block.settings[_menu] == blank %}
+                    <div class="col-md-{{ block.settings[_mega_width] }}">
+                      <div class="menu-box">
+                        <h6>{{ block.settings[_menu_heading] }}</h6>
+
+                        <ul class="list">
+                          {% for l in linklists[block.settings[_menu]].links %}
+                            <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  {% endunless %}
+
+                {% endfor %}
+
+                {%- assign _show_textbox_content = block.settings.show_textbox_content -%}
+                {% if _show_textbox_content %}
+                  {%- assign _textbox_width = block.settings.mega_width_4 -%}
+                  {%- assign _image = block.settings.image -%}
+                  {%- assign _image_size = block.settings.image_size -%}
+                  {%- assign _heading = block.settings.image_title -%}
+                  {%- assign _subheading = block.settings.subtitle -%}
+                  {%- assign _button_text = block.settings.button_text -%}
+                  {%- assign _button_link = block.settings.button_link -%}
+
+                  <div class="col-md-{{ _textbox_width }}">
+                    <div class="image-box"> 
+                      <div class="textbox">
+                        {% unless _heading == blank %}<h6>{{ _heading }}</h6>{% endunless %}
+                        {% unless _subheading == blank %}<div class="subtitle">{{ _subheading }}</div>{% endunless %}
+                        {% unless _button_text == blank %}
+                          <a class="button-icon" href="{{ _button_link }}">{{ _button_text }}</a>
+                        {% endunless %}
+                      </div>
+                      {% unless _image == blank %}
+                        <div class="image">
+                          {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                        </div>   
+                      {% endunless %}
+                    </div>
+                  </div>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+
+        {% when 'list-collections' %}
+          {%- assign _style = block.settings.style -%}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _bg_color_item = block.settings.bg_color_item -%}
+          {%- assign _image_size = '110x' -%}
+
+          <div class="container">
+            <div class="list-collections list-collections-{{ block.id }} style-{{ _style }}">
+
+              {% unless _heading == blank %}
+                <div class="title-wrapper text-center"><h3>{{ _heading }}</h3></div>
+              {% endunless %}
+
+              <div class="list-collections-inner">
+                {% for i in (1..11) %}
+                  {%- assign _col = 'collection_' | append: i -%}
+                  {%- assign _image = 'image_' | append: i -%}
+                  {%- assign block_collection = block.settings[_col] -%}
+
+                  {% unless block_collection == blank %}
+                    {%- assign collection = collections[block_collection] -%}
+                    <div class="item">
+                      <a href="{{ collection.url }}">
+                        <span class="image">
+                          {% unless block.settings[_image] == blank %}
+                            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings[_image] | img_url: _image_size }}" alt="{{ collection.title }}" />
+                          {% else %}
+                            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ collection.image.src | img_url: _image_size }}" alt="{{ collection.title }}" />
+                          {% endunless %}
+                        </span>
+                        <span>{{ collection.title }}</span>
+                      </a>
+                    </div>
+                  {% endunless %}
+
+                {% endfor %}
+              </div>
+
+              {% if _style == '2' %}
+                <style type="text/css">
+                  .page-category-top .block-list-collections .list-collections-{{ block.id }}.style-2 .item a .image{
+                    background: {{ _bg_color_item }};
+                  }
+                </style>
+              {% endif %}
+
+            </div>
+          </div>
+
+        {% when 'textbox' %}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _heading_color = block.settings.heading_color -%}
+          {%- assign _heading_size = block.settings.heading_size -%}
+
+          <div class="container">
+            <div class="text">
+              {% unless _heading == blank %}
+                <div class="title" style="color: {{ _heading_color }}; font-size: {{ _heading_size }}px;">
+                  <div class="p-title">{{ _heading }}</div>
+                </div>
+              {% endunless %}
+            </div>
+          </div>
+
+        {% when 'article' %}
+          {% include 'category-top-article' %}
+
+        {% else %}
+          <div class="container">
+            <div class="logo-list">
+              {%- assign _image_size = '160x' -%}
+              {%- assign _heading = block.settings.heading -%}
+              {%- assign _show_all_btn = block.settings.show_all_btn -%}
+              {% unless _heading == blank %}
+                <div class="title-wrapper text-center">
+                  <h3>{{ _heading }}</h3>
+                  {% if _show_all_btn != blank and settings.template_skin != 'market-gray'  %}<a href="{{ _show_all_btn }}">{{ 'general.text.view_all' | t }}</a>{% endif %}
+                </div>
+              {% endunless %}
+
+              <div class="logo-list-carousel">
+                {% for i in (1..9) %}
+                  {%- assign _image = 'image_' | append: i -%}
+
+                  {% unless block.settings[_image] == blank %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings[_image] | img_url: _image_size }}" alt="Logo list" />
+                  {% endunless %}
+
+                {% endfor %}
+              </div>
+
+              {% if _show_all_btn != blank and settings.template_skin == 'market-gray'  %}
+                <div class="btn-link">
+                  <a href="{{ _show_all_btn }}" class="btn btn-3">{{ 'general.text.view_all' | t }}</a>
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+
+        {% endcase %}
+
+      </div>
+
+    {% endfor %}
+
+  {% endif %}
+</div>
+
+<script>
+  jQuery(document).ready(function($) {
+    var i_sections = new theme.Sections();
+    i_sections.register('reload_page' ,function(){
+      jQuery('.page-category-top .logo-list-carousel').length && jQuery('.page-category-top .logo-list-carousel').owlCarousel({
+        nav   : false
+        ,dots : false
+        ,margin : {% if settings.template_skin == 'modern' %}10{% else %}20{% endif %}
+        ,rtl    : jQuery('body').data('rtl')
+        ,responsive : {
+          0:{items: 1}
+          ,320:{items: 2}
+          ,480:{items: 3}
+          ,600:{items: 4}
+          ,768:{items: 5}
+          ,992:{items: 6}
+          {% if settings.template_skin == 'modern' %}
+          ,1024:{items: 7}
+          ,1100:{items: 8}
+          ,1200:{items: 9}
+          {% elsif settings.template_skin == 'clean' %}
+          ,1024:{items: 6}
+          {% else %}
+          ,1024:{items: 7}
+          {% endif %}
+        }
+      });
+
+      jQuery(".page-category-top .product-list-carousel").length && jQuery('.page-category-top .product-list-carousel').owlCarousel({
+        nav     : true
+        ,dots   : false
+        ,rtl    : jQuery('body').data('rtl')
+        ,margin   : {% if settings.template_skin == 'modern' %}10{% else %}20{% endif %}
+        ,responsive : {
+          0:{items: 1}
+          ,320:{items: 2}
+          ,600:{items: 3}
+          ,768:{items: 4}
+          {% if settings.template_skin == 'modern' or settings.template_skin == 'market-gray' %}
+          ,992:{items: 5}
+          ,1024:{items: 6}
+          ,1200:{items: 7}
+          {% elsif settings.template_skin == 'furniture' %}
+          ,992:{items: 5}
+          ,1200:{items: 6}
+          {% else %}
+          ,992:{items: 5}
+          ,1200:{items: 6}
+          {% endif %}
+        }
+        ,navText : ['<span class="button-prev"></span>', '<span class="button-next"></span>']
+      });
+    });
+  });
+</script>

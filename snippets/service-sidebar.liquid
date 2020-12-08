@@ -1,0 +1,31 @@
+<div class="sb-widget">
+  <div class="sb-service">
+
+    {% for i in (1..5) %}
+      {% assign show = 'enable_sb_services_' | append: i %}
+
+      {% if block.settings[show] %}
+        {% assign icon = 'sb_services_icon_' | append: i %}
+        {% assign title = 'sb_services_title_' | append: i %}
+        {% assign caption = 'sb_services_caption_' | append: i %}
+
+        <div class="sb-service-item">
+          <ul class="list-si">
+            {% unless block.settings[icon] == blank %}
+              <li class="icon">
+                <span class="demo-icon {{ block.settings[icon] }}"></span>
+              </li>
+            {% endunless %}
+
+            <li class="text">
+              {% unless block.settings[title] == blank %}<span class="text-1">{{ block.settings[title] }}</span><br />{% endunless %}
+              {% unless block.settings[caption] == blank %}<span class="text-2">{{ block.settings[caption] }}</span>{% endunless %}
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+</div>

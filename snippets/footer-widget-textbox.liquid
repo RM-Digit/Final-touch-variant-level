@@ -1,0 +1,11 @@
+{% assign _text_1 = block.settings.text_1 %}
+{% assign _text_2 = block.settings.text_2 %}
+
+<div class="col-md-{{ _width }} col-sm-12 col-12{% if _width == 12 %} fix-menu{% endif %}">
+  <div class="footer-block textbox">
+
+    {% unless _text_1 == blank %}<div class="text text-1">{{ _text_1 }}</div>{% endunless %}
+    {% unless _text_2 == blank %}<div class="text text-2">{{ _text_2 }}</div>{% endunless %}
+
+  </div>
+</div>

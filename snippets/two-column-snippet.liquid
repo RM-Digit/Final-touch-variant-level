@@ -1,0 +1,397 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+
+{%- assign _autoplay = section.settings.autoplay -%}
+{%- assign _autoplay_speed = section.settings.autoplay_speed | time: 1000 -%}
+{%- assign _animation = section.settings.animation -%}
+{%- assign _navigator = section.settings.navigator -%}
+
+{%- assign _bg_style = section.settings.bg_style -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _bg_image = section.settings.bg_image -%}
+
+{% capture background_section %}
+  {% if _bg_style == 'color' %}
+    style="background: {{ _bg_color }};"
+  {% else %}
+    {% unless _bg_image == blank %}
+      {% if _lazyload %}
+        data-bgset = "{{ _bg_image | img_url: '1920x' }} 1920w"
+      {% else %}
+        style="background-image: url({{ _bg_image | img_url: '1920x' }});"
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endcapture %}
+
+{% capture emptyImage %}
+  <div class="image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+{% endcapture %}
+
+<div id="two-column-{{ section.id }}" class="section-two-column layout-boxed{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="two-column-content{% if _lazyload and _bg_style == 'image' %} lazyload{% endif %}" {{ background_section | strip }}>
+
+    <div class="content-container container">
+      <div class="two-column-content-position"><span></span></div>
+      <div class="row">
+
+        {% if section.blocks.size > 0 %}
+          {%- assign _position = 'left' -%}
+          {%- assign _left_column = 'position-left col-lg-3' -%}
+          {%- assign _main_column = 'col-lg-9' -%}
+
+          {% for block in section.blocks %}
+            {% if block.type == 'left-column' %}
+              {%- assign _left_column_padding_top = block.settings.left_column_padding_top -%}
+              {% if block.settings.position == 'right' %}
+                {%- assign _position = 'right' -%}
+                {%- assign _left_column = 'position-right col-lg-4' -%}
+                {%- assign _main_column = 'col-lg-8' -%}
+              {% endif %}  
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if _position == 'left' %}
+            <div class="{{ _left_column }}{% if _left_column_padding_top > 20 %} padding-space{% endif %} d-none d-lg-block" style="padding-top: {{ _left_column_padding_top }}px;">
+              <div class="two-column-left">
+
+                {% for block in section.blocks %}
+
+                  {% if block.type == 'left-column' %}
+
+                    {% include 'left-column-menu' %}
+                    {% include 'two-column-config' %}
+                    {% if _show_banner %}{% include 'left-column-banner' %}{% endif %}
+                    {% include 'left-column-product' %}
+
+                    {% break %}
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+            </div>
+          {% endif %}
+            
+          <div class="{{ _main_column }} col-md-12">
+            <div class="two-column-main">
+
+              <div class="two-column-slideshow-{{ section.id }} tc-swiper-container" data-autoplay="{{ _autoplay }}" data-time="{{ _autoplay_speed }}" data-animation="{{ _animation }}">
+                <div class="tc-slideshow tc-slideshow-{{ section.id }} swiper-wrapper">
+
+                  {% for block in section.blocks %}
+                    {% if block.type == 'slideshow' %}
+
+                      {%- assign link = block.settings.link -%}
+                      {%- assign textAlign = block.settings.alignment -%}
+                      {%- assign position = block.settings.position -%}
+                      {%- assign horizontal_position = block.settings.horizontal_position -%}
+                  
+                      {%- assign headingText = block.settings.heading -%}
+                      {%- assign headingBoldText = block.settings.heading_bold -%}
+                      {%- assign headingAnimation = block.settings.heading_animation -%}
+                      {%- assign headingAnimationDelay = block.settings.heading_animation_delay -%}
+                      {%- assign headingColor = block.settings.heading_color -%}
+                      {%- assign headingSize = block.settings.heading_size -%}
+                  
+                      {%- assign subheadingText = block.settings.subheading -%}
+                      {%- assign subheadingBoldText = block.settings.subheading_bold -%}
+                      {%- assign subheadingAnimation = block.settings.subheading_animation -%}
+                      {%- assign subheadingAnimationDelay = block.settings.subheading_animation_delay -%}
+                      {%- assign subheadingColor = block.settings.subheading_color -%}
+                      {%- assign subheadingSize = block.settings.subheading_size -%}
+                  
+                      {%- assign buttonText = block.settings.button_text -%}
+                      {%- assign buttonTextColor = block.settings.button_text_color -%}
+                      {%- assign buttonBackground = block.settings.button_text_bg_color -%}       
+                      {%- assign buttonAnimation = block.settings.button_animation -%}
+                      {%- assign buttonAnimationDelay = block.settings.button_animation_delay -%}
+                  
+                      {%- assign image_width = '[1024, 1366, 1920, 2048]' -%}
+                  
+                      {% if headingText == blank  and subheadingText == blank  and buttonText == blank %}
+                        {%- assign _has_text = false -%}
+                      {% else %}
+                        {%- assign _has_text = true -%}
+                      {% endif %}
+
+                      {%- assign _image = block.settings.image -%}
+                      {%- assign _image_mobile = block.settings.mobile_image -%}
+
+                      {% unless _image == blank %}
+
+                        <div class="swiper-slide swiper-slide-tc-{{ block.id }}">
+                          <a href="{{ link }}">
+                            {% include 'image-slideshow-lazysize' with image:_image_mobile, image_class: 'img-mobile', image_size: '1080x' %}
+                            {% include 'image-slideshow-lazysize' with image:_image, image_class: 'img-desk', image_size: '1920x' %}
+                          </a>  
+
+                          <div class="swiper-content {{ textAlign }} slide-{{ forloop.index }}">
+                            {% if _has_text %}
+
+                              <div class="container-box" style="top: {{ position }}%; left: {{ horizontal_position }}%;transform: translate(-{{ horizontal_position }}%, -{{ position }}%);">
+
+                                {% unless headingText == blank %}<div class="heading bold-{{ headingBoldText }}">{{ headingText }}</div>{% endunless %}
+                                {% unless subheadingText == blank %}<div class="subheading bold-{{ subheadingBoldText }}">{{ subheadingText }}</div>{% endunless %}
+
+                                {% unless buttonText == blank %}
+                                  <div class="caption-link">  
+                                    <a class="slider-button btn" href="{{ link }}">{{ buttonText }}</a>    
+                                  </div>
+                                {% endunless %}
+
+                                {% include 'slideshow-css' %}
+
+                              </div> 
+                              
+                            {% endif %}
+                          </div> 
+
+                          <style type="text/css">
+                            .swiper-slide-tc-{{ block.id }}.swiper-slide-active .heading {
+                              color: {{ headingColor }}; font-size: {{ headingSize }}px; -webkit-animation-name: {{headingAnimation }}; animation-name: {{ headingAnimation }}; -webkit-animation-delay: {{ headingAnimationDelay }}s; animation-delay: {{ headingAnimationDelay }}s;
+                            }
+                            .swiper-slide-tc-{{ block.id }}.swiper-slide-active .subheading {
+                              color: {{ subheadingColor }}; font-size: {{ subheadingSize }}px; -webkit-animation-name: {{ subheadingAnimation }}; animation-name: {{ subheadingAnimation }}; -webkit-animation-delay: {{ subheadingAnimationDelay }}s; animation-delay: {{ subheadingAnimationDelay }}s;
+                            }
+                            .swiper-slide-tc-{{ block.id }}.swiper-slide-active .caption-link {
+                              -webkit-animation-name: {{ buttonAnimation }}; animation-name: {{ buttonAnimation }}; -webkit-animation-delay: {{ buttonAnimationDelay }}s; animation-delay: {{ buttonAnimationDelay }}s;
+                            }   
+                            .swiper-slide-tc-{{ block.id }}.swiper-slide-active .caption-link .slider-button{
+                              color: {{ buttonTextColor }};
+                              background: {{ buttonBackground }};
+                              border: 1px solid {{ buttonBackground }};
+                            } 
+                            .swiper-slide-tc-{{ block.id }} img{
+                              object-position: {{ block.settings.image_position }};                    
+                            } 
+                          </style>
+
+                        </div>
+
+                      {% else %}
+
+                        <div class="swiper-slide no-image">
+                          <a href="{{ link }}">{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}</a>
+                        </div>
+
+                      {% endunless %}
+
+                    {% endif %}
+                  {% endfor %}
+
+                </div>
+
+                {% if _navigator %}
+                  <div class="swiper-button-next tc-swiper-button-next swiper-button-white"></div>
+                  <div class="swiper-button-prev tc-swiper-button-prev swiper-button-white"></div>
+                {% endif %}
+              </div>  
+
+              <script>
+                jQuery(document).ready(function($) {
+
+                    if(jQuery('.tc-slideshow-{{ section.id }} .swiper-slide').length < 1){
+                      $('.two-column-slideshow-{{ section.id }}').remove();
+                    }
+
+                    if(jQuery('.two-column-slideshow-{{ section.id }}').length){
+                        jQuery('.two-column-slideshow-{{ section.id }}').each(function(index,value){
+
+                          let _delay_time = jQuery(value).data('time') * 1000;
+                          let _animation = jQuery(value).data('animation');
+
+                          let swiper = new Swiper('.tc-swiper-container', {
+                            {% if _autoplay %}
+                              autoplay: {
+                                delay: _delay_time,
+                                disableOnInteraction: false,
+                              },
+                            {% endif %}
+                            loop: true,
+                            navigation: {
+                              nextEl: '.tc-swiper-button-next',
+                              prevEl: '.tc-swiper-button-prev',
+                            },
+                            spaceBetween: 0,
+                            effect: _animation,
+                            {% case section.settings.animation %}
+                              {% when 'cube' %}
+                                cubeEffect: {
+                                  slideShadows: false
+                                },
+                              {% when 'coverflow' %}
+                                coverflowEffect: {
+                                  rotate: 30,
+                                  slideShadows: false
+                                },
+                              {% when 'flip' %}
+                                flipEffect: {
+                                  rotate: 30,
+                                  slideShadows: false
+                                },
+                              {% else %}
+                            {% endcase %}
+                            setWrapperSize: false
+                          });
+                        });
+                    } 
+                  
+                });
+              </script>
+
+              {% for block in section.blocks %}
+
+                {% if block.type == 'notice' %}
+
+                  {%- assign _background = block.settings.bg_color -%}
+                  {%- assign _text = block.settings.text -%}
+                  {%- assign _text_color = block.settings.text_color -%}
+                  {%- assign _text_span_color = block.settings.text_span_color -%}
+                  {%- assign _text_size = block.settings.text_size -%}
+                  {%- assign _padding_top = block.settings.padding_top -%}
+
+                  <div class="two-column-notice-bar col-12" style="margin-top: {{ _padding_top }}px;">
+                    <div class="text-box" style="background: {{ _background }};">
+                      {% unless _text == blank %}
+                        <div class="text">{{ _text }}</div>
+                      {% else %}
+                        <div class="text">ONLY IN THIS WEEK. FREE SHIPPING FOR ALL&nbsp;ODERS <span style="color: #ff711f;">OVER&nbsp;$400</span></div>
+                      {% endunless %}
+                    </div>
+
+                    <style type="text/css">
+                      #two-column-{{ section.id }} .two-column-notice-bar .text-box .text{
+                        color: {{ _text_color }};
+                        font-size: {{ _text_size }}px;
+                      }
+                      #two-column-{{ section.id }} .two-column-notice-bar .text-box .text > span{
+                        color: {{ _text_span_color }};
+                      }
+                    </style>
+                  </div>
+
+                {% elsif block.type == 'banner' %}
+                  {%- assign _width = block.settings.width -%}
+
+                  <div class="two-column-image col-md-{{ _width }} col-sm-12 col-12">
+                    {% include 'two-column-config' %} 
+                    {% include 'left-column-banner' %}
+                  </div>
+
+                {% else %}
+
+                {% endif %}
+
+              {% endfor %}
+
+            </div>
+          </div>
+
+          {% if _position == 'right' %}
+            <div class="{{ _left_column }} d-none d-lg-block">
+              <div class="two-column-left">
+
+                {% for block in section.blocks %}
+
+                  {% if block.type == 'left-column' %}
+
+                    {% include 'two-column-config' %}
+                    {% if _show_banner %}{% include 'left-column-banner' %}{% endif %}
+                    {% include 'left-column-product' %}
+
+                    {% break %}
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+            </div>
+          {% endif %}
+        
+        {% else %}
+        
+          <div class="col-lg-3 d-none d-lg-block">
+            <div class="two-column-left">
+
+              <div class="left-vertical-menu">
+                <nav class="navbar vertical-navbar">
+                  <div class="collapse navbar-collapse">
+
+                    <ul class="main-nav">
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+
+                      <li class="javascript:;">
+                        <a href="/collections/all"><span>{{ 'homepage.onboarding.menu_title' | t  }}</span></a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </nav>
+              </div>
+
+              <div class="banner-item text-box-overlay center-left">
+                {{ emptyImage }}
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-9 col-md-12">
+            <div class="banner-item">
+              {{ emptyImage }}
+            </div>
+
+            <div class="two-column-notice-bar" style="margin-top: {{ _padding_top }}px;">
+              <div class="text-box" style="background: #000000;">
+                <div class="text" style="color: #ffffff; font-size: 11px;">
+                  ONLY IN THIS WEEK. FREE SHIPPING FOR ALL&nbsp;ODERS <span style="color: #ff711f;">OVER&nbsp;$400</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="banner-item-content">
+              <div class="row">
+                {% for i in (1..2) %}
+
+                  <div class="col-md-6 col-sm-6 col-12">
+                    <div class="banner-item">
+                      {{ emptyImage }}
+                    </div>
+                  </div>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>

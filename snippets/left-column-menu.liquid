@@ -1,0 +1,33 @@
+{%- assign _show_menu_item = block.settings.show_menu_item -%}
+
+{% if _show_menu_item %}
+  <div class="left-vertical-menu">
+    <div class="sidemenu-holder">
+
+      <nav class="navbar vertical-navbar">
+        <div class="collapse navbar-collapse">
+        </div>
+      </nav>
+
+      <script type="text/javascript">
+        jQuery(document).ready(function($) {
+          var _vertical_html = $('.vertical-menu .main-nav');
+          var _vertical_left_column_html = $('.left-vertical-menu .navbar-collapse');
+
+          if($('.vertical-menu .sidemenu-holder').hasClass('bold-text')){
+            $('.left-vertical-menu .sidemenu-holder').addClass('bold-text');
+          }
+
+          if($('.header-container').hasClass('layout-full')){
+            $('#two-column-{{ section.id }}').removeClass('layout-boxed').addClass('layout-full');
+            $('#two-column-{{ section.id }} .two-column-content .content-container').removeClass('container').addClass('container-fluid');
+          }
+
+          _vertical_left_column_html.html(_vertical_html);
+          $('.vertical-menu .vertical-navbar').remove();
+        });
+      </script>
+
+    </div>
+  </div> 
+{% endif %}

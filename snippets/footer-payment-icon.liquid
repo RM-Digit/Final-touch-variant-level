@@ -1,0 +1,30 @@
+{% unless block.settings.payment_icon_type == 'none' %}
+  <div class="payment-icons">
+    
+    <ul class="list-inline">
+      {% if block.settings.payment_icon_type == 'image' and block.settings.payment_image != blank %}
+        {% assign _payment_size = block.settings.payment_image_width | append: 'x' %}
+        {% assign _payment_size_2x = block.settings.payment_image_width | times: 2 | append: 'x' %}
+        <li {% if _lazyload %} class="lazyload waiting{% endif %}"> 
+          <img {% if _lazyload %} class="lazyload" data-srcset="{{ block.settings.payment_image | img_url: _payment_size }} 1x, {{ block.settings.payment_image | img_url: _payment_size_2x }} 2x"
+               {% else %}src="{{ block.settings.payment_image | img_url: _payment_size }}"{% endif %} 
+               alt="Payment"
+               style="max-width: {{ block.settings.payment_image_width }}px;" />
+        </li> 
+
+      {% else %}
+        {% for i in (1..4) %}
+          {% assign _font_icon = 'payment_icon_' | append: i %}
+
+          {% unless block.settings[_font_icon] == blank %}
+            {% assign _icon_title = 'payment_icon_title_' | append: i %}
+            <li><i class="demo-icon {{ block.settings[_font_icon] }}" title="{{ block.settings[_icon_title] }}"></i></li>
+          {% endunless %}
+
+        {% endfor %}
+
+      {% endif %}
+    </ul>
+    
+  </div>
+{% endunless %}

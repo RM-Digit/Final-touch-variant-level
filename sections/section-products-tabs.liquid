@@ -1,0 +1,316 @@
+{% include 'products-tabs-snippet' %}
+
+{% schema %}
+{
+  "name": "Products Tabs",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Products Tabs' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Tabs"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "product_alignment",
+      "label": "Product text alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    }, 
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "fix_bg_color",
+      "label": "Fix background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_section",
+      "label": "Border section"
+    },
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "number_active",
+      "label": "Default active tab",
+      "min": 1,
+      "max": 10,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Newarrivals"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "go_to_text",
+      "label": "Show GO TO text"
+    },
+    {
+      "type": "header",
+      "content": "Block settings"
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "default": "row",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "carousel", "label": "Carousel" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "border_content",
+      "label": "Border content"
+    },
+    {
+      "type": "color",
+      "id": "border_content_color",
+      "label": "Border content color",
+      "default": "#ff711f"
+    },
+    {
+      "type": "range",
+      "id": "limited",
+      "label": "Total items",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Block Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_bottom",
+      "label": "Border bottom for active Heading"
+    },
+    {
+      "type": "range",
+      "id": "tab_heading_font_size",
+      "label": "Font size",
+      "min": 11,
+      "max": 30,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Number of items per row"
+    },
+    {
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Desktop",
+      "min": 2,
+      "max": 7,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_tablet",
+      "label": "Tablet",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_mobile",
+      "label": "Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Carousel settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigator",
+      "label": "Show Navigator",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Block Product"
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Heading",
+          "default": "Tab title"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection item"
+        },
+        {
+          "type": "header",
+          "content": "Block image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Text Box"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color",
+          "default": "#0046c3"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_label_color",
+          "label": "Button label",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Tabs",
+      "category": "Collection",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _background = section.settings.background_color -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{%- assign _border_line = section.settings.border_line -%}
+{%- assign _border_top = section.settings.border_top -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+{%- assign _border_logo_list = section.settings.border_logo_list -%}
+{%- assign _border_logo_list_color = section.settings.border_logo_list_color -%}
+{%- assign _border_logo_list_item = section.settings.border_ll_item -%}
+
+{%- assign _show_all_btn = section.settings.show_all_btn -%}
+{%- assign _show_all_btn_style = section.settings.show_all_style -%}
+{%- assign _show_all_btn_link = section.settings.show_all_btn_link -%}
+
+{% if _type == 'carousel' %}
+  {%- assign _item_per_row = section.settings.item_per_row -%}
+  {%- assign _item_per_row_2 = _item_per_row | minus: 1 -%}
+  {%- assign _item_per_row_3 = _item_per_row | minus: 1-%}
+  {%- assign _item_per_row_4 = _item_per_row | minus: 1-%}
+  {%- assign _item_per_row_tablet = section.settings.tablet_item_per_row -%}
+  {%- assign _item_per_row_tablet_2 = _item_per_row_tablet | plus: 1-%}
+  {%- assign _item_per_row_tablet_3 = _item_per_row_tablet | plus: 2-%}
+  {%- assign _item_per_row_mobile = section.settings.mobile_item_per_row -%}
+
+{% elsif _type == 'row' %}
+  {% if section.settings.item_per_row == 4 %}
+    {%- assign _item_per_row = 'col-lg-3' -%}
+  {% elsif section.settings.item_per_row == 5 %}
+    {%- assign _item_per_row = 'col-lg-fix-5' -%}
+  {% else %}
+    {%- assign _item_per_row = 'col-lg-2' -%}
+  {% endif %}
+
+  {% if section.settings.tablet_item_per_row == 3 %}
+    {%- assign _item_per_row_tablet = 'col-md-4 col-sm-6' -%}
+  {% else %}
+    {%- assign _item_per_row_tablet = 'col-md-3 col-sm-4' -%}
+  {% endif %}
+
+  {% if section.settings.mobile_item_per_row == 1 %}
+    {%- assign _item_per_row_mobile = 'col-12' -%}
+  {% elsif section.settings.mobile_item_per_row == 2 %}
+    {%- assign _item_per_row_mobile = 'col-6' -%}
+  {% else %}
+    {%- assign _item_per_row_mobile = 'col-4' -%}
+  {% endif %}
+  
+{% else %}
+{% endif %}
+
+{% if section.settings.image_size == blank %}
+  {%- assign _image_size = '150x' -%}
+{% else %}
+  {%- assign _image_size = section.settings.image_size -%}
+{% endif %}
+
+{% capture emptyImage %}
+  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+{% endcapture %}

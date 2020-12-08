@@ -1,0 +1,103 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _product_alignment = section.settings.product_alignment -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _number_active = section.settings.number_active -%}
+{%- assign _background = section.settings.bg_color -%}
+{%- assign _fix_background = section.settings.fix_bg_color -%}
+{%- assign _border_section = section.settings.border_section -%}
+{%- assign _product_border_top = settings.show_product_border_top -%}
+
+{%- assign _border_content = section.settings.border_content -%}
+{%- assign _border_content_color = section.settings.border_content_color -%}
+{%- assign _border_line = section.settings.border_line -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+{%- assign _tab_heading_font_size = section.settings.tab_heading_font_size -%}
+
+{%- assign _limit = section.settings.limited -%}
+{%- assign _item_per_row = section.settings.item_per_row -%}
+{%- assign _item_per_row_tablet = section.settings.item_per_row_tablet -%}
+{%- assign _item_per_row_mobile = section.settings.item_per_row_mobile -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{%- assign _navigator = section.settings.navigator -%}
+
+{% case _item_per_row %}
+  {% when 1 %}
+    {%- assign _desktop_class = "col-xl-12 col-lg-12" -%}
+  {% when 2 %}
+    {%- assign _desktop_class = "col-xl-6 col-lg-6" -%}
+  {% when 3 %}
+    {%- assign _desktop_class = "col-xl-4 col-lg-4" -%}
+  {% when 4 %}
+    {%- assign _desktop_class = "col-xl-3 col-lg-3" -%}
+  {% when 5 %}
+    {%- assign _desktop_class = "col-fix-5" -%}
+  {% when 6 %}
+    {%- assign _desktop_class = "col-xl-2 col-lg-2" -%}
+  {% else %}
+    {%- assign _desktop_class = "col-fix-7" -%}
+{% endcase %}
+
+{% case _item_per_row_tablet %}
+  {% when 1 %}
+    {%- assign _tablet_class = "col-md-12" -%}
+  {% when 2 %}
+    {%- assign _tablet_class = "col-md-6" -%}
+  {% when 3 %}
+    {%- assign _tablet_class = "col-md-4" -%}
+  {% when 4 %}
+    {%- assign _tablet_class = "col-md-3" -%}
+  {% else %}
+    {%- assign _tablet_class = "col-md-fix-5" -%}
+{% endcase %}
+
+{% case _item_per_row_mobile %}
+  {% when 1 %}
+    {%- assign _mobile_class = "col-sm-12" -%}
+  {% when 2 %}
+    {%- assign _mobile_class = "col-sm-6" -%}
+  {% else %}
+    {%- assign _mobile_class = "col-sm-4" -%}
+{% endcase %}
+
+{% capture emptyProduct %}
+  {% for i in (1.._item_per_row) %}
+
+    <div class="product-grid-item {{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} padding-{{ _padding_section }}">
+      <div class="product-wrapper">
+
+        <div class="product-head">
+          <div class="product-image">
+
+            <div class="featured-img">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+
+          </div>
+        </div> 
+
+        <div class="product-content text-{{ text_align }}">
+          <div class="pc-inner">
+            <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  {% endfor %}
+{% endcapture %}
+
+{% if _background == blank or _background == 'none' or _background == 'rgba(0,0,0,0)' %}
+  {%- assign _bg_color_none = 'bg-color-none' -%}
+{% endif %}

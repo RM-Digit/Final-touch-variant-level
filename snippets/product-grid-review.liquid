@@ -1,0 +1,9 @@
+{% unless settings.product_review_option == 'none' %}
+  <div class="product-review">
+    {% if settings.product_review_option == 'shopify-review' %}
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    {% else %}
+      <div class="loox-rating" data-fetch data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+    {% endif %}
+  </div>
+{% endunless %} 

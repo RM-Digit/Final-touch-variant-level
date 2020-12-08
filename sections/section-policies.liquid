@@ -1,0 +1,214 @@
+{% include 'policies-snippet' %}
+
+{% schema %}
+{
+  "name": "Service Bar",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Service Bar' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Service"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "boxed-bg", "label": "Boxed background" },
+        { "value": "full", "label": "Wide" },
+        { "value": "wide-padding", "label": "Wide padding" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Newarrivals"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Block settings"
+    },
+    {
+      "type": "select",
+      "id": "border_item",
+      "label": "Border item",
+      "default": "none",
+      "options": [
+        { "value": "all", "label": "All" },
+        { "value": "right", "label": "Right" },
+		{ "value": "none", "label": "None" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "default": "below",
+      "options": [
+        { "value": "below", "label": "Below image" },
+        { "value": "next", "label": "Next image" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "block_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "block_heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "block_subheading_color",
+      "label": "Subheading color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "image_size",
+      "label": "Image size",
+      "default": "45x35",
+      "info": "E.g: 45x35"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 13,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Number of items per row"
+    },
+    {
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Desktop",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_tablet",
+      "label": "Tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_mobile",
+      "label": "Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Text Box Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_text_bold",
+      "label": "Bold Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "subtitle_text_bold",
+      "label": "Bold Subeading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }, 
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Policy's title"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Policy's subtitle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service Bar",
+      "category": "Advanced layout",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,59 @@
+<div class="service-bar-container text-position-{{ _text_position }} style-{{ _style }}">
+  <div class="row row-1">
+
+    {% for i in (1.._item_per_row) %}
+      {%- assign _bar = 'bar_' | append : i-%}
+
+      {% if block.settings[_bar] %}
+        {%- assign _image = 'image_' | append : i -%}
+        {%- assign _icon = 'icon_' | append : i -%}
+        {%- assign _text_1 = 'text_' | append : i -%}
+        {%- assign _text_2 = 'subtext_' | append : i -%}
+
+        {% unless block.settings[_text_1] == blank %}
+          <div class="{% if _style == '5' or _style == '6' %}flex-item{% else %}col-md-{{ _item_class }} col-12{% endif %}">
+            <div class="item" style="color: {{ _text_color }}; font-size: {{ _text_font_size }}px;">
+              {% unless _image_type == 'none' %}
+                <div class="icon">
+                  {% if _image_type == 'image' %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ block.settings[_image] | img_url: '100x'  }}" alt="Icon" /> 
+                  {% else %}
+                    <i class="demo-icon {{ block.settings[_icon] }}"></i>
+                  {% endif %}
+                </div>
+              {% endunless %}
+
+              <div class="text">
+                <div class="heading">{{ block.settings[_text_1] }}</div>
+                {% unless block.settings[_text_2] == blank %}<p>{{ block.settings[_text_2] }}</p>{% endunless %}
+              </div>
+            </div>
+          </div>
+
+          {% if _style == '2' or _style == '4' %}<div class="line"></div>{% endif %}
+        {% endunless %}
+
+      {% endif %}
+    {% endfor %}
+
+    {% if _style == '7' %}
+      {% unless block.settings.payment_image == blank %}
+        <div class="payment-icons">
+
+          <ul class="list-inline">
+            {% assign _payment_size = block.settings.payment_image_width | append: 'x' %}
+            {% assign _payment_size_2x = block.settings.payment_image_width | times: 2 | append: 'x' %}
+            <li {% if _lazyload %} class="lazyload waiting{% endif %}"> 
+              <img {% if _lazyload %} class="lazyload" data-srcset="{{ block.settings.payment_image | img_url: _payment_size }} 1x, {{ block.settings.payment_image | img_url: _payment_size_2x }} 2x"
+                   {% else %}src="{{ block.settings.payment_image | img_url: _payment_size }}"{% endif %} 
+                   alt="Payment"
+                   style="max-width: {{ block.settings.payment_image_width }}px;" />
+            </li>  
+          </ul>
+          
+        </div>
+      {% endunless %}
+    {% endif %}
+
+  </div>
+</div>

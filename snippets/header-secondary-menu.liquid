@@ -1,0 +1,25 @@
+{% unless _secondary_nav_linklist == blank %}
+  {% assign _uppercase_nav = section.settings.uppercase_nav %}
+  {% assign _bold_nav = section.settings.bold_nav %}
+
+  <div class="horizontal-menu secondary-code dropdown-fix d-none d-lg-block">
+    <div class="sidemenu-holder{% if _uppercase_nav %} text-uppercase{% endif %}{% if _bold_nav %} bold-text{% endif %}">
+
+      <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+          <ul class="menu-list">
+            {% for l in linklists[_secondary_nav_linklist].links %}
+              <li> 
+                <a href="{{ l.url }}">
+                  <span>{{ l.title }}</span>
+                  {% include 'menu-label' %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+{% endunless %}

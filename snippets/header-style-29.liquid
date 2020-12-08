@@ -1,0 +1,41 @@
+<div class="header-main">
+  <div class="header-main-inner">
+
+    <div class="{{ _layout_class }}">
+      <div class="table-row">
+
+        <div class="navbar navbar-responsive-menu d-lg-none">
+          <div class="responsive-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+        
+        {% include 'header-mobile-cart-icon' %}
+        {% include 'header-logo' %} 
+        {% include 'social-media-icons' %}
+        {% include 'header-secondary-menu' %}
+        {% include 'header-switcher' %}
+        {% include 'header-icons' %}
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% unless _nav_linklist == blank and _vertical_nav_linklist == blank %}
+  <div class="header-navigation{% unless settings.nav_border == blank %} add-border{% endunless %} d-none d-lg-block">
+
+    <div class="{{ _layout_class }}">
+      <div class="table-row">
+        {% include 'header-vertical-menu' %}
+        {% include 'header-horizontal-menu' %} 
+      </div>
+    </div>
+
+    {% include 'header-search' %}
+
+  </div>
+{% endunless %}

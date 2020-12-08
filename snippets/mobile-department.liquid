@@ -1,0 +1,29 @@
+<div class="mobile-department d-lg-none">
+  <div class="container">
+    
+    {% assign _lazyload = settings.use_lazyload %}
+    
+    <ul class="mobile-department-list">
+      
+      {% for block in section.blocks %}
+        {% assign _image = block.settings.image %}
+
+        {%  unless _image == blank %}
+          {% assign _link = block.settings.link %}
+          {% assign _text = block.settings.text %}
+
+          <li{% if _link contains collection.url %} class="active"{% endif %}>
+            <a href="{{ _link }}">
+              {% include 'image-lazysize' with image: _image, image_size: '40x', image_class: '', image_alt: 'Image' %} 
+              {% unless _text == blank %}<span class="text">{{ _text }}</span>{% endunless %}
+            </a>
+          </li>
+
+        {% endunless %}
+      
+      {% endfor %}
+      
+    </ul>
+    
+  </div>
+</div>

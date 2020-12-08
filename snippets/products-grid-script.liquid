@@ -1,0 +1,12 @@
+{%- if _type == 'carousel' -%}
+    <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+    data-id="{%- if __block_type == 'deals' -%}#product-grid-{{ section.id }} .deals-carousel{%- else -%}#product-grid-{{ section.id }} .product-grid-carousel{%- endif -%}"
+    data-nav="{{ _navigator }}"
+    data-margin="{{ _padding_section }}"
+    data-resp="5"
+    data-items-1="1"
+    data-items-2="{{ _item_per_row_mobile }}"
+    data-items-3="{{ _item_per_row_tablet }}"
+    data-items-4="{{ _item_per_row_1 }}"
+    data-items-5="{{ _item_per_row }}">
+{%- endif -%}

@@ -1,0 +1,49 @@
+{% include 'single-product-config' %}
+
+<div id="single-product-{{ section.id }}" class="single-product-section{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  {% if settings.left_column_style == 'none' %}<div class="{{ _layout_class }}">{% endif %}
+
+    {% include 'heading-block' %}
+
+    <div class="single-product-list single-product-{{ section.id }} style-{{ _style }}">
+      {% if section.blocks.size > 0 %}
+
+        {% if _style == 1 %}
+          {% include 'single-product-style-1' %}
+
+        {% elsif _style == 2 %}
+          {% include 'single-product-style-2' %}
+
+        {% else %}
+          {% include 'single-product-style-3' %}
+        {% endif %}
+
+      {% else %}
+        {{ emptyProduct01 }}
+
+      {% endif %}
+    </div>
+
+    {% if section.settings.type == 'carousel' %}
+
+      {% if _style == 3 or _style == 4 %}
+        <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+                data-id=".single-product-{{ section.id }} .single-product-carousel"
+                data-dot="true"
+                data-margin="20"
+                data-resp="2"
+                data-items-1="1"
+                data-items-2="2">
+      {%- else -%}
+        <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+                data-id=".single-product-{{ section.id }} .single-product-carousel"
+                data-dot="true"
+                data-margin="0"
+                data-resp="2"
+                data-items-1="1"
+                data-items-2="1">
+      {%- endif -%}
+    {% endif %}
+
+  {% if settings.left_column_style == 'none' %}</div>{% endif %}
+</div>

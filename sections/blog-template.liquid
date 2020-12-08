@@ -1,0 +1,127 @@
+{% include 'blog-template-snippet' %}
+
+{% schema %}
+  {
+    "name": "Blog pages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "range",
+        "id": "blog_pagination_limit",
+        "label": "Number of articles per page",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 6
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "options": [
+          {
+            "value": "left-sidebar",
+            "label": "Left sidebar"
+          },
+          {
+            "value": "right-sidebar",
+            "label": "Right sidebar"
+          },
+          {
+            "value": "none-sidebar",
+            "label": "None sidebar"
+          }
+        ],
+        "default": "right-sidebar"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "categories",
+        "name": "Sidebar Categories",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "link_list",
+            "id": "menu_item",
+            "label": "Menu item"
+          }
+        ]
+      },
+      {
+        "type": "recent-posts",
+        "name": "Sidebar Lastest Posts",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Lastest Posts"
+          },
+          {
+            "type": "blog",
+            "id": "sidebar_post",
+            "label": "Blog item"
+          },
+          {
+            "type": "range",
+            "id": "limited",
+            "label": "Total items",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "default": 3
+          }
+        ]
+      },
+      {
+        "type": "tags",
+        "name": "Sidebar Blog Tags",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Popular Tags"
+          }
+        ]
+      },
+      {
+        "type": "products-listing",
+        "name": "Sidebar Products",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Best Sellers"
+          },
+          {
+            "type": "collection",
+            "id": "sb_latest_product_col",
+            "label": "Collection"
+          },
+          {
+            "type": "range",
+            "id": "limited",
+            "label": "Total items",
+            "min": 1,
+            "max": 6,
+            "default": 3
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,1053 @@
+{% include 'product-content.zipifypages', contentprt: 'header' %}
+<style>
+  .klaviyo-bis-trigger{
+    display: none !important;
+  }
+  .product-single{
+    padding:10px 10px 30px;
+  }
+
+  main span{
+    color:black;
+  }
+
+  .main-content{
+    background:white !important;
+
+  }
+
+  .featuredProductWrapper{
+    color:black !important;
+  }
+
+  .rc_container{
+    display:none !important;
+  }
+ input[type="checkbox"], input[type="radio"] {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+.month_club_page .swatch label{
+  border: none;
+}
+  @font-face {
+    font-family: 'bou_westernregular';
+    src: url('{{ "bouweste-webfont.woff2" | asset_url }}') format('woff2'),
+      url('{{ "bouweste-webfont.woff" | asset_url }}') format('woff');
+        font-weight: normal;
+        font-style: normal;
+
+        }
+
+
+  .productOption{
+    font-size:1.5em;
+    font-family: 'bou_westernregular';
+    /* font-family: 'Rye', cursive;
+    font-family: 'Maiden Orange', cursive;
+    */
+  }
+
+  .center{
+    text-align:center;
+  }
+
+  .swatch {
+    text-align:center;
+    margin:0 0 10px;
+  }
+
+  .swatch-element.b-u-l-k-size-1-2-lb-bags {
+    margin-right:0;
+  }
+
+  .swatch-element.b-u-l-k-size-1-2-lb-bags {
+    margin-left:20px;
+  }
+
+  .swatch label{
+    border:1px solid #af2c25;
+    background:none;
+    padding:5px 5px;
+    width:inherit;
+    float:none;
+    font-size:18px;
+  }
+
+  .swatch input:checked+label{
+    background: #C8C8C8;
+    color: #191919 !important;
+/*     border: 2px solid #000000; */
+  }
+
+  .swatch .swatch-element{
+
+  }
+
+  .swatch > .header {
+    display:none;
+  }
+
+  .redText{
+    color:#af2c25;
+  }
+
+  .underlineText{
+    border-bottom:2px solid #af2c25;
+    color:#af2c25;
+  }
+
+
+  .JoTMImage{
+    max-height:75px;
+  }
+
+  .floatLeft{
+    float:left;
+  }
+
+  .clear{
+    clear:both;
+  }
+
+  .JoTMLabel{
+    font-size:2em;
+
+  }
+
+  .JoTMLabelText{
+    margin:10px 0 0 10px;
+    text-align:left;
+  }
+
+  .JoTMLabelText2{
+    font-size:1.5em;
+    text-align:center;
+    min-width:170px;
+  }
+
+  .westernFont{
+    font-family: 'bou_westernregular';
+  }
+
+
+  .downArrowImg{
+    position:relative;
+    top:-60px;
+  }
+
+  #AddToCart.JoTMAddToCart{
+    width:100%;
+    font-size:1.4em;
+    color:white;
+    padding:5px;
+    border:0;
+    background-color:#006600;
+    font-family: 'bou_westernregular';
+  }
+
+  #AddToCart.JoTMAddToCart:hover {
+    background-color:#18a918;
+  }
+
+  .swatch-element > label:hover {
+    background:#ccc;
+  }
+
+  .continue-shopping{
+    display:none !important;
+  }
+
+  .featuredProductWrapper{
+    border:none !important;
+  }
+
+  .size-primary-text{
+    font-size:0.52em;
+  }
+
+  .size-secondary-text{
+    font-size:0.4em;
+  }
+
+  .border-dotted-red{
+    border:2px solid red;
+    -webkit-border-image: url({{ "borderRedDots.png" | asset_url }}) 6 repeat; /* Safari 3.1-5 */
+    -o-border-image: url({{ "borderRedDots.png" | asset_url }}) 6 repeat; /* Opera 11-12.1 */
+    border-image: url({{ "borderRedDots.png" | asset_url }}) 6 repeat;
+
+    border-image-slice: 33%;
+    border-image-width: 3;
+    border-image-outset: 0;
+    padding:20px 20px 0;
+    margin:12px 8px 0;
+
+    height:100%;
+  }
+
+  .swatch .swatch-element {
+    float:none;
+    margin:0 auto 20px;
+  }
+
+  .bag-name{
+    font-size:1.3em;
+
+    width:35%;
+    max-width:100px;
+  }
+
+  .cut-select{
+    padding:5px;
+    font-size:1.2em;
+    width:100%;
+    font-family: 'bou_westernregular';
+
+  }
+
+  .flavor-select{
+    font-size:0.8em;
+    width:50%;
+    margin-left:2%;
+    font-family: 'bou_westernregular';
+
+  }
+
+  .flavorWrapper{
+    margin-bottom:25px;
+  }
+
+  .select-wrapper{
+    width:65%;
+  }
+
+  .flex-row {
+    display: flex; /* equal height of the children */
+  }
+
+  .flex-col {
+    flex: 1; /* additionally, equal width */
+
+  }
+  
+  #productSelect-option-2 {
+    display: none
+  }
+  
+  .selector-wrapper {
+    display: none
+  }
+
+  .selectionMade{
+    background-color:#C8C8C8 !important;
+    color:#191919 !important;
+    font-weight: bold;
+    border: 2px solid #1d1d1d !important;
+  }
+  @media only screen and (max-width: 1160px){
+    .swatch-element.regular-size-1-4-lb-bags  {
+
+    }
+    .swatch-element.b-u-l-k-size-1-2-lb-bags {
+
+    }
+  }
+  @media only screen and (max-width: 959px){
+
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:5px 3px;
+    }
+
+    .flex-row{
+      display:block;
+    }
+  }
+
+  @media only screen and (max-width: 820px){
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:20px 45px;
+    }
+    .pay-every-6-months, .pay-every-12-months{
+      position:relative;
+      top:-13px;
+    }
+  }
+
+  @media only screen and (max-width: 667px){
+    .pay-every-month > label, .pay-every-3-months > label, .pay-every-6-months > label, .pay-every-12-months > label {
+      padding:20px 20px;
+    }
+    .pay-every-6-months, .pay-every-12-months{
+      position:relative;
+      top:-13px;
+    }
+  }
+
+  @media only screen and (max-width: 959px) and (min-width: 768px){
+
+  }
+
+  @media only screen and (max-width: 767px) and (min-width: 480px){
+    .container12, .container16 {
+      width:100%;
+    }
+
+
+  }
+
+  @media only screen and (max-width: 767px){
+    .container12, .container16 {
+      width: 100%;
+    }
+
+
+
+    .flex-row{
+      display:block;
+    }
+  }
+
+
+  .addToCartArrowLeft{
+    display:inline-block;
+    position:relative;
+    top:20px;
+    right:10px;
+  }
+
+  .addToCartArrowRight{
+    display:inline-block;
+    position:relative;
+    top:22px;
+    left:10px;
+  }
+
+
+  .month_club_page .border-dotted-red {
+  border: none;
+  margin: 0;
+  padding: 45px 30px;
+  width: 401px;
+  font-family: Avenir,Helvetica,sans-serif;
+  font-weight: 600 !important;
+  text-transform: lowercase !important;
+}
+
+.month_club_page .border-dotted-red .swatch {
+  margin: 0;
+}
+
+.month_club_page .flavorWrapper {
+  margin-bottom: 10px;
+}
+
+.month_club_page .border-dotted-red .redText {
+  font-weight: 600;
+}
+
+.month_club_page .border-dotted-red .cut-select {
+  font-family: Avenir,Helvetica,sans-serif;
+  /*color: #000 !important;*/
+  padding: 15px 15px;
+}
+.month_club_page .border-dotted-red {
+    width: 100%;
+    padding: 10px 15px;
+  }  
+  .product_description_background .asphaltic {
+    font-size: 45px !important;
+    width: 100%;
+  }  
+
+  .product_description_background .westernFont {
+    margin-top: 0;
+  }  
+
+  .border_botm_btn {
+    display: none;
+  }  
+  .month_club_page .flavorWrapper .select-wrapper {
+    width: 100%;
+  }  
+  
+.product_description_background .westernFont {
+  font-family: 'bou_westernregular';
+  font-size: 45px !important;
+  margin-top: 50px;
+}
+
+  @media only screen and (max-width: 560px){
+    .addToCartArrowLeft, .addToCartArrowRight{
+      display:none;
+    }
+  }
+</style>
+
+
+
+<!-- Included Custom-carouel.js file -->
+
+{{ 'custom-carousel.js' | asset_url | script_tag }}
+
+<div itemscope itemtype="http://schema.org/Product" class="westernFont month_club_page">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+  <div class="JotM-Header-new">
+  <div class="club_tital-new">
+    <h1>Fresh Jerky <br> To Your Door</h1>
+    <p class="mobile-header-description">Get locally sourced protein from the hometown of Lyndon B. Johnson - Johnson City, Texas.</p><p class="mobile-header-description">Plans start at $9.99/month.</p>
+    <button href="#buy" class="jotm-button-white go-to-shop-btn">GET STARTED</button>
+  </div>
+  <div class="JotM-Header-img-wrapper">
+   <img class="jotm-mobile-header-img-new lazyload blur-up" data-srcset="{{ 'IMG_1578.png' | asset_url }}">
+    <img class="lazyload jotm-desktop-header-img blur-up" data-src="{{ 'IMG_1576.png' | asset_url }}">
+
+  </div>
+
+  </div>
+
+
+    <h1 class="section-title" style="display: block;">How it Works</h1>
+    <p class="section-subtitle-black">Select from three proteins</p>
+     <div class="protein-cards-container">
+      <div class="protein-container purple-background beef-card">
+        <div class="meat-card-header">
+            <p class="option-title-white">Beef Round Cut</p>
+            <img class="lazyload beef-icon blur-up" data-src="{{ 'beefWhite.svg' | asset_url }}">
+        </div>
+        <p class="option-description-white">Round cuts come the rear leg of the cow. This makes for a rip and chew texture like how beef jerky was made back in the day.</p>
+        <div class='protein-container-footer'>
+          <div>
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'glutenWhite.svg' | asset_url }}">
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'ketoWhite.svg' | asset_url }}">
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'sugarWhite.svg' | asset_url }}">
+          </div>
+          <a href="#ex1" rel="modal:open" class="option-more-white">Read more</a>
+        </div>
+      </div>
+      <div class="protein-container white-background pork-card">
+          <div class="meat-card-header ">
+              <p class="option-title-black ">Pork Loin</p>
+              <img class="lazyload pork-icon blur-up" data-src="{{ 'porkBlack.svg' | asset_url }}">
+          </div>
+        <p class="option-description-black">Loin cuts come from the area between the neck and rear legs. This makes for a very lean cut and soft to the bite texture.</p>
+        <div class='protein-container-footer'>
+          <div>
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'glutenBlack.svg' | asset_url }}">
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'ketoBlack.svg' | asset_url }}">
+            <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'sugarBlack.svg' | asset_url }}">
+          </div>
+        <a href="#ex2" rel="modal:open" class="option-more">Read more</a>
+      </div>
+      </div>
+      <div class="protein-container blue-background turkey-card">
+          <div class="meat-card-header ]">
+              <p class="option-title-white ">Turkey Breast </p>
+              <img class="lazyload turkey-icon blur-up" data-src="{{ 'turkeyWhite.svg' | asset_url }}">
+          </div>
+        <p class="option-description-white">Turkey breast is a very lean cut that is located at the front of the bird.</p>
+        <div class='protein-container-footer'>
+        <div>
+          <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'glutenWhite.svg' | asset_url }}">
+          <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'ketoWhite.svg' | asset_url }}">
+          <img class="lazyload blur-up icon-padding-right big-icon" data-src="{{ 'sugarWhite.svg' | asset_url }}">
+        </div>
+        <a href="#ex3" rel="modal:open" class="option-more-white">Read more</a>
+      </div>
+      </div>
+  </div>
+
+  <div class="flavor-ship-cancel-boxes">
+    <div class="flavors-container-new flavors-card" style="background-image: url('{{ 'flavorBg.png' | asset_url }}');">
+      <div class="flavors-wrapper">
+      <p class="section-subtitle-black choose-your-flavor-title">Choose your flavor</p>
+      <div class="flavors-container-content-wrapper"><div class="flavors-description-wrapper"><p class="flavors-description">These spice blends and beef jerky recipes have been around since 1963. Mixed with the mesquite smoke, the two work in perfect harmony. It's a taste that you will remember forever. Some say they wait by their mailbox every day waiting for their next order. Originally started as Whittington's Jerky is now Bulk Beef Jerky.</p></div>
+      <div class="flavors-options-wrapper">
+      <div class="flavor-container">
+            <img class="lazyload flavor-icon" data-src="{{ 'flavorOriginal.svg' | asset_url }}">
+            <div>
+                <p class="flavor-name accordion">Original</p>
+                <div class="panel">
+                    <p class="flavor-description">This is how “OG” gets its name, it’s the basic spice combination that gives it a neutral “meaty” flavor with the right amount of salt.</p>
+                </div>
+            </div>
+          </div>
+        <div class="flavor-container">
+          <img class="lazyload flavor-icon blur-up" data-src="{{ 'flavorGarlic.svg' | asset_url }}">
+          <div>
+              <p class="flavor-name accordion">Garlic</p>
+              <div class="panel">
+                  <p class="flavor-description">This garlic is not as strong as our brisket garlic, however it is the perfect medium of flavor. If you’re a fan of the black peppers or peppers, the garlic will be your next choice!</p>
+                </div>
+          </div>
+        </div>
+        <div class="flavor-container">
+          <img class="lazyload flavor-icon blur-up" data-src="{{ 'flavorHot.svg' | asset_url }}">
+          <div>
+              <p class="flavor-name accordion extra-padding">Hot and Spicy</p>
+              <div class="panel">
+                  <p class="flavor-description extra-padding">Yup, its hot – uses crushed red pepper flakes and peppers to give you a 8/10 on heat scale.</p>
+                </div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+
+
+      </div>
+    </div>
+
+    <div class="free-shipping-container">
+      <div class="free-shipping-wrapper">
+        <p class="section-subtitle-white">Free shipping</p>
+        <p class="section-description-white">Delivered once a month</p>
+      </div>
+      <div class="align-to-right-wrapper">
+        <img class="lazyload background-icon-right blur-up" data-src="{{ 'shippingIcon.png' | asset_url }}">
+      </div>
+    </div>
+
+    <div class="cancel-container">
+      <div class="cancel-wrapper">
+        <p class="cancel-title">Pause, Cancel</p>
+        <p class="section-description-black">Postpone at anytime</p>
+      </div>
+      <img class="lazyload background-icon-left blur-up" data-src="{{ 'cancelIcon.png' | asset_url }}">
+    </div>
+  </div>
+
+
+
+  <div class="build-bag-section">
+    <p class="section-title-white build-your-bag-title-wrapper">Ready to build your bag?</p>
+    <p class="section-description-white wrapped-text ">Get locally sourced jerky products from Texas.</p>
+    <button href="#buy" class="jotm-button-white go-to-shop-btn">GET STARTED</button>
+  </div>
+
+  <div class="learn-about-section modal-img" >
+      <p class="section-title">See what our members are saying.</p>
+      <div class="opinion-cards-wrapper">
+        <div class="client-opinion-card opinion-card-1">
+          <img class="stars-icon" src="{{ 'stars.svg' | asset_url }}">
+          <p class="client-opinion-card-description">"Great quality beef jerky and other meats!!!"</p>
+          <p class="client-opinion-card-name">Jim C.</p>
+        </div>
+        <div class="client-opinion-card opinion-card-2">
+          <img class="stars-icon" src="{{ 'stars.svg' | asset_url }}">
+          <p class="client-opinion-card-description">"Great product for great price and fast service."</p>
+          <p class="client-opinion-card-name">William N.</p>
+        </div>
+        <div class="client-opinion-card opinion-card-3">
+          <img class="stars-icon" src="{{ 'stars.svg' | asset_url }}">
+          <p class="client-opinion-card-description">"Good selection, speedy delivery and very tasty. Bought the organic Beef. Loved it!"</p>
+          <p class="client-opinion-card-name">Linda L.</p>
+        </div>
+      </div>
+  </div>
+
+
+
+ <div  class="new-buy-flow">
+ <div class="sub-desktop-background">
+ <div class="sub-desktop-background-col-1">
+ <img class="bg-img-ab img-1" src="{{ 'Group59.png' | asset_url }}">
+   <img class="bg-img-ab img-2" src="{{ 'Group58.png' | asset_url }}">
+ </div>
+ <div class="sub-desktop-background-col-2">
+  <img class="bg-img-ab img-3" src="{{ 'Group57.png' | asset_url }}">
+     <img class="bg-img-ab img-4" src="{{ 'Group60.png' | asset_url }}">
+ </div>
+
+
+ </div>
+
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    {% assign variant = product.variants.first %}
+    {% for varianti in product.variants %}
+    {% unless varianti.title contains '% Off' %}
+    {% if varianti.available %}
+    {% assign variant = varianti %}
+    {% break %}
+    {% endif %}
+    {% endunless %}
+    {% endfor %}
+
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+    <form action="/cart/add" data-productid="{{ product.id }}" method="post" enctype="multipart/form-data" id="AddToCartForm" class="addto" style="padding:0;" data-productid="{{product.id}}">
+   <!----------------------- Recharge Subscription ------------------------------>
+            {% if product.available %}{% include 'subscription-product' %}{% endif %}
+            <!----------------------- END Recharge Subscription ------------------------------>
+      <div class="build-your-bag-section">
+
+
+      <div class="bag-subscription-container">
+        <div id="buySection" class="build-your-bag-header">
+          <p class="section-title" style="display: block;">Build Your Bag</p>
+          <p class="build-your-bag-description">2 oz of fresh meat from the farms</p>
+        </div>
+
+      <div style="text-align:center;">
+      <!-- Swatch -->
+      {% if product.available and product.variants.size > 1 %}
+      {% assign optionCount = product.options.size | minus:1 %}
+
+      <div class="">
+
+      <div class="select-container" name="properties[bag_1]">
+        <p class="section-subtitle-black select-container-title">Choose your protein</p>
+        {% include 'swatch2' with product.options[0] %}
+      </div>
+      <div class="select-container">
+        <p class="section-subtitle-black select-container-title">Choose your flavor</p>
+
+            <select class="meat-flavor-select-container meat-flavor-default" label="Flavor" >
+              <option class="meat-flavor-default meat-flavor-option meat-flavor-option" value="Flavor">Choose protein first</option>
+            </select>
+
+            <select class="meat-flavor-select-container meat-flavor meat-flavor-beef" >
+              <option disabled class="meat-flavor-option meat-flavor-option-beef" value="Beef Round Cut Flavor">Flavor</option>
+              <option class="meat-flavor-option" value="Beef Round Cut Hot and spicy">Hot and Spicy</option>
+              <option class="meat-flavor-option" value="Beef Round Cut Original">Original</option>
+              <option class="meat-flavor-option" value="Beef Round Cut Garlic">Garlic</option>
+            </select>
+            <select class="meat-flavor-select-container meat-flavor meat-flavor-pork" >
+              <option disabled  class="meat-flavor-option meat-flavor-option-pork" value="Pork Loin Flavor">Flavor</option>
+              <option class="meat-flavor-option" value="Pork Loin Original">Original</option>
+            </select>
+            <select class="meat-flavor-select-container meat-flavor meat-flavor-turkey" >
+              <option disabled  class="meat-flavor-option meat-flavor-option-turkey" value="Turkey Flavor">Flavor</option>
+              <option class="meat-flavor-option" value="Turkey Hot and Spicy">Hot and Spicy</option>
+              <option class="meat-flavor-option" value="Turkey Original">Original</option>
+            </select>
+
+      </div>
+      <div class="select-container">
+        <p class="section-subtitle-black select-container-title">Add an extra bag for just $3!</p>
+        <p class="add-extra-bag-description">Add up to three extra bags of the same flavor</p>
+        <span style="font-size:2em;">{% include 'swatch2' with product.options[1] %}</span>
+      </div>
+      <div class=" select-container">
+        <p class="section-subtitle-black select-container-title">Checkout</p>
+      </div>
+
+      </div>
+      <div class="checkout-box">
+        <div style="margin-top:0px; height:68px;">
+          <div id="ComparePriceWrapper" class="subscription-product-saving center" style="font-size:1.5em;display:none;">
+            SAVE
+            <span id="ComparePrice" class="subscription-product-saving" style="color: #484848 !important"></span>
+            %
+          </div>
+        </div>
+          <div class="checkout-box-inner-wrapper">
+             <div class="subtotal_box subscription-product-price" style="font-size:1.3em;">
+            Subtotal:
+            <span id="ProductPrice" class="subscription-product-price redText" itemprop="price">
+              {{ product.price | money }}
+            </span>
+            </div>
+            <div>
+              <p class="shipping-details">Shipping and handling included</p>
+            </div>
+          </div>
+
+          <!--hr class="product-hr"-->
+          <div class="btn_border_style" style="text-align:center;">
+            {% if product.available %}
+            <!-- Addtocartbutton here -->
+            <button type="submit" name="add" id="AddToCart" class="JoTMAddToCart buy-button" disabled>
+              <div style="">
+                <span id="AddToCartText" style="color:white;">{{ 'products.product.add_to_cart' | t }}</span>
+              </div>
+            </button>
+            {% else %}
+            <button type="btn" name="add" id="" class="btn disabled-sold" disabled>
+              <span id="">Sold Out</span>
+            </button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        <!-- END Swatch -->
+      </div>
+
+      </div>
+      <!-- END Bag Subscription Container -->
+
+
+
+      </div>
+
+      <select name="id" data-productid="{{ product.id }}" id="productSelect" data-productid="{{product.id}}">
+        {% for variant in product.variants %}
+
+
+        {% if variant.available %}
+        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" data-price="{{ variant.price | money_without_currency | remove: ',' }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+        {% else %}
+
+        <option disabled="disabled">
+          {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+        </option>
+
+        {% endif %}
+
+        {% endfor %}
+      </select>
+      <div class="clear"></div>
+
+      <div class="product-single__quantity is-hidden">
+        <label for="Quantity"><img class="lazyload blur-up" alt="Quantity Star" data-src="https://cdn.shopify.com/s/files/1/1110/8120/files/star1.png?15027341013309203670" /> select {{ 'products.product.quantity' | t }}</label>
+        <div class="qbtn">
+          <div class=" udb decre">
+            <img class="lazyload blur-up" data-src="https://cdn.shopify.com/s/files/1/1110/8120/files/uparrow.png?6218583712337790473" />
+          </div>
+          <div class="quantity-no">
+            <input type="text"  id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+          </div>
+          <div class="udb incre">
+            <img class="lazyload blur-up" data-src="https://cdn.shopify.com/s/files/1/1110/8120/files/downarrow.png?6218583712337790473" />
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+            <input name="shopify_customer_id" type="hidden" value="{{ customer.id }}" >
+            <input name="email" type="hidden" value="{{ customer.email }}" >
+            <input name="address1" type="hidden" value="{{ customer.default_address.address1 }}" >
+            <input name="address2" type="hidden" value="{{ customer.default_address.address2 }}" >
+            <input name="city" type="hidden" value="{{ customer.default_address.city }}" >
+            <input name="company" type="hidden" value="{{ customer.default_address.company }}" >
+            <input name="country" type="hidden" value="{{ customer.default_address.country }}" >
+            <input name="first_name" type="hidden" value="{{ customer.default_address.first_name }}" >
+            <input name="last_name" type="hidden" value="{{ customer.default_address.last_name }}" >
+            <input name="phone" type="hidden" value="{{ customer.default_address.phone }}" >
+            <input name="province" type="hidden" value="{{ customer.default_address.province }}" >
+            <input name="zip" type="hidden" value="{{ customer.default_address.zip }}" >
+
+
+
+            <input id="product_quantity_{{product.id}}" type="hidden" name="properties[Product quantity]" value="1" />
+            <input id="charge_interval_unit_type_{{product.id}}" type="hidden" name="properties[charge_interval_unit_type]" value="Months" /><br>
+          </form>
+    </div>
+    <div class="clear"></div>
+
+   </div>
+
+  <div class="clear"></div>
+  <div class="modal-img">
+        <img class="lazyload blur-up bottom-img" data-src="{{ 'trilogybeats313.png' | asset_url }}">
+  </div>
+  {% include 'product-detail-modal' %}
+
+</div>
+
+
+
+<input type="hidden" class="totalprod" value="{{ collection.products.size }} ">
+
+{% include 'email-signup-banner' %}
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+
+<script>
+$(window).ready(function() {
+   if ($(window).width() > 1000) {
+    var photosHeight = $('.sub-desktop-background-col-2').outerHeight()
+    var style = "height:" + (photosHeight + 100) + "px;"
+    $(".new-buy-flow").attr("style", style);
+}
+else {
+   return
+}
+})
+
+  $(".swatch-meat-label").click(function(){
+    $(this).dbclick();
+  });
+
+
+{% comment %} $(function() {
+  $(".meat-type-container").first().addClass('selected').children().addClass('selected');
+}); {% endcomment %}
+
+var acc = document.getElementsByClassName("meat-type");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    if($(this).find(".meat-type-container").length > 0) {
+      $('.meat-type-container, .meat-name, .meat-icon, .meat-flavor, .meat-flavor-option, .buy-button').removeClass('selected');
+      $('.buy-button').prop('disabled', true);
+      this.classList.toggle("selected");
+      $(this).find('div, p , img').addClass("selected");
+    }
+    if($(this).find(".meat-extra-option").length > 0) {
+      $('.meat-extra-option').removeClass('selected');
+        $(this).find('div').addClass("selected");
+    }
+  });
+}
+
+$(function() {
+  $('.meat-type').on('click', function() {
+    $(".meat-flavor-default").addClass('hide')
+    if($(this).find('#pork').length){
+      $(".meat-flavor-pork").attr("name", "properties[flavor]");
+      $(".meat-flavor-pork").removeClass("hide-opt")
+      $(".meat-flavor-pork").addClass("selected")
+      $(".meat-flavor-option-pork").prop("selected", "selected")
+      $(".meat-flavor-beef").addClass("hide-opt")
+      $(".meat-flavor-turkey").addClass("hide-opt")
+      $(".meat-flavor-beef").removeAttr("name", "properties[flavor]");
+      $(".meat-flavor-turkey").removeAttr("name", "properties[flavor]");
+    }
+    else if($(this).find('#beef').length){
+      $(".meat-flavor-beef").attr("name", "properties[flavor]");
+      $(".meat-flavor-beef").removeClass("hide-opt")
+      $(".meat-flavor-beef").addClass("selected")
+      $(".meat-flavor-option-beef").prop("selected", "selected")
+      $(".meat-flavor-pork").addClass("hide-opt")
+      $(".meat-flavor-turkey").addClass("hide-opt")
+      $(".meat-flavor-pork").removeAttr("name", "properties[flavor]");
+      $(".meat-flavor-turkey").removeAttr("name", "properties[flavor]");
+    }
+    else if($(this).find('#turkey').length){
+      $(".meat-flavor-turkey").attr("name", "properties[flavor]");
+      $(".meat-flavor-turkey").removeClass("hide-opt")
+      $(".meat-flavor-turkey").addClass("selected")
+      $(".meat-flavor-option-turkey").prop("selected", "selected")
+      $(".meat-flavor-pork").addClass("hide-opt")
+      $(".meat-flavor-beef").addClass("hide-opt")
+      $(".meat-flavor-pork").removeAttr("name", "properties[flavor]");
+      $(".meat-flavor-beef").removeAttr("name", "properties[flavor]");
+    }
+  });
+})
+
+$(function() {
+  $('.meat-flavor-select-container').change(function() {
+    $(this).find(':selected').addClass('selected')
+           .siblings('option').removeClass('selected');
+    $('.buy-button').prop("disabled", false).addClass('selected');
+  })
+})
+
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      console.log('first')
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+
+var acc = document.getElementsByClassName("go-to-shop-btn");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $("#buySection").offset().top
+    }, 2000);
+});
+}
+
+
+  var selectCallback = function(variant, selector) {
+    // BEGIN SWATCHES
+    if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+    // END SWATCHES
+
+    timber.featuredProductPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector,
+      translations: {
+      add_to_cart : "{{ 'products.product.add_to_cart' | t }}",
+      sold_out : "{{ 'products.product.sold_out' | t }}",
+      unavailable : "{{ 'products.product.unavailable' | t }}"
+    }
+                               });
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0"><img src="https://cdn.shopify.com/s/files/1/1110/8120/files/star1.png?15027341013309203670" /> {{ product.options.first | escape }}</label>');
+                                         {% endif %}
+
+                                         // Hide selectors if we only have 1 variant and its title contains 'Default'.
+                                         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                                         $('.selector-wrapper').hide();
+    {% endif %}
+  });
+
+  jQuery(document).ready(function(){
+    var qty=$('#Quantity').val();
+    jQuery('.incre').click(function(){
+      qty++;
+      jQuery('#Quantity').val(qty);
+      //Quantity increment
+    });
+
+    jQuery('.decre').click(function(){
+      if(qty>1){
+        qty--;
+        jQuery('#Quantity').val(qty);
+        //Quantity decrement
+      }
+    });
+
+    // Get URL
+    var currenturl= window.location.href;
+    var beefUrl= 'http://bulk-test-store.myshopify.com/collections/beef-jerky';
+    if(currenturl != beefUrl){
+      jQuery( ".grid-link__title" ).remove();
+    }
+    //Getting Description
+    var desc= jQuery('.product-description').html();
+    jQuery('.description_left').html(desc);
+    jQuery('.description_left .nutri_main').remove();
+    jQuery('.product-description').contents(':not(.nutri_main)').remove();
+  });
+
+  // SWATCH
+  jQuery(function() {
+    jQuery('.swatch :radio').change(function() {
+      var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery(this)
+      .closest('form')
+      .find('.single-option-selector')
+      .eq(optionIndex)
+      .val(optionValue)
+      .trigger('change');
+    });
+  });
+  
+      $(".beef-round-cut-2-oz-bag").find("label").html('<div id="beef" class="meat-type-container" value="Beef Round Cut"><p class="meat-name">Beef Round Cut</p><img class="lazyload blur-up extra-margin-right meat-icon" data-src="{{ "beefBlack.svg" | asset_url }}"></div>');
+
+
+  $(".pork-loin-2-oz-bag").find("label").html('<div id="pork" class="meat-type-container pork" value="Pork Loin"><p class="meat-name">Pork Loin</p><img class="lazyload blur-up extra-margin-right meat-icon" data-src="{{ "porkBlack.svg" | asset_url }}"></div>');
+
+
+      $(".turkey-2-oz-bag").find("label").html('<div id="turkey" class="meat-type-container" value="Turkey Breast"><p class="meat-name">Turkey Breast</p><img class="lazyload blur-up extra-margin-right meat-icon" data-src="{{ "turkeyBlack.svg" | asset_url }}"></div>');
+
+   $(".1").find("label").html('<div data-value="1" class="meat-extra-option">No extra bags</div>');
+  $(".2").find("label").html('<div data-value="1" class="meat-extra-option">1 extra bag</div>');
+  $(".3").find("label").html('<div data-value="1" class="meat-extra-option">2 extra bags</div>');
+  $(".4").find("label").html('<div data-value="1" class="meat-extra-option">3 extra bags</div>');
+
+  //   $(".pay-every-3-months").find("label").html('<div data-value="3" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>THREE MONTHS</div></div>');
+  //   $(".pay-every-6-months").find("label").html('<div data-value="6" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>SIX MONTHS</div></div>');
+  //   $(".pay-every-12-months").find("label").html('<div data-value="12" class="frequency-label center JoTMLabelText2 JoTMLabel"><div class="redText">PAY EVERY</div><div>YEAR</div></div>');
+
+  //   $(".pay-every-month").find("input").attr("data-value","1");
+  //   $(".pay-every-3-months").find("input").attr("data-value","3");
+  //   $(".pay-every-6-months").find("input").attr("data-value","6");
+  //   $(".pay-every-12-months").find("input").attr("data-value","12");
+
+  //   var frequency = $('input[name=option-1]:checked').data("value");
+  //   frequency = convertFrequencyToInt(frequency)
+  //   $("[name='properties[charge_interval_frequency]']").val(frequency);
+  //   console.log($("[name='properties[charge_interval_frequency]']").val());
+
+  var frequency = 1;
+  assignChargeFrequency();
+
+  function assignChargeFrequency(){
+    frequency = $("#productSelect-option-1").val();
+    $("[name='properties[Product quantity]']").val(frequency);
+    //console.log($("[name='properties[charge_interval_frequency]']").val());
+  }
+
+  $(document).on("change", $("#productSelect-option-1"), function(){
+    assignChargeFrequency();
+  });
+
+
+  //   $(".frequency-label").on("click", function(){
+  //     var value = $(this).data("value");
+  //     frequency = value;
+
+  //     $(".rc_select").find("select").val(value).change();
+  //     $("#shipping_interval_frequency").val(value);
+
+  //     $("[name='properties[shipping_interval_frequency]']").val(frequency);
+  //   });
+
+
+  //   function convertFrequencyToInt(frequency){
+  //     var intVal = 1;
+
+  //     if(frequency == 'PRE-PAY FOR 3 MONTHS'){
+  //       intVal = 3;
+  //     }
+  //     if(frequency == 'PRE-PAY FOR 6 MONTHS'){
+  //       intVal = 6;
+  //     }
+
+  //     return intVal;
+  //   }
+
+
+  //   $("[name='option-1']").on('change', function(){
+  //     var value = $(this).val();
+  //     frequency = convertFrequencyToInt(value);
+  //     $("[name='properties[charge_interval_frequency]']").val(frequency);
+  //     console.log($("[name='properties[charge_interval_frequency]']").val());
+  //   });
+
+
+  $("[name='properties[shipping_interval_frequency]']").val(1);
+
+  $("#AddToCart").click(function(){
+    assignChargeFrequency();
+  });
+
+  //    $.get("http://ipinfo.io", function(response) {
+  //        if(response.ip == '74.62.182.222'){
+  //            $('input[name=option-1]'.css('display','block'))
+  //        }
+  //    }, "jsonp");
+
+
+  $(document).on('focusout change', 'select', function(){
+    $(this).addClass('selectionMade');
+  });
+
+</script>
+{% include 'product-content.zipifypages', contentprt: 'footer' %}

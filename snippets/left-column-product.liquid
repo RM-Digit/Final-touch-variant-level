@@ -1,0 +1,46 @@
+{%- assign _show_product = block.settings.show_product -%}
+{%- assign _block_product_heading = block.settings.block_product_heading -%}
+{%- assign _block_product_item = block.settings.block_product_item -%}
+
+{% if _show_product %}
+  <div class="block-product">
+    <div class="block-product-content">
+
+    {% unless _block_product_heading == blank %}
+      <h3 class="text-center">{{ _block_product_heading }}</h3>
+    {% endunless %}
+
+    {% unless _block_product_item == blank %}
+      {% assign product = all_products[_block_product_item] %}
+      {% include 'product-item' %}
+
+      {%- assign available = 0 -%}
+      
+      {% for variant in product.variants %} 
+        {% if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' %}
+          {% capture i %}{{ available | plus: variant.inventory_quantity }}{% endcapture %}
+        {% else %}
+          {%- assign i = 30 -%}
+        {% endif%}
+
+        {%- assign available = i | plus: 0 -%}
+      {% endfor %}
+      
+      {% if available > 0 %} 
+        <div class="pieces-left">
+          {%- assign total = available | plus: 10 -%}
+          {% capture progress %}{{ available | times:100 | divided_by: total }}{% endcapture %}
+          {%- assign progressNumber = progress | plus: 0 -%}
+
+          <span class="stock-available">{{ 'general.text.only' | t }} {{ available }} {{ 'general.text.pieces_left' | t }}</span>
+          <div class="progress">
+            <span class="progress-bar" style="width:{{ progress }}%;"></span>
+          </div>
+        </div>
+      {% endif %}
+
+    {% endunless %}
+
+    </div>
+  </div>
+{% endif %}

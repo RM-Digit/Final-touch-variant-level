@@ -1,0 +1,103 @@
+{% include 'search-widget-snippet' %}
+
+{% schema %}
+{
+  "name": "Search Widget",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Search Widget' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Search Widget"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "full", "label": "Wide" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size",
+          "default": "1170x",
+          "info": "E.g: 1170x400"
+        }
+      ]
+    },
+    {
+      "type": "search-form",
+      "name": "Search Form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Heading",
+          "default": "Heading"
+        },  
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading font size",
+          "min": 15,
+          "max": 80,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "Search what you need..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search Widget",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "search-form" }
+      ]
+    }
+  ]
+}
+{% endschema %}

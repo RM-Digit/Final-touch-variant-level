@@ -1,0 +1,225 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _product_alignment = section.settings.product_alignment -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _limit = section.settings.limited -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{%- assign _product_border_top = settings.show_product_border_top -%}
+{%- assign _border_right = section.settings.border_right -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% capture emptyProduct %}
+  {% for i in (1..4)  %}
+    <div class="product-grid-item col-lg-3 col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}">
+      <div class="product-wrapper">
+
+        <div class="product-head">
+          <div class="product-image">
+
+            <div class="featured-img">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+
+          </div>
+        </div>
+
+        <div class="product-content">
+          <div class="pc-inner">
+            <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% endfor %}
+{% endcapture %}
+
+{% capture emptyImage %}
+  <div class="image-column">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+{% endcapture %}
+
+{% capture emptyMenu %}
+  <ul>
+    {% for i in (1..7) %}
+      <li>{{ 'homepage.onboarding.menu_title' | t }}</li>
+    {% endfor %}
+  </ul>
+{% endcapture %}
+
+<div id="product-grid-{{ section.id }}" class="product-grid-section-v5{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}" style="background-color: {{ _bg_color }};" data-section-type="reload_section" data-section-id="{{ section.id }}">
+  <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+
+    {% if _type == 'carousel' %}{% include 'heading-block' %}{% endif %}
+
+    {%- assign _i =  0 -%}
+    {%- assign _j =  0 -%}
+    {%- assign _k =  0 -%}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'menu' %}
+        {%- assign _i =  _i | plus: 1 -%}
+      {% elsif block.type == 'image' %}
+        {%- assign _j =  _j | plus: 1 -%}
+      {% else %}
+        {%- assign _k =  _K | plus: 1 -%}
+      {% endif %}
+    {% endfor %}
+
+    <div class="wrap-columns menu-column-{{ _i }} image-column-{{ _j }} product-column-{{ _k }}">
+
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+
+          {% if block.type == 'menu' %}
+            <div class="menu-column">
+              {%- assign _menu = block.settings.menu_item -%}
+              {%- assign _icon = block.settings.icon -%}
+              {%- assign _show_all_btn = block.settings.show_all_btn -%}
+              {%- assign _show_all_link = section.settings.show_all_link -%}
+
+              {% unless _icon == blank %}
+                <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _icon | img_url: '40x40' }}" alt="" />
+              {% endunless %}
+
+              {% if _type == 'row' %}{% include 'heading-block' %}{% endif %}
+
+              {% unless _menu == blank %}
+                <ul>
+                  {% for l in linklists[_menu].links %}
+                    <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                  {% endfor %}
+                </ul>
+
+              {% else %}
+                {{ emptyMenu }}
+
+              {% endunless %}
+
+              {% if _show_all_btn %}
+                <div class="show-all"><a href="{{ _show_all_link }}" class="btn btn-3 show-all-link">{{ 'general.text.view_all' | t }}</a></div>
+              {% endif %}
+
+            </div>
+
+          {% elsif block.type == 'image' %}
+            {%- assign _image = block.settings.image -%}
+            {%- assign _image_size = '370x' -%}
+            {%- assign _link = block.settings.link -%}
+
+            {%- assign _text = block.settings.text -%}
+            {%- assign _text_size = block.settings.text_size -%}
+            {%- assign _text_bold = block.settings.text_bold -%}
+            {%- assign _text_color = block.settings.text_color -%}
+
+            {%- assign _subheading = block.settings.subheading -%}
+            {%- assign _subheading_size = block.settings.subheading_size -%}
+            {%- assign _subheading_bold = block.settings.subheading_bold -%}
+            {%- assign _subheading_color = block.settings.subheading_color -%}
+
+            {%- assign _button_text = block.settings.button_text -%}
+            {%- assign _button_bg_color = block.settings.button_bg_color -%}
+            {%- assign _button_color = block.settings.button_label_color -%}
+
+            <div class="image-column">
+              <a href="{{ _link }}">
+                {% unless _image == blank %}
+                  {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Image' %}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endunless %}
+              </a>
+
+              {% unless _text == blank and _subheading == blank  and _button_text == blank %}
+                <div class="textbox">
+                  {% unless _text == blank %}
+                    <div class="text{% if _text_bold %} bold-text{% endif %}" style="color:{{ _text_color }}; font-size: {{ _text_size }}px;">{{ _text }}</div>
+                  {% endunless %}
+
+                  {% unless _subheading == blank %}
+                    <div class="subheading {% if _subheading_bold %} bold-text{% endif %}" style="color:{{ _subheading_color }}; font-size: {{ _subheading_size }}px;">{{ _subheading }}</div>
+                  {% endunless %}
+
+                  {% unless _button_text == blank %}
+                    <a class="btn btn-link" href="{{ collection.url }}" style="color:{{ _button_color }};background: {{ _button_bg_color }}">{{ _button_text }}</a>
+                  {% endunless %}
+                </div>
+              {% endunless %}
+            </div>
+
+          {% else %}
+            {%- assign block_collection = block.settings.collection -%}
+            {%- assign collection = collections[block_collection] -%}
+
+            <div class="product-column{% if _border_bottom %} product-grid-border{% endif %}">
+
+                {% unless block_collection == blank or collection.products_count == 0 %}
+                  <div class="product-grid-box product-grid-{{ _type }}">
+                    {% if _type == 'row' %}<div class="row row-padding-{{ _padding_section }}">{% endif %}
+                      {% for product in collection.products limit: _limit %}
+                        <div class="product-grid-item{% if _product_border_top and _border_bottom == false %} product-border-top{% endif %}{% if _border_right %} product-border-right{% endif %}{% if _type == 'row' %} col-lg-3 col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}{% endif %}">
+                          {% include 'product-item' %}
+                        </div>
+                      {% endfor %}
+                    {% if _type == 'row' %}</div>{% endif %}
+                  </div>
+
+                {% else %}
+
+                  <div class="product-grid-box row row-padding-{{ _padding_section }}">
+                    {{ emptyProduct }}
+                  </div>
+
+                {% endunless %}
+
+            </div>
+
+          {% endif %}
+
+        {% endfor %}
+
+      {% else %}
+          <div class="menu-column">
+            <div class="title-wrapper">
+              <h3>{{ 'homepage.onboarding.menu_title' | t }}</h3>
+            </div>
+            {{ emptyMenu }}
+          </div>
+
+          {{ emptyImage }}
+
+        <div class="product-column">
+          <div class="product-grid-box row row-padding-{{ _padding_section }}">
+            {{ emptyProduct }}
+          </div>
+        </div>
+
+      {% endif %}
+
+    <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+            data-id="#product-grid-{{ section.id }} .product-grid-carousel"
+            data-nav="true"
+            data-margin="{{ _padding_section }}"
+            data-resp="4"
+            data-items-1="1"
+            data-items-2="2"
+            data-items-3="3"
+            data-items-4="4">
+
+    </div>
+
+  </div>
+</div>

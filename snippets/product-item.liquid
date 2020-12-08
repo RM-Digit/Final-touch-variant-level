@@ -1,0 +1,185 @@
+{% assign _product_border_btn = settings.product_border_btn %}
+{% assign _item_effect = settings.product_item_hover_effect %}
+{% capture number_of_images %}{{ product.images | size }}{% endcapture %}
+{% assign number_images = number_of_images | plus:0 %}
+
+{% if settings.use_quick_view == false and settings.enable_product_wishlist == false and settings.enable_product_compare == false %}
+{% assign _disable_wl_qv = 'disable-wl-qv' %}
+{% endif %}
+
+<div class="product-wrapper effect-{{ _item_effect }} {{ _disable_wl_qv }}{% if _product_border_btn %} border-btn{% endif %}">
+
+  <div class="product-head">
+    <div class="product-image">
+
+      <div class="featured-img product-ratio-{{ settings.collections_product_ratio }}">
+        <a href="{{ product.url | within: collection }}">
+
+          {% include 'product-image-lazysize' with image: product.featured_image, image_size: '420x', image_class: 'featured-image front', image_alt: product.title %}
+
+          {% if number_images > 1 and _item_effect == 'switch' %}
+            <span class="img-back d-none d-lg-block">
+              {% include 'product-image-lazysize' with image: product.images[1], image_size: '420x', image_class: 'back', image_alt: product.title %}
+            </span>
+          {% endif %}
+
+          {% include 'product-label' %}
+        </a>
+      </div>
+
+      {% include 'product-item-countdown' %}
+      {% include 'product-button' %}  
+    </div>
+
+    {% unless settings.hide_add_cart %}
+      <div class="product-add-cart">
+        {% unless product.template_suffix == 'redirect' %}
+        
+          {% if settings.disable_ajax_cart %}
+            <a href="{{ product.url | within: collection }}" class="btn-add-cart select-options" title="{{ 'products.product.select_options' | t }}"><span class="demo-icon icon-right"></span><span class="text">{{ 'products.product.select_options' | t }}</span></a>
+
+          {% else %} 
+            {% if product.variants.size > 1 %}
+              <a href="{{ product.url | within: collection }}" class="btn-add-cart select-options" title="{{ 'products.product.select_options' | t }}"><span class="demo-icon icon-right"></span><span class="text">{{ 'products.product.select_options' | t }}</span></a>
+              <select class="d-none" name="id">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                {% endfor %}
+              </select>
+        
+            {% else %}
+              {% if product.available %}
+                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                  <a href="javascript:void(0)" class="btn-add-cart add-to-cart" title="{{ 'products.product.add_to_cart' | t }}"><span class="demo-icon icon-electro-add-to-cart-icon"></span><span class="text">{{ 'products.product.add_to_cart' | t }}</span></a>
+                  <select class="d-none" name="id">
+                    {% for variant in product.variants %}
+                      <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                    {% endfor %}
+                  </select>
+                </form>
+
+              {% else %}
+                <a href="javascript:void(0)" class="btn-add-cart sold-out" title="{{ 'products.product.out_stock' | t }}"><span>{{ 'products.product.out_stock' | t }}</span></a>
+              {% endif %}
+
+            {% endif %}
+
+          {% endif %}
+
+        {% else %}
+          {% assign meta_redirect = product.metafields.c_f %}
+          {% assign key = 'redirect_url' %}
+
+          {% unless meta_redirect.redirect_url == blank %}
+            <a target="_blank" rel="noopener" href="{{ meta_redirect.redirect_url }}" class="btn-add-cart select-options" title="{{ 'products.product.select_options' | t }}"><span class="demo-icon icon-right"></span><span class="text">{{ 'products.product.select_options' | t }}</span></a>
+          {% else %}
+            <a target="_blank" rel="noopener" href="{{ product.url | within: collection }}" class="btn-add-cart select-options" title="{{ 'products.product.select_options' | t }}"><span class="demo-icon icon-right"></span><span class="text">{{ 'products.product.select_options' | t }}</span></a>
+          {% endunless %}
+
+        {% endunless %}
+          
+      </div>
+    {% endunless %}
+    <div class="overlay-text-contents"> 
+      <a style="text-decoration: none;" href="{{ product.url | within: collection }}">
+      <p class="overlay-col-title">{{collection.title}}</p>
+      <p class="overlay-pro-title"> {{product.title}}</p>
+      </a>
+    </div>
+    <div class="overlay-dark"></div>
+  </div>
+
+  <div class="product-content{% unless _product_alignment == blank %} text-{{ _product_alignment }}{% endunless %}">
+    <div class="pc-inner">
+
+      {% if product.available %}
+        <div class="list-v2-label">
+          <span class="label-in-stock">
+            <span class="in-stock-text">{{ 'products.product.in_stock' | t }}</span>
+          </span>
+        </div>
+      {% endif %}
+
+      <div class="product-group-vendor-name">
+        {% if settings.show_product_vendor %}<div class="product-vendor">{{ product.vendor | link_to_vendor }}</div>{% endif %}
+        <h5 class="product-name balance-{{ settings.enable_title_balance }}"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h5>
+        {% if settings.product_review == 'above' %}{% include 'product-grid-review' %}{% endif %}
+      </div>
+      
+      {% include 'product-price' %}
+
+      {% if settings.product_review == 'below' %}{% include 'product-grid-review' %}{% endif %}  
+
+      <div class="product-list-mode-content">
+
+        {% unless product.variants.first.sku == blank %}
+          <div class="product-code">
+            <span>{{ 'products.product.product_code' | t }}</span>
+            <strong>{{ product.variants.first.sku }}</strong>
+          </div>
+        {% endunless %}
+
+        <div class="avaibility">
+          <span>{{ 'products.product.available' | t }}</span>
+          <strong>{% if product.available %}{{ 'products.product.in_stock' | t }}{% else %}{{ 'products.product.out_stock' | t }}{% endif %}</strong>
+        </div>
+
+        {% assign meta_shortdes = product.metafields.c_f %}
+        {% assign key = 'description_excerpt' %}
+
+        {% unless meta_shortdes.description_excerpt == blank %}
+          <div class="plm-description">{{ meta_shortdes.description_excerpt }}</div>
+        {% endunless %}
+
+        {% include 'plm-add-cart' %}
+
+        {% if settings.use_quick_view or settings.enable_product_wishlist or settings.enable_product_compare %}
+          <div class="plm-product-button">
+
+            {% if settings.enable_product_compare %}
+              <div class="plm-product-compare">
+                <a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.compare_settings.compare_add_class }} {% if shop.metafields.arena.wl_cp_settings.compare_settings.compare_enable == false %}disabled{% endif %}' href="javascript:;">
+                  <svg width="14" height="14" class="arn_icon arn_icon-add-compare"><use xlink:href="#arn_icon-add-compare"></use></svg>
+                  <svg width="14" height="14" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+                </a>
+              </div>
+            {% endif %}
+
+            {% if settings.enable_product_wishlist %} 
+              <div class="plm-product-wishlist">
+                <a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_add_class }} {% if shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_enable == false %}disabled{% endif %}' href="javascript:;">
+                  <svg width="14" height="14" class="arn_icon arn_icon-add-wishlist"><use xlink:href="#arn_icon-add-wishlist"></use></svg>
+                  <svg width="14" height="14" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+                </a>
+              </div>  
+            {% endif %}
+
+            {% if settings.use_quick_view %}
+              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="{{ product.handle }}" data-toggle="modal" title="{{ 'products.product.quick_shop' | t }}">
+                <i class="demo-icon icon-search"></i>
+              </div>
+            {% endif %}
+
+          </div>
+        {% endif %}
+
+        {% if settings.enable_product_wishlist or settings.enable_product_compare %}
+          <div class="plm-button">
+            {% include 'plm-product-button' %}
+          </div>
+        {% endif %} 
+       
+      </div>
+
+    </div>
+  </div>
+
+  <div class="product-list-mode-content-v2">
+    <div class="list-v2-inner">
+      {% include 'plm-add-cart' %}
+      {% include 'plm-product-button' %}
+    </div>
+  </div>
+
+</div>
+

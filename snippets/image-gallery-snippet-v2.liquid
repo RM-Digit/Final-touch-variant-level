@@ -1,0 +1,86 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _lazyload = settings.use_lazyload -%}
+
+{%- assign _desktop_class = 'col-md-4' -%}
+
+{% capture emptyImage %}
+  <div class="image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+
+  <div class="text text-box-overlay">
+    <div class="title h5" style="color: #000000;">{{ 'homepage.onboarding.banner_title' | t }}</div>
+  </div>
+{% endcapture %}
+
+<div id="home-banner-v2-{{ section.id }}" class="home-banner-v2{% if _hide_mobile %} d-none d-md-block{% endif %}">
+
+    <div class="banner-items-v2">
+      {% if section.blocks.size > 0 %}
+      
+        <div class="row">
+          {% for block in section.blocks %} 
+            {%- assign _image = block.settings.image -%}
+            {%- assign _image_size = '370x' -%}
+            {%- assign _link = block.settings.button_link -%}
+            {%- assign _text_align = block.settings.text_align -%}
+            
+            {%- assign _title = block.settings.image_title -%}
+            {%- assign _title_color = block.settings.title_color -%}
+            {%- assign _title_size = block.settings.title_size -%}
+            {%- assign _title_text_bold = block.settings.title_text_bold -%}
+          
+            {%- assign _button_text = block.settings.button_text -%}
+            {%- assign _button_color = block.settings.button_text_color -%}
+            {%- assign _button_bg = block.settings.button_text_bg_color -%}   
+
+            <div class="{{ _desktop_class }} col-12">
+              <div class="banner-item text-box-overlay {{ _text_align }}">
+
+                {% unless _image == blank %}
+          
+                  <div class="image">
+                    <a href="{{ _link }}">
+                      {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                    </a>
+                  </div>
+
+                  {% unless _title == blank and _button_text == blank %}
+                    <div class="text">
+                      {% unless _title == blank %}
+                        <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                      {% endunless %}
+                      
+                      {% unless _button_text == blank %}
+                        <a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>
+                      {% endunless %}
+                    </div>
+                  {% endunless %}
+
+                {% else %}
+                  {{ emptyImage }}
+
+                {% endunless %}
+
+              </div>
+            </div>
+
+          {% endfor %}
+        </div>
+      
+      {% else %}
+      
+        <div class="row">
+          {% for i in (1..3) %}
+            <div class="col-md-4 col-12">
+              <div class="banner-item">
+                {{ emptyImage }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      {% endif %}
+    </div>
+    
+</div>

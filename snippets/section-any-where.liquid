@@ -1,0 +1,133 @@
+<script type="text/javascript">var handle_id = "{{[template.name].id}}";</script>
+{%assign handles = [template.name].handle %}
+{%assign single_id = [template.name].id %}
+	
+{%if single_id == 22439717 %}
+	{% section "section-banner-text-pro-1131843" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-slideshow-pro-1131846" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-seperator-pro-1131856" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-two-column-pro-1131855" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-image-gallery-pro-1131901" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-custom-content-pro-1131851" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-products-grid-pro-1131880" %}
+{%endif%}
+
+{%if handles == "all"%}
+	{% section "section-products-grid-pro-1131881" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-slideshow-pro-1131907" %}
+{%endif%}
+
+{%if template.name == "collection"%}
+{%assign show = 0%}
+
+
+{%assign ssuffixs = "collection-template-custom" | split: ';' %}
+
+{% for ssuffix in ssuffixs %}
+
+	{%if collection.template_suffix == ssuffix %}
+		{%assign show = 1%}
+	{%endif%}   
+{% endfor %}
+
+	{%if show == 1%}
+		{% section "section-slideshow-pro-1131910" %}
+	{%endif%}
+
+{%endif%}
+{%if template.name == "list-collections"%}
+	{% section "section-seperator-pro-1131913" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-custom-content-pro-1131915" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-custom-content-pro-1131916" %}
+{%endif%}
+
+{%if template.name == "collection"%}
+{%assign show = 0%}
+
+
+{%assign ssuffixs = "collection.custom-template" | split: ';' %}
+
+{% for ssuffix in ssuffixs %}
+
+	{%if collection.template_suffix == ssuffix %}
+		{%assign show = 1%}
+	{%endif%}   
+{% endfor %}
+
+	{%if show == 1%}
+		{% section "section-slideshow-pro-1131917" %}
+	{%endif%}
+
+{%endif%}
+{%if template.name == "page"%}
+{%assign show = 0%}
+
+
+{%assign ssuffixs = "collection.custom-template-col" | split: ';' %}
+
+{% for ssuffix in ssuffixs %}
+
+	{%if page.template_suffix == ssuffix %}
+		{%assign show = 1%}
+	{%endif%}   
+{% endfor %}
+
+{%if show == 1%}
+{% section "section-slideshow-pro-1131919" %}
+{%endif%}
+
+{%endif%}
+{%if template.name == "list-collections"%}
+	{% section "section-image-gallery-pro-1131920" %}
+{%endif%}
+
+{%if single_id == 22439717 %}
+	{% section "section-slideshow-pro-1131926" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-products-grid-pro-1131996" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-seperator-pro-1131914" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-products-grid-pro-1131997" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-image-gallery-pro-1132011" %}
+{%endif%}
+
+{%if template.name == "list-collections"%}
+	{% section "section-image-gallery-pro-1132012" %}
+{%endif%}

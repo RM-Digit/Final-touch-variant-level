@@ -1,0 +1,26 @@
+<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+  <div class="product-content"> 
+
+    {% include 'product-detail-discount-popup' %}
+
+    {% if section.settings.show_product_vendor and product.vendor != blank %}
+    <div class="product-vendor">{{ product.vendor | link_to_vendor }}</div>
+    {% endif %}
+
+    <h1 itemprop="name" content="{{ product.title }}" class="page-heading">{{ product.title }} </h1>
+
+    {% include 'product-detail-review' %}
+
+    {% if settings.show_social_sharing_product %}
+    {% include 'social-sharing' %}
+    {% endif %}
+
+    {% include 'product-detail-short-description' %}
+    {% include 'product-detail-size-chart' %} 
+    {% include 'product-detail-deals' %}
+    {% include 'product-detail-sku' %}
+    {% include 'layout-people-in-cart' %}
+    {% include 'product-detail-order-shipping' %}
+
+  </div>
+</div>

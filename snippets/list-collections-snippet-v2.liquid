@@ -1,0 +1,263 @@
+{%- assign _lazyload                       = settings.use_lazyload -%}
+{%- assign _hide_mobile                    = section.settings.hide_mobile -%}
+{%- assign _layout                         = section.settings.layout -%}
+{%- assign _type                           = section.settings.type -%}
+{%- assign _style                          = section.settings.style -%}
+
+{%- assign _background                     = section.settings.bg_color -%}
+{%- assign _background_icon                = section.settings.bg_icon_color -%}
+{%- assign _icon_color                     = section.settings.icon_color -%}
+{%- assign _padding_section                = section.settings.padding_section -%}
+{%- assign _border_right                   = section.settings.border_right_line -%}
+{%- assign _border_line                    = section.settings.border_line -%}
+
+{%- assign _display_type                   = section.settings.display_type -%}
+{%- assign _icon_type                      = section.settings.icon_type -%}
+
+{%- assign _collection_name_position       = section.settings.collection_name_position -%}
+{%- assign _collection_name_size           = section.settings.collection_name_size -%}
+{%- assign _bold_collection_name           = section.settings.bold_collection_name -%}
+{%- assign _uppercase_collection_name      = section.settings.uppercase_collection_name -%}
+
+{%- assign _show_all_btn                   = section.settings.show_all -%}
+{%- assign _show_all_btn_line              = section.settings.show_all_line -%}
+{%- assign _image_size                     = section.settings.image_size -%}
+{%- assign _image_size_width               = _image_size | split: 'x' | first -%}
+
+{% if _layout == 'full' %}
+  {%- assign _layout_class    = 'container-fluid' -%}
+{% elsif _layout == 'boxed-padding' %}
+  {%- assign _layout          = 'boxed-padding' -%}
+  {%- assign _layout_class    = 'container' -%}
+{% else %}
+  {%- assign _layout          = 'boxed' -%}
+  {%- assign _layout_class    = 'container' -%}
+{% endif %}
+
+{% if _background_icon == blank or _background_icon == 'none' or _background_icon == 'rgba(0,0,0,0)' %}
+  {% if _icon_type == 'icon' or _icon_type == 'upload' %}
+    {%- assign _bg_icon_class = 'bg-icon-none' -%}
+  {% endif %}
+{% else %}
+  {%- assign _bg_icon_class = 'bg-icon' -%}
+{% endif %}
+
+{% if _style == 'image-text' %}
+  {% if section.blocks.size > 9 %}
+    {%- assign _item_per_row_1 = 9 -%}
+    {%- assign _item_per_row_2 = 8 -%}
+    {%- assign _item_per_row_3 = 7 -%}
+    {%- assign _item_per_row_4 = 6 -%}
+    {%- assign _item_per_row_5 = 5 -%}
+    {%- assign _item_per_row_6 = 4 -%}
+    {%- assign _item_per_row_7 = 3 -%}
+    {%- assign _item_per_row_8 = 2 -%}
+  {% else %}
+    {%- assign _item_per_row_1 = 6 -%}
+    {%- assign _item_per_row_2 = 6 -%}
+    {%- assign _item_per_row_3 = 5 -%}
+    {%- assign _item_per_row_4 = 5 -%}
+    {%- assign _item_per_row_5 = 4 -%}
+    {%- assign _item_per_row_6 = 4 -%}
+    {%- assign _item_per_row_7 = 3 -%}
+    {%- assign _item_per_row_8 = 2 -%}
+  {% endif %}
+
+{% else %}
+  {%- assign _item_per_row_1 = 4 -%}
+  {%- assign _item_per_row_2 = 4 -%}
+  {%- assign _item_per_row_3 = 4 -%}
+  {%- assign _item_per_row_4 = 4 -%}
+  {%- assign _item_per_row_5 = 4 -%}
+  {%- assign _item_per_row_6 = 4 -%}
+  {%- assign _item_per_row_7 = 2 -%}
+  {%- assign _item_per_row_8 = 1 -%}
+
+{% endif %}
+
+{% capture emptyCollection %}
+  <div class="collection-item textbox-below">
+    <div class="item">
+      
+      <div class="image">
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+
+      <h4>{{ 'homepage.onboarding.collection_title' | t }}</h4>
+    
+    </div>
+  </div>
+{% endcapture %}
+
+<div data-section-type="reload_section" data-section-id="{{ section.id }}" id="list-collection-{{ section.id }}" class="section-list-collection-v2{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  <div class="lc-container-v2 style-{{ _style }}" data-style="{{ _style }}">
+    <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+
+      {% unless section.settings.heading == blank and section.settings.subheading == blank %}
+        {%- assign _heading = section.settings.heading -%}
+        {%- assign _subheading = section.settings.subheading -%}
+        {%- assign _alignment = section.settings.alignment -%}
+
+        <div class="title-wrapper text-{{ _alignment }}">
+          {% if _border_line %}<span class="line-heading"></span>{% endif %}
+          <h3>{{ _heading }}</h3>
+          {% if _border_line %}<span class="line-heading"></span>{% endif %}
+          {% unless _subheading == blank %}<h5>{{ _subheading }}</h5>{% endunless %}
+        </div>
+      {% endunless %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="list-collection-v2 lc-border-right-{{ _border_right }}{% if _display_type == 'selected' %} {{ _bg_icon_class }}{% endif %}">
+          <div class="d-flex type-{{ _type }}{% if _type == 'row' and section.blocks.size < 6 %} item-4{% endif %}{% if _style == 'text' and _type == 'row' %} row row-padding-{{ _padding_section }}{% endif %}">
+
+            {% if _display_type == 'all' %}
+
+              {% for collection in collections %}
+                <div class="collection-item textbox-{{ _collection_name_position }}{% if _style == 'text' and _type == 'row' %} col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}{% endif %}">
+                  <div class="item">
+
+                    {% if _style == 'image-text' %}
+                      <div class="image it-{{ _icon_type }}">
+                        <a href="{{ collection.url }}">
+                          {% include 'image-lazysize' with image: collection.image, image_size: _image_size, image_class: '', image_alt: collection.title %}
+                        </a>
+                      </div>
+                    {% endif %}
+                    <h4>{{collection.metafields.col-desc.col-desc}}</h4>
+                    <h4 class="{% if _bold_collection_name %}bold-text{% endif %}{% if _uppercase_collection_name %} text-uppercase{% endif %}">
+                      <a href="{{ collection.url }}">{{ collection.title }}<span class="icon"></span></a>
+                    </h4>
+
+                  </div>
+                </div>
+              {% endfor %}
+
+            {% else %}
+
+              {% for block in section.blocks %}
+                {% if block.type == 'collection' %}
+                  {%- assign _collection = block.settings.collection -%}
+                  {%- assign collection = collections[_collection] -%}
+                  {%- assign _image = block.settings.image -%}
+                  {%- assign _icon = block.settings.icon -%}
+
+                  {% unless _collection == blank %}
+                    <div class="collection-item textbox-{{ _collection_name_position }}{% if _style == 'text' and _type == 'row' %} col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}{% endif %}">
+                      <div class="item">
+
+                        {% if _style == 'image-text' %}
+                          <div class="image it-{{ _icon_type }}">
+                            <a href="{{ collection.url }}">
+                              {% if _icon_type == 'image' %}
+                                {% include 'image-lazysize' with image: collection.image, image_size: _image_size, image_class: '', image_alt: collection.title %}
+                              {% elsif _icon_type == 'upload' %}
+                                {% if _image == blank %}
+                                  {% include 'image-lazysize' with image: collection.image, image_size: _image_size, image_class: '', image_alt: collection.title %}
+                                {% else %}
+                                  {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: collection.title %}
+                                {% endif %}
+                              {% else %}
+                                <i class="demo-icon {{ _icon }}"></i>
+                              {% endif %}
+                            </a>
+                          </div>
+                        {% endif %}
+                        <h4 class="col-desc">{{collection.metafields.col-desc.col-desc}}</h4>
+                        <h4 class="{% if _bold_collection_name %}bold-text{% endif %}{% if _uppercase_collection_name %} text-uppercase{% endif %}">
+                          <a href="{{ collection.url }}">{{ collection.title }}<span class="icon"></span></a>
+                        </h4>
+
+                      </div>
+                    </div>
+
+                  {% else %}
+                    {{ emptyCollection }}
+
+                  {% endunless %}
+
+                {% else %}
+                  <div class="collection-item textbox-{{ _collection_name_position }}{% if _style == 'text' and _type == 'row' %} col-md-3 col-sm-6 col-12 padding-{{ _padding_section }}{% endif %}">
+                      <div class="item show-all">
+                        {%- assign _text = block.settings.text -%}
+
+                        <h4 class="{% if _bold_collection_name %}bold-text{% endif %}{% if _uppercase_collection_name %} text-uppercase{% endif %}">
+                          <a href="/collections">{{ _text }}</a>
+                        </h4>
+
+                      </div>
+                    </div>
+
+                {% endif %}
+
+              {% endfor %}
+
+            {% endif %}
+
+          </div>
+          {%- if _type == 'carousel' -%}  
+            <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+            data-id="#list-collection-{{ section.id }} .type-carousel"
+            data-margin="{{ _padding_section  }}"
+            data-resp="8.1"
+            data-items-1="{{ _item_per_row_8 }}"
+            data-items-2="{{ _item_per_row_7 }}"
+            data-items-3="{{ _item_per_row_6 }}"
+            data-items-4="{{ _item_per_row_5 }}"
+            data-items-5="{{ _item_per_row_4 }}"
+            data-items-6="{{ _item_per_row_3 }}"
+            data-items-7="{{ _item_per_row_2 }}"
+            data-items-8="{{ _item_per_row_1 }}"
+            >
+          {%- endif -%}
+
+          {% if _show_all_btn %}
+            <div class="btn-show-all{% if _show_all_btn_line %} line{% endif %}"><a href="/collections">{{ 'general.text.view_all' | t }}</a></div>
+          {% endif %}
+        </div>
+
+      {% else %}
+
+        <div class="list-collection-v2">
+          <div class="d-flex type-row">
+            {% for i in (1.._item_per_row) %}
+              {{ emptyCollection }}
+            {% endfor %}
+          </div> 
+        </div>
+
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  {% if section.settings.layout == 'boxed-bg' %}
+  #list-collection-{{ section.id }} .list-collection-v2 .d-flex{
+    background: {{ _background }};
+  }
+  {% else %}
+  #list-collection-{{ section.id }} .lc-container-v2{
+    background: {{ _background }};
+  }
+  {% endif %}
+  #list-collection-{{ section.id }} .lc-container-v2 .title-wrapper h3{
+    font-size: {{ section.settings.heading_size }}px;
+  }
+  #list-collection-{{ section.id }} .lc-container-v2 .title-wrapper h5{
+    font-size: {{ section.settings.subheading_size }}px;
+  }
+  #list-collection-{{ section.id }} .list-collection-v2 .collection-item .image{
+    background: {{ _background_icon }};
+  }
+  #list-collection-{{ section.id }} .list-collection-v2 .collection-item .image i{
+    color: {{ _icon_color }};
+  }
+  #list-collection-{{ section.id }} .list-collection-v2 h4{
+    font-size: {{ _collection_name_size }}px;
+  }
+  #list-collection-{{ section.id }} .lc-container-v2.style-image-text .collection-item.textbox-right .item .image{
+    width: {{ _image_size_width }}px;
+  }
+</style>

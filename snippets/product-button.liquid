@@ -1,0 +1,29 @@
+{% if settings.use_quick_view or settings.enable_product_wishlist or settings.enable_product_compare %}
+  <div class="product-button">
+
+      {% if settings.enable_product_compare %}
+        <div class="product-compare">
+          <a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.compare_settings.compare_add_class }} {% if shop.metafields.arena.wl_cp_settings.compare_settings.compare_enable == false %}disabled{% endif %}' href="javascript:;">
+            <svg width="14" height="14" class="arn_icon arn_icon-add-compare"><use xlink:href="#arn_icon-add-compare"></use></svg>
+            <svg width="14" height="14" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if settings.enable_product_wishlist %} 
+        <div class="product-wishlist">
+          <a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_add_class }} {% if shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_enable == false %}disabled{% endif %}' href="javascript:;">
+            <svg width="14" height="14" class="arn_icon arn_icon-add-wishlist"><use xlink:href="#arn_icon-add-wishlist"></use></svg>
+            <svg width="14" height="14" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+          </a>
+        </div>	
+      {% endif %}
+
+      {% if settings.use_quick_view %}
+        <div data-target="#quick-shop-popup" class="quick_shop" data-handle="{{ product.handle }}" data-toggle="modal" title="{{ 'products.product.quick_shop' | t }}">
+          <i class="demo-icon icon-search"></i>
+        </div>
+      {% endif %}
+
+  </div>
+{% endif %}

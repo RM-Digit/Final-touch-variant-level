@@ -1,0 +1,27 @@
+<div class="support-center">
+  {% assign _menu_bold = block.settings.bold_text %}
+  {% assign _f_title = block.settings.heading %}
+  {% assign _content = block.settings.content %}
+  {% assign _button_text = block.settings.button_text %}
+  {% assign _button_text_2 = block.settings.button_text_2 %}
+  {% assign _button_link = block.settings.button_link %}
+  {% assign _button_link_2 = block.settings.button_link_2 %}
+
+  <div class="support-center-content{% if _menu_bold %} bold-text{% endif %}">
+
+    {% unless _f_title == blank and _content == blank %}
+      <div class="textbox">
+        {% unless _f_title == blank %}<h5>{{ _f_title }}</h5>{% endunless %}
+        {% unless _content == blank %}<div class="time">{{ _content }}</div>{% endunless %}
+      </div>
+    {% endunless %}
+
+    {% unless _button_text == blank and _button_text_2 == blank %}
+      <div class="button">
+        {% unless _button_text == blank %}<a href="{{ _button_link }}" class="btn btn-support">{{ _button_text }}</a>{% endunless %}
+        {% unless _button_text_2 == blank %}<a href="{{ _button_link_2 }}" class="btn btn-support">{{ _button_text_2 }}</a>{% endunless %}
+      </div>
+    {% endunless %}
+    
+  </div>
+</div>

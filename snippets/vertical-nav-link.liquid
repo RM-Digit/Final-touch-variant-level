@@ -1,0 +1,133 @@
+{% include 'nav-label' %}
+
+{% assign submenu = l.title | handleize %}
+{% if linklists[submenu].links.size > 0 %}
+
+  {% if section.settings.use_super_megamenu == false %}
+    {% include 'vertical-dropdown-menu' %}
+
+  {% else %}
+    {% assign have_super_menu = false %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'mega-vertical-trigger' %}
+        {% assign super_menu_handle = block.settings.mega_navigation %}
+
+        {% if super_menu_handle == l.title %}
+          {% assign have_super_menu = true %}
+
+          {% if have_super_menu == true %}
+            {% assign number = forloop.index %}
+
+            <li class="dropdown mega-menu{% if l.active %} active{% endif %}"{{block.shopify_attributes}}>
+              <div class="dropdown-inner">
+                <a href="{{ l.url }}" class="dropdown-link">
+                  {% if _vertical_nav_linklist_icon %}
+                    {% if _vertical_thumbnail_icon_upload == 'metafield' %}
+                      {% assign _tab_title_handle = l.title | handleize %}
+                      {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+                    {% else %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                    {% endif %}
+                  {% endif %}
+                  <span>{{ l.title }}</span>
+                  {% include 'menu-label' %}
+                </a>
+                <span class="expand"></span>
+              </div>
+              {% include 'vertical-mega-menu' %}
+            </li>
+
+          {% break %}
+          {% endif %}
+
+        {% endif %}
+
+      {% endif %}
+    {% endfor %}
+
+	{% unless have_super_menu == true %}
+      {% include 'vertical-dropdown-menu' %}
+	{% endunless %}
+
+  {% endif %}
+
+{% else %}
+
+  {% if section.settings.use_super_megamenu == false %}
+    <li class="{% if l.active %}active{% endif %}">
+      <a href="{{ l.url }}">
+        {% if _vertical_nav_linklist_icon %}
+          {% if _vertical_thumbnail_icon_upload == 'metafield' %}
+            {% assign _tab_title_handle = l.title | handleize %}
+            {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+          {% else %}
+            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+          {% endif %}
+        {% endif %}
+        <span>{{ l.title }}</span>
+        {% include 'menu-label' %}
+      </a>
+    </li>
+
+  {% else %}
+
+	{% assign have_super_menu = false %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'mega-vertical-trigger' %}
+        {% assign super_menu_handle = block.settings.mega_navigation %}
+
+        {% if super_menu_handle == l.title %}
+          {% assign have_super_menu = true %}
+
+          {% if have_super_menu == true %}
+            {% assign number = forloop.index %}
+
+            <li class="dropdown mega-menu{% if l.active %} active{% endif %}"{{block.shopify_attributes}}>
+
+              <a href="{{ l.url }}" class="dropdown-link">
+                {% if _vertical_nav_linklist_icon %}
+                  {% if _vertical_thumbnail_icon_upload == 'metafield' %}
+                    {% assign _tab_title_handle = l.title | handleize %}
+                    {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+                  {% else %}
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+                  {% endif %}
+                {% endif %}
+                <span>{{ l.title }}</span>
+                {% include 'menu-label' %}
+              </a>
+              <span class="expand"></span>
+
+              {% include 'vertical-mega-menu' %}
+            </li>
+
+          {% break %}
+          {% endif %}
+
+        {% endif %}
+
+      {% endif %}
+    {% endfor %}
+
+	{% unless have_super_menu == true %}
+    <li class="{% if l.active %}active{% endif %}">
+      <a href="{{ l.url }}">
+        {% if _vertical_nav_linklist_icon %}
+          {% if _vertical_thumbnail_icon_upload == 'metafield' %}
+            {% assign _tab_title_handle = l.title | handleize %}
+            {%- include 'include-icon-handle', l_title: _tab_title_handle, metafields_icon: true -%}
+          {% else %}
+            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+          {% endif %}
+        {% endif %}
+        <span>{{ l.title }}</span>
+        {% include 'menu-label' %}
+      </a>
+    </li>
+	{% endunless %}
+
+  {% endif %}
+
+{% endif %}

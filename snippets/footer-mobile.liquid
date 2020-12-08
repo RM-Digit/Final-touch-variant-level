@@ -1,0 +1,93 @@
+<div class="footer-container-mobile">
+
+    <div class="bulk-logo-mobile">
+        <img src="https://cdn.shopify.com/s/files/1/0429/9385/files/Group_1_ca6a662b-ada0-48c2-b7de-6f1e867a99d4.png?v=1601112160">
+    </div>
+    {%- assign _social_text = block.settings.social_text -%}
+
+    <div
+        class="col-md-{{ _width }} col-sm-12 col-12{% if _width == 12 %} fix-menu{% endif %}{% if _f_title == blank %} heading-blank{% endif %}">
+        <div
+            class="footer-block social-icons-block{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %}">
+
+            {% unless _f_title == blank %}
+            <h6>{{ _f_title }}<span class="icon"></span></h6>
+            {% endunless %}
+
+            {% if _social_text %}
+            <ul class="widget-social-icons show-text">
+                <div class="whoweare">
+                    <h6 class="heading-text">WHO WE ARE</h6>
+                    <p class="contents">B.U.L.K stands for Building Up Lives with Kindness. We do not have customers, we
+                        have one big family. To everyone that is new, we welcome you to the B.U.L.K Fam!
+                    </p>
+
+                </div>
+                {% for i in (1..8) %}
+                {% assign _type = 'social_icon_type_' | append: i %}
+
+                {% unless settings[_type] == 'none' %}
+                {% assign _font_icon = 'social_font_icon_' | append: i %}
+                {% assign _image = 'social_icon_' | append: i %}
+                {% assign _title = 'social_icon_title_' | append: i %}
+                {% assign _link = 'social_icon_link_' | append: i %}
+
+                <li>
+                    <a target="_blank" rel="noopener" href="{{ settings[_link] }}" title="{{ settings[_title] }}">
+                        {% if settings[_type] == 'font-icon' %}
+                        <i class="demo-icon {{ settings[_font_icon] }}"></i>
+                        {% else %}
+                        <img src="{{ settings[_image] | img_url: '20x' }}" alt="Social" />
+                        {% endif %}
+                        <span class="text">{{ settings[_title] }}</span>
+                    </a>
+                </li>
+                {% endunless %}
+
+                {% endfor %}
+                <div style="margin-top: 45px;"><img
+                        src="https://cdn.shopify.com/s/files/1/0429/9385/files/footer-logo.png?v=1600990391"></div>
+            </ul>
+
+            {% else %}
+            {% include 'social-media-icons' %}
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="bulk-logo-addr-mobile">
+        <p class="addr">
+            <span>602 US 281 S</span><br>
+            <span>Johnson City, TX 78636</span>
+        </p>
+    </div>
+    <div class="menuitems-mobile">
+        {% for block in section.blocks %}
+          {% assign _width = block.settings.width %}
+          {% assign _f_title = block.settings.heading %}
+
+          {% case block.type %}
+            {% when 'menu' %}
+              {% include 'footer-widget-menu-mobile' %} 
+
+            {% when 'working-time' %}
+              {% include 'footer-widget-working-time' %}
+          
+              {% when 'collection-list' %}
+              {% include 'footer-widget-collection' %} 
+
+            {% when 'newsletter-column' %}
+              {% include 'footer-widget-newsletter' %}
+          
+              {% when 'text' %}
+              {% include 'footer-widget-textbox' %}
+
+            {% when 'payment' %}
+              {% if _logo_index == false and _push_elements_right == false %}
+                {% include 'footer-payment-widget' %}
+              {% endif %}
+          {% endcase %}
+
+        {% endfor %}
+      </div>   
+</div>

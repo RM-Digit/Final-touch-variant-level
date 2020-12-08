@@ -1,0 +1,66 @@
+<div id="product-image" class="product-image">
+  <div class="product-image-inner">
+
+    {% if product.images.size > 0 %}
+
+      {% if template.suffix == 'v5' %}
+        <div class="stick-gallery-image">
+          {% for image in product.images %}
+            <div class="item{% if forloop.last %} item-last{% endif %}">
+              <img src="{{ image.src | product_img_url: '800x' }}" alt="{{ product.title | escape }}">
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="slider-main-image">
+        <div class="slider-for-00 slider-for-03">
+          {% for image in product.images %}
+            <div class="slick-item slick-zoom">
+              <a class="prod-zoom" data-fancybox="gallery" href="{{ image.src | product_img_url: '2048x2048' }}">
+                <img class="image-zoom" src="{{ image.src | product_img_url: '2048x2048' }}" alt="{{ product.title | escape }}">
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="slick-btn-03">
+          <span class="btn-prev"><i class="demo-icon icon-chevron-left-solid"></i></span>
+          <span class="btn-next"><i class="demo-icon icon-chevron-right-solid"></i></span>
+        </div>   
+
+        {% if section.settings.meta_video %}
+        {% assign _meta_video = product.metafields.c_f %}
+        {% assign key = 'video_url' %}
+
+        {% unless _meta_video.video_url == blank %}
+        <div class="meta-video">
+          <a href="{{ _meta_video.video_url }}" class="m-video"><i class="demo-icon icon-play-circle2"></i>{{ 'products.product.video' | t }}</a>
+        </div>
+
+        <script src="{{ 'jquery.fancybox-media.js' | asset_url  }}"></script>
+
+        <script>
+          $(document).ready(function() {
+            $('.m-video').fancybox({
+              openEffect  : 'none',
+              closeEffect : 'none',
+              helpers : {
+                media : {}
+              }
+            });
+          });
+        </script>
+
+        {% endunless %}
+
+        {% endif %}
+      </div>
+
+    {% else %}
+     <img src="{{ 'default-image.jpg' | asset_url }}" />
+
+    {% endif %}
+
+  </div>
+</div>

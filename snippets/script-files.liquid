@@ -1,0 +1,26 @@
+<!--[if (gt IE 9)|!(IE)]><!--><script crossorigin="anonymous" src="{{ 'theme-sections.min.js' | asset_url  }}" defer="defer"></script>
+<!--[if lte IE 9]><script src="{{ 'theme-sections.min.js' | asset_url }}"></script><![endif]-->
+
+<script crossorigin="anonymous" src="{{ 'jquery.swiper.js' | asset_url }}" defer></script>
+{% if template == 'index' %}
+<script crossorigin="anonymous" src="{{ 'muuri.min.js' | asset_url  }}" defer></script>
+{% endif %}
+
+<script crossorigin="anonymous" src="{{ 'jquery.fancybox.min.js' | asset_url  }}"></script>
+
+{% if template contains 'product' %}
+<script crossorigin="anonymous" src="{{ 'ouibounce.min.js' | asset_url  }}" defer></script>
+{% endif %}
+
+<script crossorigin="anonymous" src="{{ 'jquery.owl.carousel.min.js' | asset_url  }}" defer></script>
+<script crossorigin="anonymous" src="{{ 'jquery.countdown.js' | asset_url  }}" defer></script>
+
+{% if settings.ajax_search == 'default-theme' %}
+<script crossorigin="anonymous" src="{{ 'bc.ajax-search.js' | asset_url }}" defer></script>
+{% endif %}
+
+<script crossorigin="anonymous" src="{{ 'instafeed.min.js' | asset_url }}" defer></script>
+
+<script crossorigin="anonymous" src="{{ 'option_selection.js' | asset_url  }}" defer></script>
+<script crossorigin="anonymous" src="{{ 'bc.script.js' | asset_url }}"></script>
+{%- if settings.enabled_admin_helper -%}{{- 'admin-panel.js' | asset_url | script_tag -}}{%- endif -%}

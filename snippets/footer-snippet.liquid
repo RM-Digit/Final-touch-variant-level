@@ -1,0 +1,125 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _push_elements_right = section.settings.push_elements_right -%}
+
+{% if section.settings.layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+<footer id="footer-content" class="layout-{{ _layout }}" data-section-type="reload_section" data-section-id="{{ section.id }}">
+  <div class="footer-container{% if _push_elements_right %} push-elements-right{% endif %}">
+    {% include 'footer-mobile' %}
+    {%- assign _ind = 0 -%}
+
+    {% if _push_elements_right %}
+      {% for block in section.blocks %}
+        {%- assign _padding_top = block.settings.padding_top -%}
+        {%- assign _padding_bottom = block.settings.padding_bottom -%}
+
+        {%- assign _ind = _ind | plus: 1 -%}
+
+        {% case block.type %}
+
+          {% when 'instagram' %}
+            {% include 'footer-instagram' %}
+
+          {% when 'logo-list' %}
+            {% include 'footer-logo-list' %}
+
+          {% when 'menu-info' %}
+            {% include 'footer-widget' %}
+
+          {% when 'notice-bar' %}
+            {%- assign _notice_layout = block.settings.layout -%}
+            {%- assign _notice_border = block.settings.border -%}
+            {%- assign _text = block.settings.text -%}
+            {%- assign _notice_bg = block.settings.bg_color -%}
+            {%- assign _notice_text_color = block.settings.text_color -%}
+
+            {% if _notice_layout == 'boxed' %}
+              {%- assign _notice_class = 'container' -%}
+            {% else %}
+              {%- assign _notice_class = '' -%}
+            {% endif %}
+
+            {% unless _text == blank %}
+              <div class="jewelry-bar" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+                <div class="{{ _notice_class }}{% if _notice_border %} jewelry-border{% endif %}">
+                  <div class="jewelry-bar-content" style="background: {{ _notice_bg }}; color: {{ _notice_text_color }};">{{ _text }}</div>
+                </div>
+              </div>
+            {% endunless %}         
+
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+
+    {% else %}
+      {% for block in section.blocks %}
+        {%- assign _padding_top = block.settings.padding_top -%}
+        {%- assign _padding_bottom = block.settings.padding_bottom -%}
+
+        {%- assign _ind = _ind | plus: 1 -%}
+
+        {% case block.type %}
+
+          {% when 'instagram' %}
+            {% include 'footer-instagram' %}
+
+          {% when 'logo-list' %}
+            {% include 'footer-logo-list' %}
+
+          {% when 'newsletter' %}
+            {% include 'footer-newsletter' %}
+
+          {% when 'menu-info' %}
+            {% include 'footer-widget' %}
+
+          {% when 'notice-bar' %}
+            {%- assign _notice_layout = block.settings.layout -%}
+            {%- assign _notice_border = block.settings.border -%}
+            {%- assign _text = block.settings.text -%}
+            {%- assign _notice_bg = block.settings.bg_color -%}
+            {%- assign _notice_text_color = block.settings.text_color -%}
+
+            {% if _notice_layout == 'boxed' %}
+              {%- assign _notice_class = 'container' -%}
+            {% else %}
+              {%- assign _notice_class = '' -%}
+            {% endif %}
+
+            {% unless _text == blank %}
+              <div class="jewelry-bar" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+                <div class="{{ _notice_class }}{% if _notice_border %} jewelry-border{% endif %}">
+                  <div class="jewelry-bar-content" style="background: {{ _notice_bg }}; color: {{ _notice_text_color }};">{{ _text }}</div>
+                </div>
+              </div>
+            {% endunless %}
+
+          {% when 'bar' %}
+            {% include 'footer-service-bar' %}
+
+          {% when 'copyright' %}
+            {% include 'footer-copyright' %}          
+
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+
+    {% endif %}
+  
+  </div>
+
+  <div id="checkLayout">
+    <span class="d-block d-sm-none"></span>
+    <span class="d-none d-sm-block d-md-none"></span>
+    <span class="d-none d-md-block d-lg-none"></span>
+    <span class="d-none d-lg-block d-xl-none"></span>
+    <span class="d-none d-xl-block"></span>
+  </div>
+  
+</footer>

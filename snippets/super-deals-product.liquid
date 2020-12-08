@@ -1,0 +1,29 @@
+{% assign _border_line = block.settings.border_line %}
+{%- assign _heading = block.settings.heading -%}
+{%- assign _collection = block.settings.collection -%}
+{%- assign collection = collections[_collection] -%}
+{%- assign _limited = block.settings.limited -%}
+
+{% unless _collection == blank %}
+  <div class="container{% if _border_line %} heading-border-line{% endif %}">
+    <div class="block-product-inner">
+
+      {% unless _heading == blank %}<div class="title-wrapper text-center">
+        {% if _border_line %}<span class="line-heading"></span>{% endif %}  
+        <h3>{{ _heading }}</h3></div>
+        {% if _border_line %}<span class="line-heading"></span>{% endif %}  
+      {% endunless %}
+
+      <div class="product-list">
+        <div class="row justify-content-md-center">
+          {% for product in collection.products limit: _limited %} 
+            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+              {% include 'product-item' %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endunless %}

@@ -1,0 +1,33 @@
+{% include 'header-top-bar' %}
+
+<div class="header-main">
+  <div class="header-main-inner">
+
+    <div class="{{ _layout_class }}">
+      <div class="table-row">
+
+        <div class="navbar navbar-responsive-menu d-lg-none">
+          <div class="responsive-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+        
+        {% include 'header-mobile-cart-icon' %}
+        {% include 'header-logo' %}
+        {% include 'header-switcher' %}
+        {% include 'header-horizontal-menu' %}
+        {% include 'header-icons' %}
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% if settings.show_search == 'header' %}
+  <div class="container">
+    {% include 'header-search' %}
+  </div>
+{% endif %}

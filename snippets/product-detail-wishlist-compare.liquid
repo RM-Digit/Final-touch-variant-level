@@ -1,0 +1,15 @@
+{% if settings.enable_product_compare %}
+	<a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.compare_settings.compare_add_class }} {% if shop.metafields.arena.wl_cp_settings.compare_settings.compare_enable == false %}disabled{% endif %}' href="javascript:;">
+	    <svg width="20" height="20" class="arn_icon arn_icon-add-compare"><use xlink:href="#arn_icon-add-compare"></use></svg>
+	    <svg width="20" height="20" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+	    <span>{{ 'products.product.add_compare' | t }}</span>
+	</a>
+{% endif %}
+
+{% if settings.enable_product_wishlist %}
+	<a data-arn-action="add" data-handle='{{ product.handle }}' class='{{ shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_add_class }} {% if shop.metafields.arena.wl_cp_settings.wishlist_settings.wishlist_enable == false %}disabled{% endif %}' href="javascript:;">
+	    <svg width="20" height="20" class="arn_icon arn_icon-add-wishlist"><use xlink:href="#arn_icon-add-wishlist"></use></svg>
+	    <svg width="20" height="20" class="arn_icon arn_icon-preloader"><use xlink:href="#arn_icon-preloader"></use></svg>
+	    <span>{{ 'products.product.add_to_wishlist' | t }}</span>
+	</a>
+{% endif %}

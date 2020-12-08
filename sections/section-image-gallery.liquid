@@ -1,0 +1,667 @@
+{% include 'image-gallery-snippet' %}
+
+{% schema %}
+{
+  "name": "Image Gallery V1",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Image Gallery V1' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Image Gallery V1"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "boxed-bg", "label": "Boxed background" },
+        { "value": "boxed-padding", "label": "Boxed padding" },
+        { "value": "full", "label": "Wide" },
+        { "value": "wide-padding", "label": "Wide padding" },
+        { "value": "wide-container", "label": "Wide & container" },
+        { "value": "right-column", "label": "Right column" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "row-2", "label": "Row 2" },
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "masonry", "label": "Masonry" }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }, 
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "justify_content_center",
+      "label": "Justify content center",
+      "default": true,
+      "info": "Only for Type is Row"
+    },
+    {
+      "type": "checkbox",
+      "id": "effect",
+      "label": "Image hover effect",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "border_item",
+      "label": "Border item",
+      "default": "none",
+      "options": [
+        { "value": "all", "label": "All" },
+        { "value": "top-bottom", "label": "Top & Bottom" },
+        { "value": "right", "label": "Right" },
+        { "value": "none", "label": "None" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Right column"
+    },
+    {
+      "type": "range",
+      "id": "right_column_border",
+      "label": "Border",
+      "min": 1,
+      "max": 5,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "right_column_pad",
+      "label": "Padding left",
+      "step": 10,
+      "min": 10,
+      "max": 30,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_btn",
+      "label": "SHOW ALL button"
+    },
+    {
+      "type": "url",
+      "id": "show_all_btn_link",
+      "label": "Show all link"
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Newarrivals"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    }, 
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center",  "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Number of items per row",
+      "info": "For Type is 'Row & Carousel'"
+    },
+    {
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Desktop",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_tablet",
+      "label": "Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_mobile",
+      "label": "Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size (pixels)",
+          "default": "630x350",
+          "info": "For Row & Carousel. Eg: 630x350"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Secondary link"
+        },
+        {
+          "type": "header",
+          "content": "Number of items per row",
+          "info": "For Type is 'Row 2 & Masonry'"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Desktop",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "image_width_tablet",
+          "label": "Tablet",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "image_width_mobile",
+          "label": "Mobile",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6,
+          "unit": "/12"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Layout",
+          "info": "Icon, Heading, Subheading, Button"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "label": "Style",
+          "default": "overlay",
+          "options": [
+            { "label": "Overlay", "value": "overlay" },
+            { "label": "Below image", "value": "below" },
+            { "label": "Right image", "value": "right" },
+            { "label": "Left image", "value": "left" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Alignment",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Overlay Position"
+        },
+        {
+          "type": "checkbox",
+          "id": "overlay_position_container",
+          "label": "Fixed position to container"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Position",
+          "default": "center-center",
+          "options": [
+            { "label": "Top left", "value": "top-left" },
+            { "label": "Top center", "value": "top-center" },
+            { "label": "Top right", "value": "top-right" },
+            { "label": "Middle left", "value": "center-left" },
+            { "label": "Middle center", "value": "center-center" },
+            { "label": "Middle right", "value": "center-right" },
+            { "label": "Bottom left", "value": "bottom-left" },
+            { "label": "Bottom center", "value": "bottom-center" },
+            { "label": "Bottom right",  "value": "bottom-right" }
+          ]
+        },   
+        {
+          "type": "range",
+          "id": "text_position_top",
+          "label": "Position Top",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_left",
+          "label": "Position Left",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_bottom",
+          "label": "Position Bottom",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_position_right",
+          "label": "Position Right",
+          "min": 0,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label 1"
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button label 2"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "subtitle_text_bold",
+          "label": "Bold Subeading"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_text_bold",
+          "label": "Bold Buttons"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_full_width",
+          "label": "Button full width"
+        },
+        {
+          "type": "select",
+          "id": "button_position",
+          "label": "Button position",
+          "default": "below",
+          "options": [
+            { "value": "next", "label": "Next text" },
+            { "value": "right", "label": "Right text" },
+            { "value": "below", "label": "Below text" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subheading",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Heading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "label": "Subheading",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Button label",
+          "min": 11,
+          "max": 36,
+          "unit": "px",
+          "default": 13
+        } 
+      ]
+    },
+    {
+      "type": "image-v2",
+      "name": "Image with 2 text boxes",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+    		{
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "Secondary link"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content 1"
+        },
+    		{
+          "type": "range",
+          "id": "text_position_1",
+          "label": "Position Left",
+          "min": 1,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+    		{
+          "type": "select",
+          "id": "text_box_alignment_1",
+          "label": "Alignment",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_title",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Content 2"
+        },
+    		{
+          "type": "range",
+          "id": "text_position_2",
+          "label": "Position Right",
+          "min": 1,
+          "max": 50,
+          "unit": "%",
+          "default": 10
+        },
+    		{
+          "type": "select",
+          "id": "text_box_alignment_2",
+          "label": "Alignment",
+          "default": "right",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_title_2",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text_2",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_text_bold",
+          "label": "Bold Buttons"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Text Box Font Size"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Text",
+          "min": 13,
+          "max": 80,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Button label",
+          "min": 13,
+          "max": 36,
+          "unit": "px",
+          "default": 13
+        }
+      ]
+    },
+    {
+      "type": "logo-list",
+      "name": "Right - Logo List",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Gallery V1",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

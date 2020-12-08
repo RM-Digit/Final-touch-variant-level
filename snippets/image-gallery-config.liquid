@@ -1,0 +1,95 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+{%- assign _right_column_pad = section.settings.right_column_pad -%}
+{%- assign _right_column_border = section.settings.right_column_border -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+{%- assign _justify_content_center = section.settings.justify_content_center -%}
+{%- assign _effect = section.settings.effect -%}
+{%- assign _border_line = section.settings.border_line -%}
+{%- assign _border_item = section.settings.border_item -%}
+
+{%- assign _show_all_btn = section.settings.show_all_btn -%}
+{%- assign _show_all_btn_link = section.settings.show_all_btn_link -%}
+
+{%- assign _item_per_row = section.settings.item_per_row -%}
+{%- assign _item_per_row_tablet = section.settings.item_per_row_tablet -%}
+{%- assign _item_per_row_mobile = section.settings.item_per_row_mobile -%}
+
+{% if _layout == 'boxed' or _layout == 'wide-container' or _layout == 'boxed-bg' or _layout == 'boxed-padding' or layout == 'right-column' %}
+  {%- assign _layout_class = 'container' -%}
+{% elsif _layout == 'wide-padding' %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+{% case _type %}
+{% when 'row' %}
+  {% if _justify_content_center %}
+    {%- assign _class= 'row row-1 justify-content-center row-padding-' | append: _padding_section -%}
+  {% else %}
+    {%- assign _class= 'row row-1 row-padding-' | append: _padding_section -%}
+  {% endif %}
+{% when 'row-2' %}
+  {%- assign _class= 'row row-1 justify-content-center row-padding-' | append: _padding_section -%}
+{% when 'carousel' %}
+  {%- assign _class= 'home-banner-carousel home-banner-carousel-' | append: section.id -%}
+{% else %}
+  {%- assign _class= 'bc-masonry bc-masonry-' | append: section.id  | append: ' row-padding-' | append: _padding_section -%}
+{% endcase %}
+
+{% case _item_per_row %}
+  {% when 1 %}
+    {%- assign _desktop_class = "col-xl-12 col-lg-12" -%}
+  {% when 2 %}
+    {%- assign _desktop_class = "col-xl-6 col-lg-6" -%}
+  {% when 3 %}
+    {%- assign _desktop_class = "col-xl-4 col-lg-4" -%}
+  {% when 4 %}
+    {%- assign _desktop_class = "col-xl-3 col-lg-3" -%}
+  {% when 5 %}
+    {%- assign _desktop_class = "col-fix-5" -%}
+  {% when 6 %}
+    {%- assign _desktop_class = "col-xl-2 col-lg-2" -%}
+  {% when 7 %}
+    {%- assign _desktop_class = "col-fix-7" -%}
+  {% else %}
+    {%- assign _desktop_class = "col-fix-8" -%}
+{% endcase %}
+
+{% case _item_per_row_tablet %}
+  {% when 1 %}
+    {%- assign _tablet_class = "col-md-12" -%}
+  {% when 2 %}
+    {%- assign _tablet_class = "col-md-6" -%}
+  {% when 3 %}
+    {%- assign _tablet_class = "col-md-4" -%}
+  {% else %}
+    {%- assign _tablet_class = "col-md-3" -%}
+{% endcase %}
+
+{% case _item_per_row_mobile %}
+  {% when 1 %}
+    {%- assign _mobile_class = "col-sm-12" -%}
+  {% when 2 %}
+    {%- assign _mobile_class = "col-sm-6" -%}
+  {% else%}
+    {%- assign _mobile_class = "col-sm-4" -%}
+{% endcase %}
+
+{% if _bg_color == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' %}
+  {%- assign _bg_color_none = 'bg-color-none' -%}
+{% endif %}
+
+{% capture emptyImage %}
+  <div class="image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+
+  <div class="text">
+    <div class="title h5" style="color: #000000;">{{ 'homepage.onboarding.banner_title' | t }}</div>
+  </div>
+{% endcapture %}

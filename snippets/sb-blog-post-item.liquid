@@ -1,0 +1,19 @@
+{% assign _image_size = '270x' %}
+<div class="post-item">
+  <div class="post-item-inner">
+    {% if _article.image %}
+      <div class="post-image">
+        <a href="{{ _article.url }}">
+          {% include 'image-lazysize' with image: _article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}       
+        </a>
+      </div>
+    {% endif %}
+
+    <div class="post-content">
+      <h6><a href="{{ _article.url }}">{{ _article.title }}</a></h6>
+      <div class="meta-data">
+        <span class="date">{{ _article.published_at | date: "%d %b %Y" }}</span>
+      </div>
+    </div>
+  </div>         
+</div>

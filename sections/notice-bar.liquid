@@ -1,0 +1,224 @@
+{% include 'notice-bar-snippet' %}
+
+{% schema %}
+{
+  "name": "Notice Bar",
+  "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Notice Bar"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "full",
+      "options": [
+        { "value": "bar-boxed", "label": "Boxed" },
+        { "value": "boxed-padding", "label": "Boxed padding" },
+        { "value": "full", "label": "Wide" },
+        { "value": "right-column", "label": "Right column" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "left-2", "label": "Left with padding" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "flex_layout",
+      "label": "Flex layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 12
+    },
+	{
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Middle line"
+    },
+	{
+      "type": "select",
+      "id": "nb_border",
+      "label": "Border",
+      "default": "none",
+      "options": [
+        { "value": "radius", "label": "Radius content" },
+        { "value": "tb", "label": "Top & Bottom" },
+        { "value": "bottom", "label": "Bottom" },
+		{ "value": "none", "label": "None" }
+      ]
+	},
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Style",
+      "default": "color",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "color", "label": "Color" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "TextBox",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color",
+          "default": "#ffffff" 
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Font size",
+          "min": 11,
+          "max": 80,
+          "unit": "px",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "HTML",
+      "settings": [
+        {
+          "type": "html",
+          "id": "text",
+          "label": "HTML"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "text_span_color",
+          "label": "Color for SPAN tag",
+          "default": "#ffc22c"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Font size",
+          "min": 11,
+          "max": 80,
+          "unit": "px",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "1",
+          "options": [
+            { "value": "1", "label": "Primary button" },
+            { "value": "2", "label": "Secondary button" },
+            { "value": "3", "label": "Tertiary button" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Font size",
+          "min": 11,
+          "max": 20,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "bold_text",
+          "label": "Bold text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Notice Bar",
+      "category": "Taskbar",
+      "blocks": [
+        { "type": "text" },
+        { "type": "button" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,119 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _border = section.settings.border -%}
+{%- assign _quote_icon = section.settings.quote_icon -%}
+
+{% assign _comment_color = section.settings.comment_color %}
+{% assign _comment_size = section.settings.comment_size %}
+{% assign _rating_size = section.settings.rating_size %}
+
+{% assign _bg_style = section.settings.bg_style %}
+{% assign _bg_img = section.settings.bg_image %}
+{% assign _bg_color = section.settings.bg_color %}
+
+{% if _bg_style == 'image' %}
+  {% if _lazyload %}
+    {% capture background %}{{ _bg_img | img_url: '1920x' }}{% endcapture %}
+  {% else %}
+    {% capture background %}url({{ _bg_img | img_url: '1920x' }}) no-repeat{% endcapture %}
+  {% endif %}
+{% else %}
+  {% capture background %}{{ _bg_color }}{% endcapture %}
+{% endif %}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+<div id="home-testimonial-{{ section.id }}" class="home-testimonial layout-{{_layout }} bg-{{ _bg_style }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="{{ _layout_class }}">
+
+  	<div class="testimonial-box{% if _lazyload and _bg_style == 'image' %} lazyload{% endif %}" {% if _lazyload and _bg_style == 'image' %}data-bgset="{{ background }}"{% else %} style="background: {{ background }};"{% endif %}>
+  		<div class="testimonial-box-background">
+		    {% include 'heading-block' %}
+
+		    <div class="testimonial-box-content{% if _border %} testimonial-border{% endif %}">
+			    <div class="testimonial-carousel">
+
+			        {% if section.blocks.size > 0 %}
+					
+						{% for block in section.blocks %} 
+
+							{%- assign _rating = block.settings.rating -%}
+				            {%- assign _content = block.settings.content -%}
+				            {%- assign _date = block.settings.date -%}
+
+							<div class="item">
+								<div class="testimonial">
+
+									{% if _quote_icon %}<i class="demo-icon icon-quote-right"></i>{% endif %}
+									<div class="rating">
+										{% case _rating %}
+											{% when 1 %}
+												<span></span>
+											{% when 2 %}
+												<span></span><span></span>
+											{% when 3 %}
+												<span></span><span></span><span></span>
+											{% when 4 %}
+												<span></span><span></span><span></span><span></span>
+											{% else %}
+												<span></span><span></span><span></span><span></span><span></span>
+										{% endcase %}
+									</div>
+
+									{% unless _content == blank %}<div class="content">{{ _content }}</div>{% endunless %}
+									{% unless _date == blank %}<div class="date">{{ _date }}</div>{% endunless %}
+
+				                </div>
+				            </div>
+
+			            {% endfor %}
+
+			        {% else %}
+			        	{% for i in (1..4) %}
+			                <div class="item">
+			                	<div class="testimonial">
+									{% if _quote_icon %}<i class="demo-icon icon-quote-right"></i>{% endif %}
+									<div class="rating">
+										<span></span><span></span><span></span><span></span><span></span>
+									</div>
+									<div class="content">{{ 'homepage.onboarding.testimonial_content' | t }}</div>
+									<div class="date">{{ 'homepage.onboarding.testimonial_date' | t }}</div>
+			                	</div>
+			            	</div>
+			             {% endfor %}
+
+			        {% endif %}
+
+			    </div>
+			</div>
+		</div>
+	</div>
+
+    <style>
+    	{% if _bg_style == 'image' %}
+        .testimonial-box{
+          	padding: 20px; 
+        }
+        .testimonial-box .testimonial-box-background{
+          	background: {{ _bg_color }};  
+        }  
+        {% endif %}
+        #home-testimonial-{{ section.id }}.home-testimonial .testimonial .rating span:before{
+			font-size: {{ _rating_size }}px ;
+        }
+        #home-testimonial-{{ section.id }}.home-testimonial .testimonial .content{
+        	font-size: {{ _comment_size }}px ;
+        	color: {{ _comment_color }};
+        }
+        .home-testimonial .testimonial .date{
+        	color: {{ _comment_color }};
+        }
+    </style>
+
+  </div>
+</div>

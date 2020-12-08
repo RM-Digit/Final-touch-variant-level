@@ -1,0 +1,72 @@
+<div class="top-bar-right">
+  {%- assign _header_email_position = section.settings.header_email_position -%}
+  {% if _header_style == 17 or _header_style == 18 or _header_style == 19 or _header_style == 20 or _header_style == 21 or _header_style == 24 or _header_style == 25 or _header_style == 26 %}
+    {% unless _secondary_nav_linklist == blank  %}
+      <ul class="menu list-inline">
+        {% unless _header_style == 1 %}
+          {% for l in linklists[_secondary_nav_linklist].links %}
+            <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+          {% endfor %}
+        {% endunless %}
+
+        {% if shop.customer_accounts_enabled and _header_style == 5 %}
+          <li class="customer-link">
+            {% if customer %}
+              <a href="/account" title="{{ 'general.header.my_account' | t }}">{{ 'general.header.my_account' | t }}</a>
+            {% else %}
+              <a href="/account/login" title=">{{ 'general.header.login' | t }}">{{ 'general.header.login' | t }}</a>
+            {% endif %}
+          </li>
+        {% endif %}
+      </ul>
+    {% endunless %}
+  {% endif %}
+
+  {% if _header_style == 16 %}
+    {% include 'header-welcome-text' %}
+  {% else %}
+    {% if _header_email_position %}
+      {% include 'header-welcome-text' %}
+    {% endif %}
+  {% endif %}
+
+  {% unless _header_style == 5  or _header_style == 9 or _header_style == 12 or _header_style == 14 or _header_style == 15 or _header_style == 17 or _header_style == 18 or _header_style == 19 or _header_style == 20 or _header_style == 21 or _header_style == 24 or _header_style == 25 or _header_style == 26 or _header_style == 27 or _header_style == 28 %}
+    {% include 'header-switcher' %}
+  {% endunless %}
+
+  {% unless _header_style == 16 %}
+    {% unless _header_email_position %}
+      {% include 'header-welcome-text' %}
+    {% endunless %}
+    
+    {%- assign _secondary_nav_linklist = section.settings.secondary_nav_linklist -%}
+    {% unless _secondary_nav_linklist == blank or _header_style == 17 or _header_style == 18 or _header_style == 19 or _header_style == 20 or _header_style == 21 or _header_style == 24 or _header_style == 25 or _header_style == 26 %}
+      <ul class="menu list-inline">
+        {% unless _header_style == 1 %}
+          {% for l in linklists[_secondary_nav_linklist].links %}
+            <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+          {% endfor %}
+        {% endunless %}
+
+        {% if shop.customer_accounts_enabled and _header_style == 5 %}
+          <li class="customer-link">
+            {% if customer %}
+              <a href="/account" title="{{ 'general.header.my_account' | t }}">{{ 'general.header.my_account' | t }}</a>
+            {% else %}
+              <a href="/account/login" title=">{{ 'general.header.login' | t }}">{{ 'general.header.login' | t }}</a>
+            {% endif %}
+          </li>
+        {% endif %}
+      </ul>
+    {% endunless %}
+  {% endunless %}
+
+  {% if _header_style == 5 or _header_style == 9 %}
+    {% include 'header-icons-style-5' %}
+  {% endif %}
+
+  {% if _header_style == 17 or _header_style == 18 or _header_style == 19 or _header_style == 20 or _header_style == 21 or _header_style == 24 or _header_style == 25 or _header_style == 26 or _header_style == 28 %}
+    {% include 'header-switcher' %}
+  {% endif %}
+
+</div>

@@ -1,0 +1,172 @@
+{% include 'page-contact-snippet' %}
+
+{% schema %}
+  {
+    "name": "Contact Page",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "header",
+        "content": "Contact form"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_contact_form",
+        "label": "Enable Contact form",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "contact_form_title",
+        "label": "Heading",
+        "default": "Contact Form"
+      },
+      {
+        "type": "header",
+        "content": "Map settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_contact_map",
+        "label": "Enable Map",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "contact_latlong",
+        "label": "Latitude and Longitude",
+        "info": "Please click [here](http:\/\/latlong.net) to get Latitude and Longitude",
+        "default": "51.514863, -0.133689"
+      },
+      {
+        "type": "range",
+        "id": "contact_zoom_lv",
+        "label": "Zoom Level",
+        "min": 0,
+        "max": 21,
+        "default": 17
+      },
+      {
+        "type": "checkbox",
+        "id": "contact_scroll",
+        "label": "Scroll Wheel"
+      }
+    ],
+    "blocks":[
+      {
+        "type": "heading",
+        "name": "Heading Text",
+        "settings": [
+          {
+            "label": "Text",
+            "id": "text",
+            "type": "textarea"
+          }
+        ]
+      },
+      {
+        "type": "information",
+        "name": "Information",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Block 1"
+          },
+          {
+            "label": "Show Block 1",
+            "id": "block_icon_1",
+            "type": "checkbox",
+            "default": true
+          },
+          {
+            "label": "Icon",
+            "id": "icon_1",
+            "type": "text"
+          },
+          {
+            "label": "Heading",
+            "id": "heading_1",
+            "type": "text"
+          },
+          {
+            "label": "Subheading",
+            "id": "subheading_1",
+            "type": "textarea"
+          },
+          {
+            "type": "header",
+            "content": "Block 2"
+          },
+          {
+            "label": "Show Block 2",
+            "id": "block_icon_2",
+            "type": "checkbox",
+            "default": true
+          },
+          {
+            "label": "Icon",
+            "id": "icon_2",
+            "type": "text"
+          },
+          {
+            "label": "Heading",
+            "id": "heading_2",
+            "type": "text"
+          },
+          {
+            "label": "Subheading",
+            "id": "subheading_2",
+            "type": "textarea"
+          },
+          {
+            "type": "header",
+            "content": "Block 3"
+          },
+          {
+            "label": "Show Block 3",
+            "id": "block_icon_3",
+            "type": "checkbox",
+            "default": true
+          },
+          {
+            "label": "Icon",
+            "id": "icon_3",
+            "type": "text"
+          },
+          {
+            "label": "Heading",
+            "id": "heading_3",
+            "type": "text"
+          },
+          {
+            "label": "Subheading",
+            "id": "subheading_3",
+            "type": "textarea"
+          }
+        ]
+      },
+      {
+        "type": "address",
+        "name": "Address",
+        "settings": [
+          {
+            "label": "Address",
+            "id": "address",
+            "type": "textarea"
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon",
+            "label": "Social icons",
+            "default": true,
+            "info": "Use settings in Icon > Social icon 01, Social icon 02, Social icon 03, Social icon 04, etc..."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,116 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _product_alignment = section.settings.product_alignment -%}
+{%- assign _padding_section = section.settings.padding_section -%}
+
+{%- assign _right_column_pad = section.settings.right_column_pad -%}
+{%- assign _right_column_heading = section.settings.right_column_heading -%}
+{%- assign _right_column_heading_size = section.settings.right_column_heading_size -%}
+{%- assign _right_column_menu = section.settings.right_column_menu -%}
+
+{%- assign _product_border_top = settings.show_product_border_top -%}
+{%- assign _border_right = section.settings.border_right -%}
+{%- assign _border_bottom = section.settings.border_bottom -%}
+{%- assign _border_line = section.settings.border_line -%}
+
+{% assign _bg_style = section.settings.bg_style %}
+{% assign _bg_img = section.settings.bg_image %}
+{% assign _bg_color = section.settings.bg_color %}
+
+{%- assign _limit = section.settings.limited -%}
+{%- assign _item_per_row = section.settings.item_per_row -%}
+{%- assign _item_per_row_1 = section.settings.item_per_row | minus: 1 -%}
+{%- assign _item_per_row_tablet = section.settings.item_per_row_tablet -%}
+{%- assign _item_per_row_mobile = section.settings.item_per_row_mobile -%}
+
+{%- assign _navigator = section.settings.navigator -%}
+{%- assign _overflow_visible = section.settings.overflow_visible -%}
+
+{% if _layout == 'boxed' or _layout == 'boxed-padding' %}
+  {%- assign _layout_class = 'container' -%}
+{% elsif _layout == 'right-column' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+{% case _item_per_row %}
+  {% when 1 %}
+    {%- assign _desktop_class = "col-xl-12 col-lg-12" -%}
+  {% when 2 %}
+    {%- assign _desktop_class = "col-xl-6 col-lg-6" -%}
+  {% when 3 %}
+    {%- assign _desktop_class = "col-xl-4 col-lg-4" -%}
+  {% when 4 %}
+    {%- assign _desktop_class = "col-xl-3 col-lg-3" -%}
+  {% when 5 %}
+    {%- assign _desktop_class = "col-fix-5" -%}
+  {% when 6 %}
+	{%- assign _desktop_class = "col-xl-2 col-lg-2" -%}
+  {% else %}
+	{%- assign _desktop_class = "col-fix-7" -%}
+{% endcase %}
+
+{% case _item_per_row_tablet %}
+  {% when 1 %}
+    {%- assign _tablet_class = "col-md-12" -%}
+  {% when 2 %}
+    {%- assign _tablet_class = "col-md-6" -%}
+  {% when 3 %}
+    {%- assign _tablet_class = "col-md-4" -%}
+  {% when 4 %}
+    {%- assign _tablet_class = "col-md-3" -%}
+  {% else %}
+    {%- assign _tablet_class = "col-md-fix-5" -%}
+{% endcase %}
+
+{% case _item_per_row_mobile %}
+  {% when 1 %}
+    {%- assign _mobile_class = "col-sm-12" -%}
+  {% when 2 %}
+    {%- assign _mobile_class = "col-sm-6" -%}
+  {% else %}
+    {%- assign _mobile_class = "col-sm-4" -%}
+{% endcase %}
+
+{% capture emptyProduct %}
+  {% for i in (1.._item_per_row)  %}
+    <div class="product-grid-item {{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} padding-{{ _padding_section }}">
+      <div class="product-wrapper">
+
+        <div class="product-head">
+          <div class="product-image">
+
+            <div class="featured-img">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+
+          </div>
+        </div> 
+
+        <div class="product-content">
+          <div class="pc-inner">
+            <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% endfor %}
+{% endcapture %}
+
+{% capture emptyImage %}
+  <div class="product-type-item image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+{% endcapture %}
+
+{% if _bg_style == 'color' %}
+  {% if _bg_color == blank or _bg_color == 'none' or _bg_color == 'rgba(0,0,0,0)' %}
+    {%- assign _bg_color_none = 'bg-color-none' -%}
+  {% endif %}
+{% endif %}

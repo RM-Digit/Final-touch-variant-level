@@ -1,0 +1,29 @@
+{% if _product_availability %}
+	{% if product.available %}
+	  <li id="stock">
+	 	{% comment %} <span>{{"products.product.available" | t }}:</span>  {% endcomment %}
+	    <span class="stock">{{"products.product.in_stock" | t }}</span>
+	  </li>
+	 
+	{% else %}
+	  <li id="stock">
+	    <span>{{"products.product.available" | t }}:</span>
+	    <span class="stock">{{"products.product.out_stock" | t }}</span>
+	  </li>
+	
+	{% endif %}
+	{% for variant in product.variants %}
+	
+		{% assign variant_title_split = variant.title | split: '/' %}
+		{% if variant == product.selected_or_first_available_variant %} 
+			<h1 class="product-variant-title">{{ variant_title_split[0] }}</h1>   
+			<script>
+				localStorage.setItem("thumbslider_active_class","{{ variant_title_split[0] }}");
+				localStorage.setItem("activeSize","{{ variant_title_split[1] }}");
+			</script>
+		{% endif %}
+      {% endfor %}
+<script>
+	
+</script>
+{% endif %}

@@ -1,0 +1,12 @@
+{% comment %}
+  The contents of the page.about.liquid template can be found in /sections/page-about-template.liquid
+{% endcomment %}
+
+{% section 'page-about-template' %}
+
+{% if settings.show_blog_section %}{% section 'section-blog' %}{% endif %}
+{% if settings.show_testimonial_section %}{% section 'section-testimonial' %}{% endif %}
+{% if settings.ss_service_bar_subpage %}{% section 'section-policies' %}{% endif %}
+{% if settings.ss_instagram_subpage %}{% section 'section-instagram' %}{% endif %}
+{% if settings.ss_newsletter_subpage %}{% section 'section-newsletter' %}{% endif %}
+{% if settings.ss_logo_list_subpage %}{% section 'section-partner' %}{% endif %}

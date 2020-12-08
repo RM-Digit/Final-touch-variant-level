@@ -1,0 +1,21 @@
+{% if section.settings.header_topbar %}
+  <div class="top-bar">
+    <div class="{{ _layout_class }}">
+      <div class="table-row">
+        
+        {% if _header_style == 7 %}
+          <div class="top-bar-right">
+            {% include 'header-switcher' %}
+          </div>
+        {% else %}
+          {% unless _header_style == 17 or _header_style == 18 or _header_style == 19 or _header_style == 20 or _header_style == 21 or _header_style == 24 or _header_style == 25 or _header_style == 26 %}
+            {% include 'header-top-bar-left' %}
+          {% endunless %}
+        
+          {% include 'header-top-bar-right' %}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+{% endif %}

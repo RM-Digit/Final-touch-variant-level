@@ -1,0 +1,314 @@
+{%- assign _lazyload = settings.use_lazyload -%}
+{% unless section.settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div id="col-main" class="page-content page-about-us">
+  {% if section.blocks.size > 0 %}
+
+    {% for block in section.blocks %}
+
+      <div class="block-{{ block.type }}">
+
+      {% case block.type %}
+
+        {% when 'banner' %}
+          {%- assign _layout = block.settings.layout -%}
+
+          {% if _layout == 'boxed' %}
+            {%- assign _layout_class = 'container' -%}
+          {% else %}
+            {%- assign _layout_class = '' -%}
+          {% endif %}
+
+          {%- assign _number = 0 -%}
+          {% for i in (1..3) %}
+          {%- assign _image = 'image_' | append: i -%}
+          {% unless block.settings[_image] == blank %}
+          {%- assign _number = _number | plus: 1 -%}
+          {% endunless %}
+          {% endfor %}
+
+          {% if _number == 1 %}
+            {%- assign _class = 'col-12' -%}
+          {% elsif _number == 2 %}
+            {%- assign _class = 'col-6' -%}
+          {% else %}
+            {%- assign _class = 'col-md-4 col-sm-6 col-6' -%}
+          {% endif %}
+
+          <div class="{{ _layout_class }}">
+            {%- assign _heading = block.settings.heading -%}
+            {% unless _heading == blank %}<div class="heading">{{ _heading }}</div>{% endunless %}
+
+            <div class="row">
+              {% for i in (1..3) %}
+                {%- assign _image = 'image_' | append: i -%}
+                {%- assign _image_border_right = 'image_border_right_' | append: i -%}
+
+                {% unless block.settings[_image] == blank %}
+                  <div class="image {{ _class }}{% if block.settings[_image_border_right] %} image-border-right{% endif %}">
+                    {%- assign _link = 'link_' | append: i -%}
+                      {% if block.settings[_link] == blank %}
+                        {% include 'image-lazysize' with image: block.settings[_image], image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                      {% else %}
+                        <a href="{{ block.settings[_link] }}">{% include 'image-lazysize' with image: block.settings[_image], image_size: _image_size, image_class: '', image_alt: 'Banner' %}</a>
+                      {% endif %}
+                  </div>
+                {% endunless %}
+
+              {% endfor %}
+            </div>
+          </div>
+
+        {% when 'one-banner' %}
+          {%- assign _layout = block.settings.layout -%}
+
+          {% if _layout == 'boxed' %}
+            {%- assign _layout_class = 'container' -%}
+            {%- assign _image_size = '1440x' -%}
+          {% else %}
+            {%- assign _layout_class = '' -%}
+            {%- assign _image_size = '1920x' -%}
+          {% endif %}
+
+          <div class="{{ _layout_class }}">
+            {%- assign _image = block.settings.image -%}
+
+            {% unless _image == blank %}
+              <div class="image">
+                {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+              </div>
+
+              {%- assign _title = block.settings.image_title -%}
+              {%- assign _title_color = block.settings.title_color -%}
+              {%- assign _title_size = block.settings.title_size -%}
+
+              {%- assign _subtitle = block.settings.subtitle -%}
+              {%- assign _subtitle_color = block.settings.subtitle_color -%}
+              {%- assign _subtitle_size = block.settings.subtitle_size -%}
+
+              {%- assign _button_text = block.settings.button_text -%}
+              {%- assign _button_link = block.settings.button_link -%}
+              {%- assign _button_color = block.settings.button_text_color -%}
+              {%- assign _button_bg = block.settings.button_text_bg_color -%}
+              {%- assign _button_text_size = block.settings.button_size -%}
+
+              {% unless _title == blank and _button_text == blank and _subtitle == blank %}
+                <div class="{% if _layout == 'full' %}container{% endif %} textbox-content">
+                  <div class="textbox{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %} bg-textbox{% endunless %}" style="background: {{ block.settings.textbox_bg_color }};">
+                    {% unless _title == blank %}
+                      <div class="title{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                    {% endunless %}
+
+                    {% unless _subtitle == blank %}
+                      <div class="subtitle{% if _subtitle_size > 25 %} big-size{% endif %}" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px; line-height: {{ _subtitle_size }}px;">{{ _subtitle }}</div>
+                    {% endunless %}
+
+                    {% unless _button_text == blank %}
+                      <a class="{% if _button_text_size > 25 %}big-size {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner" href="{{ _button_link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+                    {% endunless %}
+                  </div>
+                </div>
+              {% endunless %}
+            {% endunless %}
+
+          </div>
+
+        {% when 'textbox' %}
+          {%- assign _icon = block.settings.icon -%}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _heading_color = block.settings.heading_color -%}
+          {%- assign _heading_size = block.settings.heading_size -%}
+
+          {%- assign _subheading = block.settings.subheading -%}
+          {%- assign _subheading_color = block.settings.subheading_color -%}
+          {%- assign _subheading_size = block.settings.subheading_size -%}
+
+          {%- assign _caption = block.settings.caption -%}
+          {%- assign _caption_color = block.settings.caption_color -%}
+          {%- assign _caption_size = block.settings.caption_size -%} 
+
+          {%- assign _button_text = block.settings.button_text -%}
+          {%- assign _button_link = block.settings.button_link -%}
+          {%- assign _button_color = block.settings.button_text_color -%}
+          {%- assign _button_bg = block.settings.button_text_bg_color -%}
+          {%- assign _button_text_size = block.settings.button_size -%}
+
+          <div class="container">
+            <div class="text">
+              {% unless _heading == blank %}
+                <div class="title" style="color: {{ _heading_color }}; font-size: {{ _heading_size }}px; line-height: {{ _heading_size }}px;">{% unless _icon == blank %}<i class="{{ _icon }}"></i>{% endunless %}{{ _heading }}</div>
+              {% endunless %}
+              {% unless _subheading == blank %}<div class="subtitle" style="color: {{ _subheading_color }}; font-size: {{ _subheading_size }}px; line-height: {{ _subheading_size }}px;">{{ _subheading }}</div>{% endunless %}
+              {% unless _caption == blank %}<div class="caption" style="color: {{ _caption_color }}; font-size: {{ _caption_size }}px;">{{ _caption }}</div>{% endunless %}  
+              {% unless _button_text == blank %}
+                <a class="{% if _button_text_size > 25 %}big-size {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner" href="{{ _button_link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+              {% endunless %}
+            </div>
+          </div>
+
+        {% when 'bar' %}
+          {%- assign _text = block.settings.text -%}
+          {%- assign _button_text = block.settings.button_text -%}
+          {%- assign _button_link = block.settings.button_link -%}
+
+          <div class="container announcement-bar">
+            {% unless _text == blank %}<div class="textbox">{{ _text }}</div>{% endunless %}
+            {%- assign _item_per_row = 3 -%}
+            {%- assign _item_class = 4 -%}
+            {% include 'service-bar' %}
+            {% unless _button_text == blank %}<a class="btn btn-banner" href="{{ _button_link }}">{{ _button_text }}</a>{% endunless %}
+          </div>
+
+        {% when 'parallax' %}
+          {%- assign _bg_image = block.settings.image -%}
+          {% capture background_section %}  
+            {% unless _bg_image == blank %}
+              {% if _lazyload %}
+                data-bgset = "{{ _bg_image | img_url: '1920x' }} 1920w"
+              {% else %}
+                style="background-image: url({{ _bg_image | img_url: '1920x' }});"
+              {% endif %}
+            {% endunless %}
+          {% endcapture %}
+
+          <div class="about-parallax{% if _lazyload %} lazyload{% endif %}" {{ background_section | strip }}>
+            <div class="container">
+              {%- assign _heading = block.settings.heading -%}
+              {%- assign _subheading = block.settings.subheading -%}
+
+              {% unless _heading == blank and _subheading == blank %}
+                <div class="text">
+                  {% unless _heading == blank %}<p>{{ _heading }}</p>{% endunless %}
+                  {% unless _subheading == blank %}<h4>{{ _subheading }}</h4>{% endunless %}
+                </div>
+              {% endunless %}
+            </div>
+          </div>
+
+        {% when 'article' %}
+          {% include 'category-top-article' %}
+
+        {% when 'banner-2' %}
+          {%- assign _image = block.settings.image -%}
+          {%- assign _position = block.settings.position -%}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _subheading = block.settings.subheading -%}
+          {%- assign _content = block.settings.content -%}
+
+          <div class="container">
+            <div class="box-with-image image-position-{{ _position }}">
+
+              {% unless _image == blank %}
+                <div class="image">
+                  {% include 'image-lazysize' with image: _image, image_size: '570x', image_class: '', image_alt: 'Banner' %}    
+                </div>
+              {% endunless %}
+
+              <div class="text">
+                {% unless _heading == blank %}<h2>{{ _heading }}</h2>{% endunless %}
+                {% unless _subheading == blank %}<h3>{{ _subheading }}</h3>{% endunless %}
+                {% unless _content == blank %}<p>{{ _content }}</p>{% endunless %}
+              </div>
+
+            </div>
+          </div>
+
+        {% when 'textbox-2' %}
+          <div class="container">
+            <div class="textbox-style-2">
+              <div class="row">
+                <div class="col-md-6 col-sm-12 col-12">
+                  <div class="textbox">
+                    {%- assign _heading_1 = block.settings.heading_1 -%}
+                    {%- assign _subheading_1 = block.settings.subheading_1 -%}
+                    {%- assign _content_1 = block.settings.content_1 -%}
+
+                    {% unless _heading_1 == blank %}<h2>{{ _heading_1 }}</h2>{% endunless %}
+                    {% unless _subheading_1 == blank %}<h3>{{ _subheading_1 }}</h3>{% endunless %}
+                    {% unless _content_1 == blank %}<p>{{ _content_1 }}</p>{% endunless %}
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-12">
+                  <div class="textbox">
+                    {%- assign _heading_2 = block.settings.heading_2 -%}
+                    {%- assign _subheading_2 = block.settings.subheading_2 -%}
+                    {%- assign _content_2 = block.settings.content_2 -%}
+
+                    {% unless _heading_2 == blank %}<h2>{{ _heading_2 }}</h2>{% endunless %}
+                    {% unless _subheading_2 == blank %}<h3>{{ _subheading_2 }}</h3>{% endunless %}
+                    {% unless _content_2 == blank %}<p>{{ _content_2 }}</p>{% endunless %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        {% when 'product' %}
+          {%- assign _justify_content = block.settings.justify_content -%}
+          {%- assign _heading = block.settings.heading -%}
+          {%- assign _collection = block.settings.collection -%}
+          {%- assign collection = collections[_collection] -%}
+          {%- assign _limited = block.settings.limited -%}
+
+          {% unless _collection == blank %}
+            <div class="container">
+              <div class="block-product-inner">
+
+                {% unless _heading == blank %}<div class="title-wrapper text-center"><h3>{{ _heading }}</h3></div>{% endunless %}
+
+                <div class="product-list">
+                  <div class="row{% if _justify_content %} justify-content-md-center{% endif %}">
+                    {% for product in collection.products limit: _limited %} 
+                      <div class="col-xl-fix-7 col-lg-2 col-md-3 col-sm-4 col-6">
+                        {% include 'product-item' %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          {% endunless %}
+
+        {% else %}
+          {%- assign _heading = block.settings.heading -%}
+
+          <div class="container">
+            <div class="visual-content">
+              {% unless _heading == blank %}<h4>{{ _heading }}</h4>{% endunless %}
+
+              <div class="row">
+                {% for i in (1..3) %}
+                  {%- assign _visual = 'visual_' | append : i-%}
+
+                  {% if block.settings[_visual] %}
+                    {%- assign _visual_heading = 'visual_heading_' | append : i-%}
+                    {%- assign _visual_subheading = 'visual_subheading_' | append : i-%}
+
+                    {% unless block.settings[_visual_heading] == blank and block.settings[_visual_subheading] == blank %}
+                      <div class="col-md-4 col-12">
+                        <div class="item">
+                            {% unless block.settings[_visual_heading] == blank %}<div class="heading">{{ block.settings[_visual_heading] }}</div>{% endunless %}
+                            {% unless block.settings[_visual_subheading] == blank %}<p>{{ block.settings[_visual_subheading] }}</p>{% endunless %}
+                        </div>
+                      </div>
+                    {% endunless %}
+
+                  {% endif %}
+
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+
+        {% endcase %}
+        
+      </div>
+
+    {% endfor %}
+
+  {% endif %}
+</div>

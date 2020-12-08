@@ -1,0 +1,9 @@
+<div class="top-bar-left">
+	{% if _header_style == 5 or _header_style == 9 or _header_style == 12 %}
+		{% include 'header-switcher' %}
+	{% elsif _header_style == 16 %}
+		{% include 'header-secondary-menu' %}
+	{% else %}
+		{% include 'social-media-icons' %}
+	{% endif %}
+</div>

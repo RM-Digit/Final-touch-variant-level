@@ -1,0 +1,42 @@
+{% unless settings.show_search == 'none' %}
+  {% assign _search_border_radius = settings.search_border_radius %}
+<div id = "noeffect">
+  <div class="searchbox searchbox-mobile{% if _search_border_radius %} border-radius{% endif %}">
+    <div class="container">
+
+      {% assign _search_icon_type = settings.search_icon_type %}
+      {% assign _search_font_icon = settings.search_font_icon %}
+      {% assign _search_icon = settings.search_icon %}
+
+      <form id="search-mobile" class="navbar-form search" action="/search" method="get">
+        <input type="hidden" name="type" value="product" />
+        <input id="bc-product-mobile-search" type="text" name="q" class="form-control bc-product-search"  placeholder="{{ 'general.text.search_placeholder' | t }}" autocomplete="off" />
+
+        <button type="submit" class="search-icon">
+          <span{% if _lazyload and _search_icon_type == 'image' %} class="lazyload waiting"{% endif %}>
+
+            {% if _search_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ _search_font_icon }}"></i>
+
+            {% else %}
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="https://cdn.shopify.com/s/files/1/0429/9385/files/search-grey.png?v=1601571551"
+                   {% else %}src="https://cdn.shopify.com/s/files/1/0429/9385/files/search-grey.png?v=1601571551"{% endif %}
+                   alt="Search" />
+
+            {% endif %}
+
+          </span>
+        </button>
+      </form>
+      
+      {% if settings.ajax_search == 'default-theme' %}
+        <div class="result-ajax-search">
+          <ul class="search-results"></ul>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endunless %}

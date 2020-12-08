@@ -1,0 +1,31 @@
+<div class="single-product-{{ _type }}">
+  {% for block in section.blocks %}
+  {%- assign _product = block.settings.product -%}
+
+    {% unless _product == blank %}
+      {%- assign _text_1 = block.settings.text_1 -%}  
+      {%- assign _text_2 = block.settings.text_2 -%}  
+      {%- assign _text_3 = block.settings.text_3 -%}
+
+      <div class="sp-item sp-item-{{ block.id }}" style="{% if _bg_style == 'color' %}background-color: {{ _bg_color }};{% else %}background-image:url({{ _bg_image | img_url: _image_size }});{% endif %}">
+
+        {% assign product = all_products[_product] %}
+        {% include 'single-product-item' %}
+
+        <style type="text/css">
+          .single-product-list .sp-item-{{ block.id }} .text-1,
+          .single-product-list .sp-item-{{ block.id }} .text-2,
+          .single-product-list .sp-item-{{ block.id }} .text-3 { color: {{ block.settings.text_color }};}
+        </style>
+
+      </div>
+
+    {% else %}
+      <div class="sp-item">
+        {{ emptyProduct01 }}
+      </div>
+
+    {% endunless %}
+
+  {% endfor %}
+</div>

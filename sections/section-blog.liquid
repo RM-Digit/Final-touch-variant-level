@@ -1,0 +1,272 @@
+{% include 'blog-snippet' %}
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'Blog List' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Blog"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "boxed-padding", "label": "Boxed padding" },
+        { "value": "full", "label": "Wide" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "carousel", "label": "Carousel" }
+      ],
+      "default": "row"
+    }, 
+    {
+      "type": "range",
+      "id": "padding_section",
+      "label": "Padding item",
+      "min": 0,
+      "max": 30,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    }, 
+    {
+      "type": "range",
+      "id": "limited",
+      "label": "Total items",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "border_right_item",
+      "label": "Border right item"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Style",
+      "default": "color",
+      "options": [
+        { "value": "color", "label": "Color" },
+        { "value": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Text",
+      "default": "From the blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "header",
+      "content": "Carousel settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigator",
+      "label": "Show Navigator Next Prev",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Number of items per row"
+    },
+    {
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_tablet",
+      "label": "Tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "item_per_row_mobile",
+      "label": "Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Blog Content"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select a Blog to show"
+    }, 
+    {
+      "type": "header",
+      "content": "SHOW ALL button"
+    },
+    {
+      "type": "select",
+      "id": "show_all_button",
+      "label": "Position & Style",
+      "options": [
+        { "value": "next-heading", "label": "Next Heading" },
+        { "value": "below", "label": "Below Blog" },
+        { "value": "btn-below", "label": "Button below Blog" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "below"
+    },
+    {
+      "type": "header",
+      "content": "Article image settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_image",
+      "label": "Full image"
+    },
+    {
+      "type": "text",
+      "id": "image_size",
+      "label": "Image size",
+      "default": "370x275",
+      "info": "E.g: 370x275"
+    },
+    {
+      "type": "header",
+      "content": "Article Textbox settings"
+    },
+    {
+      "type": "select",
+      "id": "textbox_position",
+      "label": "Position",
+      "options": [
+        { "value": "below", "label": "Below image" },
+        { "value": "overlay", "label": "Overlay" },
+        { "value": "right", "label": "Right image" }
+      ],
+      "default": "below"
+    },
+    {
+      "type": "checkbox",
+      "id": "alignment_textbox",
+      "label": "Alignment center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag",
+      "label": "Show Tags"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show Excerpt"
+    },
+	{
+      "type": "checkbox",
+      "id": "show_read_more",
+      "label": "Read more button"
+    },
+    {
+      "type": "header",
+      "content": "Article color settings"
+    },
+    {
+      "type": "color",
+      "id": "article_bg",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "article_heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "article_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }  
+  ],
+  "presets": [{
+    "name": "Blog List",
+    "category": "Advanced layout"
+  }]
+}
+{% endschema %}
+

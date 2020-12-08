@@ -1,0 +1,62 @@
+{%- if settings.api_translate != blank -%}
+				<!--Start Weglot Settings-->
+				{%- assign gg_with_name	 = settings.gg_with_name -%}
+				{%- assign gg_full_name	 = settings.gg_full_name -%}
+				{%- assign weglot_flag_style	 = settings.weglot_flag_style -%}
+				
+				{{ "//cdn.weglot.com/weglot.min.js" | script_tag }}
+				<script>
+					if (typeof Weglot != 'undefined') {
+						Weglot.initialize({
+							api_key 				: "{{settings.api_translate}}"
+							,auto_switch 			: JSON.parse('{{ settings.auto_switch }}')
+							,auto_switch_fallback 	: "{{settings.weglot_language_fallback | downcase | default: 'en' }}"
+							,wait_transition		: true
+							,cache					: true
+							,translate_search 		: true
+							,search_parameter 		: "q"
+							,search_forms 			: "#bc-product-search"
+							,dynamic 				: ".text-date, .related-dynamic, .add-to-cart-sticky, .snize, input, .search-results .result-item"
+							,excluded_blocks: [
+								{value: ".no-translate"}
+							]
+							,switchers: [
+								{
+									button_style:{
+                                        full_name : {% if gg_full_name %}true{% else %}false{% endif %}
+										,with_name 	: {% if gg_with_name %}true{% else %}false{% endif %}
+										,is_dropdown: true
+										,with_flags : JSON.parse("{% if weglot_flag_style != 'none' %}true{% else %}false{% endif %}")
+										,flag_type 	: "{% if weglot_flag_style != 'none' %}{{weglot_flag_style}}{% else %}rectangle_mat{% endif %}"
+									},
+									location: {
+										target : ".translate-position",
+										sibling: null
+									}
+								},
+								{
+									button_style:{
+										full_name : {% if gg_full_name %}true{% else %}false{% endif %}
+										,with_name 	: true
+										,is_dropdown: true
+										,with_flags : JSON.parse("{% if weglot_flag_style != 'none' %}true{% else %}false{% endif %}")
+										,flag_type 	: "{% if weglot_flag_style != 'none' %}{{weglot_flag_style}}{% else %}rectangle_mat{% endif %}"
+									},
+									location: {
+										target : ".translate-position-mobile",
+										sibling: null
+									}
+								}
+							]
+						});
+						Weglot.on("initialized", function(){
+							let name = Weglot.getLanguageName(Weglot.getCurrentLang());
+							jQuery('div[data-target="#popup_languages"] span').html(name);
+						})
+						Weglot.on("languageChanged", function(){
+							let name = Weglot.getLanguageName(Weglot.getCurrentLang());
+							jQuery('div[data-target="#popup_languages"] span').html(name);
+						})
+					}
+				</script>
+{%- endif -%}

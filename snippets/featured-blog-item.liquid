@@ -1,0 +1,46 @@
+{% unless template == 'index' %}
+  {%- assign _article_show_tag = true -%}
+  {%- assign _article_text_position = 'below' -%}
+{% endunless %}
+
+<div class="post-item-inner {{ _article_text_position }}-textbox">
+  {% if article.image %}
+    <div class="post-image">
+      <a href="{{ article.url }}">
+        {% include 'image-lazysize' with image: article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}       
+      </a>
+
+      {% if _article_show_tag %}
+        <div class="tags">
+          {% for tag in article.tags %}
+            {%- assign _tag = tag | downcase -%}
+            {%- unless _tag contains 'relatedproducts' -%}
+              {{ tag | link_to_tag: tag }}
+            {% endunless %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  {% endif %}
+
+  <div class="post-content {{ _article_bg_none }}">
+    <div class="info{% if _alignment_textbox %} text-center{% endif %}">
+      <h4 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+
+      <div class="meta-data">
+        <span class="post-author">{{ article.author | escape }}. on</span>
+        <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+      </div>
+      
+      {% if _show_excerpt and article.excerpt != blank %}
+        <div class="post-excerpt">{{ article.excerpt }}</div>
+      {% endif %}
+      
+      {% if _article_read_more_btn %}
+        <a href="{{ article.url }}" class="btn btn-1 btn-read-more">{{ 'general.text.read_more' | t }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+</div> 

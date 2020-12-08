@@ -1,0 +1,104 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.related_products_col].products %}
+{% include 'article-template-snippet' %}
+
+{% schema %}
+  {
+    "name": "Article pages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "header",
+        "content": "Image Gallery"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_image_gallery",
+        "label": "Show Image Gallery"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_heading",
+        "label": "Heading",
+        "default": "Image Gallery"
+      },
+      {
+        "type": "header",
+        "content": "Related products"
+      }, 
+      {
+        "type": "text",
+        "id": "related_products_heading",
+        "label": "Heading",
+        "default": "Related products"
+      },
+      {
+        "type": "select",
+        "id": "display_type",
+        "label": "Select products to show",
+        "default": "tag",
+        "options": [
+          { "value": "tag", "label": "From post tag" },
+          { "value": "collection", "label": "From collection" },
+          { "value": "none", "label": "None" }
+        ],
+        "info": "If select tag, please add the tag to your blog post with syntax is Relatedproducts_xxx (xxx is collection handle)"
+      },
+      {
+        "type": "collection",
+        "id": "related_products_col",
+        "label": "Collection item"
+      },
+      {
+        "type": "range",
+        "id": "related_products_limited",
+        "label": "Total items",
+        "min": 4,
+        "max": 12,
+        "default": 6
+      },  
+      {
+        "type": "header",
+        "content": "Related Articles"
+      }, 
+      {
+        "type": "checkbox",
+        "id": "show_related_articles",
+        "label": "Show Related Articles",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "related_articles_heading",
+        "label": "Heading",
+        "default": "Related Articles"
+      },
+      {
+        "type": "header",
+        "content": "Social sharing buttons"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

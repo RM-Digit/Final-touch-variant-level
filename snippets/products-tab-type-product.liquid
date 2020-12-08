@@ -1,0 +1,69 @@
+{% unless _collection == blank or collection.products_count == 0 %}
+  {%- assign _image = block.settings.image -%}
+
+  {% if _layout == 'boxed' %}
+    {%- assign _image_size = '1170x' -%}
+  {% else %}
+    {%- assign _image_size = '1920x' -%}
+  {% endif %}
+
+  {% if _lazyload %}
+    {% capture background %}{{ _image | img_url: _image_size }}{% endcapture %}
+  {% else %}
+    {% capture background %}url({{ _image | img_url: _image_size }}){% endcapture %}
+  {% endif %}
+
+  <div class="hp-tabs-list tabs-list-{{ _type }}{% if _lazyload and _image != blank %} lazyload{% endif %}"{% if _lazyload and _image != blank %} data-bgset="{{ background }} 1920w"{% endif %}>
+
+    {% unless _image == blank %}
+      {%- assign _text_position = block.settings.text_position -%}
+      {%- assign _heading = block.settings.heading -%}
+      {%- assign _button_text = block.settings.button_label -%}
+      {%- assign _link = block.settings.button_link -%}
+      
+      <div class="box-image">
+
+        {% unless _heading == blank and _button_text == blank  %}
+          <div class="text-box">
+        
+            {%- assign _text_color = block.settings.heading_color -%}
+            {%- assign _text_size = block.settings.heading_size -%}
+            {%- assign _button_color = block.settings.button_label_color -%}
+            {%- assign _button_bg = block.settings.button_bg_color -%}
+
+            {% unless _heading == blank %}
+              <div class="title" style="color: {{ _text_color }}; font-size: {{ _text_size }}px;">{{ _heading }}</div>
+            {% endunless %}
+
+            {% unless _button_text == blank %}
+              <a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>
+            {% endunless %}
+          </div>
+        {% endunless %}
+
+      </div>
+    {% endunless %}
+
+    <div class="box-product">
+      {% if _type == 'row' %}<div class="row row-padding-{{ _padding_section }}">{% endif %}
+        {% for product in collection.products limit: _limit %}
+
+        <div class="product-grid-item{% if _product_border_top %} product-border-top{% endif %}{% if _type == 'row' %} {{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} padding-{{ _padding_section }}{% endif %}">
+          {% include 'product-item' %}
+        </div>
+
+        {% endfor %}
+      {% if _type == 'row' %}</div>{% endif %}
+    </div>
+
+  </div>
+
+{% else %}
+
+  <div class="hp-tabs-list tabs-list-row">
+    <div class="row row-padding-{{ _padding_section }}">
+      {{ emptyProduct }}
+    </div>
+  </div>
+
+{% endunless %}

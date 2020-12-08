@@ -1,0 +1,47 @@
+{% assign _number = 0 %}
+{% for i in (1..4) %}
+  {% assign _f_menu = 'footer_menu_' | append: i %} 
+  {% unless block.settings[_f_menu] == blank %}
+    {% assign _number = _number | plus: 1 %}
+  {% endunless %}
+{% endfor %}
+
+<div class="{% if _width == 0 %}col fix-col{% else %}col-md-{{ _width }} col-sm-12 col-12{% endif %}{% if _number == 1 and _width == 12 %} fix-menu{% endif %}{% if _f_title == blank %} heading-blank{% endif %} {{_f_title}}">
+  <div class="footer-block footer-menu{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %} active">
+
+    {% case _number %}
+      {% when 4 %}
+        {% assign _menu_class = 'col-md-3' %}
+      {% when 3 %}
+        {% assign _menu_class = 'col-md-4' %}
+      {% when 2 %}
+        {% assign _menu_class = 'col-md-5' %}
+      {% else %}
+        {% assign _menu_class = 'col-md-12' %}
+    {% endcase %}
+
+    {% unless _f_title == blank %}
+      <h6>{{ _f_title }}</span></h6>
+    {% endunless %}
+
+    <div class="row fix-row">
+      {% for i in (1..4) %}
+        {% assign _f_menu = 'footer_menu_' | append: i %} 
+        
+        {% unless block.settings[_f_menu] == blank %}
+          <div class="{{ _menu_class }} col-12">
+
+            <ul class="f-list">
+              {% for l in linklists[block.settings[_f_menu]].links %}
+                <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+              {% endfor %}
+            </ul>
+
+          </div>
+        {% endunless %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+</div>

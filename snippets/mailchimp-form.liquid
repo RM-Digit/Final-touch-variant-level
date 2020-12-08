@@ -1,0 +1,29 @@
+{% if _button_style == blank %}
+  {%- assign _button_style = '2' -%}
+{% endif %}
+
+<form action="{{ _form_action }}" method="post" class="form-inline form-subscribe" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
+  <div class="action-form">
+    <input type="email" class="form-control" required placeholder="{{ _input_placeholder }}" name="EMAIL" />
+    {% unless _newsletter_button_right %}
+      <button type="submit" title="Subscibe" class="email-submit btn btn-{{ _button_style }}">{{ 'general.password_page.signup_form_submit' | t }}</button>
+    {% endunless %}
+  </div>
+
+  {% if _condition %}
+    <div class="newsletter-checkbox">
+      <input type="checkbox" class="custom-control-input newsletterCheck">
+      <label for="newsletterCheck">{{ _condition_text }}</label> 
+    </div>
+
+    <script>
+      jQuery(document).ready(function($) {
+        AT_Main.newsletterTermsConditions();
+      })
+    </script>
+  {% endif %}
+
+  {% if _newsletter_button_right %}
+    <button type="submit" title="Subscibe" class="email-submit btn btn-{{ _button_style }} btn-right">{{ 'general.password_page.signup_form_submit' | t }}</button>
+  {% endif %}
+</form>

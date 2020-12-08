@@ -1,0 +1,154 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _lazyload = settings.use_lazyload -%}
+{%- assign _layout = section.settings.layout -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = '' -%}
+{% endif %}
+
+{% capture emptyImage %}
+  <div class="image no-image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+{% endcapture %}
+
+<div id="home-parallax-{{ section.id }}" class="home-parallax layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="{{ _layout_class }}">
+
+    <div class="home-parallax-items">
+      <div class="home-parallax-content">
+        <div class="{{ _class }}">
+          
+          {% if section.blocks.size > 0 %}
+
+            {% for block in section.blocks %} 
+              {%- assign _image = block.settings.image -%}
+              {%- assign _link = block.settings.button_link -%}
+            
+              {% if block.settings.image_size == balnk %}
+                {%- assign _image_size = '1920x' -%}
+              {% else %}
+                {%- assign _image_size = block.settings.image_size -%}
+              {% endif %}
+
+              {%- assign _collection = block.settings.collection -%}
+              {%- assign collection = collections[_collection] -%}
+
+              {%- assign _text_position = block.settings.text_position -%}
+              {%- assign _text_alignment = block.settings.text_alignment -%}
+
+              {%- assign _text_position_top = block.settings.text_position_top -%}
+              {%- assign _text_position_left = block.settings.text_position_left -%}
+              {%- assign _text_position_bottom = block.settings.text_position_bottom -%}
+              {%- assign _text_position_right = block.settings.text_position_right -%}
+            
+              {%- assign _title = block.settings.image_title -%}
+              {%- assign _title_color = block.settings.title_color -%}
+              {%- assign _title_size = block.settings.title_size -%}
+              {%- assign _title_text_bold = block.settings.title_text_bold -%}
+            
+              {%- assign _subtitle = block.settings.subtitle -%}
+              {%- assign _subtitle_color = block.settings.subtitle_color -%}
+              {%- assign _subtitle_size = block.settings.subtitle_size -%}
+              {%- assign _subtitle_text_bold = block.settings.subtitle_text_bold -%}
+            
+              {%- assign _button_text = block.settings.button_text -%}
+              {%- assign _button_color = block.settings.button_text_color -%}
+              {%- assign _button_bg = block.settings.button_text_bg_color -%}
+              {%- assign _button_text_size = block.settings.button_size -%}
+              {%- assign _button_text_bold = block.settings.button_text_bold -%}
+
+              {%- assign _po = true -%}
+
+              {% case _text_position %}
+                {% when 'top-left' %}
+                {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                {%- assign _po_class_2 = 'pol-' | append: _text_position_left -%}
+
+                {% when 'top-center' %}
+                {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                {%- assign _po_class_2 = '' -%}
+
+                {% when 'top-right' %}
+                {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                {%- assign _po_class_2 = 'por-' | append: _text_position_right -%}
+
+                {% when 'center-left' %}
+                {%- assign _po_class_1 = 'pol-' | append: _text_position_left -%}
+                {%- assign _po_class_2 = '' -%}
+
+                {% when 'center-right' %}
+                {%- assign _po_class_1 = 'por-' | append: _text_position_right -%}
+                {%- assign _po_class_2 = '' -%}
+
+                {% when 'bottom-left' %}
+                {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                {%- assign _po_class_2 = 'pol-' | append: _text_position_left -%}
+
+                {% when 'bottom-center' %}
+                {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                {%- assign _po_class_2 = '' -%}
+
+                {% when 'bottom-right' %}
+                {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                {%- assign _po_class_2 = 'por-' | append: _text_position_right -%}
+
+                {% else %}
+              {% endcase %} 
+
+              {% unless _image == blank %}
+          		<div class="parallax-image" style="background-image: url({{ _image | img_url: _image_size }});">
+                  <div class="banner-item text-box-overlay parallax-image {{ _text_position }}{% if _layout == 'full' %} container{% endif %}">
+
+                    {% unless _title == blank and _subtitle == blank and _collection == blank and _button_text == blank %}
+                    <div class="text text-{{ _text_alignment }} {{ _text_bg }}{% if _po %} {{ _po_class_1 }} {{ _po_class_2 }}{% endif %}{% if _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %} btn-transparent{% endif %}">
+
+                      {% unless _title == blank %}
+                      <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                      {% endunless %}
+
+                      {% unless _subtitle == blank %}
+                      <div class="subtitle{% if _subtitle_text_bold %} bold-text{% endif %}{% if _subtitle_size > 25 %} big-size{% endif %}" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px;">{{ _subtitle }}</div>
+                      {% endunless %}
+
+                      {% unless _collection == blank %}
+                        <div class="product-list d-none d-lg-block">
+                          {% for product in collection.products limit: 3 %}
+                            <div class="product-grid-item">{% include 'product-item' %}</div>
+                          {% endfor %}
+                        </div>
+                      {% endunless %}
+
+                      {% unless _button_text == blank %}
+                      <a class="{% if _button_text_bold %}bold-text {% endif %}{% if _button_text_size > 25 %}big-size {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+                      {% endunless %}
+
+                    </div>
+                    {% endunless %}
+
+                  </div>
+                </div>  
+          
+              {% else %}
+                <div class="banner-item">
+                  {{ emptyImage }}
+                </div>
+              {% endunless %}
+
+            {% endfor %}
+      
+          {% else %}
+            <div class="banner-item">
+              {{ emptyImage }}
+            </div>
+
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

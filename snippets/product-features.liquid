@@ -1,0 +1,224 @@
+
+<style>
+.accordion-btn {
+  background-color: #FAFAFA;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  border-bottom: 1px solid #ADADAD;
+}
+
+.active {
+
+  border-bottom: none;
+}
+
+.panel {
+  padding: 50px 100px 80px;
+  display: none;
+  background-color: #FAFAFA;
+  overflow: hidden;
+  border-bottom: 1px solid #ADADAD;
+    margin-bottom: 30px;
+  font-size:18px;
+  max-height: 100%;
+}
+.panel p{
+  font-family: Avenir LT Std;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 176.5%;
+/* or 32px */
+color: #000000;
+}
+span.acd-btn{
+   font-family: Neilvard Semibold One;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 89.9%;
+    /* identical to box height, or 45px */
+    color: #212121;
+}
+span.acd-btn:after{
+ content: "";
+  position: absolute;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 35px;
+    background-position: center;
+    background-image: url(https://cdn.shopify.com/s/files/1/0429/9385/files/span-after-inactive.png?v=1601284318);
+    
+}
+.active span.acd-btn:after{
+  content: "";
+  background-image: url(https://cdn.shopify.com/s/files/1/0429/9385/files/span-after.png?v=1601274391);
+    
+}
+
+@media only screen and (max-width: 800px){
+    span.acd-btn:after{
+          width: 30px;
+          height: 16px;
+          background-image: url(https://cdn.shopify.com/s/files/1/0429/9385/files/after-mobile-deactive.png?v=1602690765);
+       }
+       .active span.acd-btn:after{
+         width: 30px;
+         height: 16px;
+         background-image: url(https://cdn.shopify.com/s/files/1/0429/9385/files/after-mobile.png?v=1602690568);  
+       }
+}
+
+</style>
+{% for variant in product.variants %}
+  {% unless values contains value %}
+    {% assign values = values | join: ',' %}
+    {% assign values = values | append: ',' | append: value %}
+    {% assign values = values | split: ',' %}
+    {% assign product_feature_toughness = variant.metafields.variant-toughness.variant-toughness %}
+    {% assign product_feature_heat = variant.metafields.variant-heat.variant-heat %}
+    {% assign variant-icons = variant.metafields.variant-icons.variant-icons %}
+    {% assign variant-description = variant.metafields.Variant-Description.variant-description %}
+    {% assign variant-nutritional = variant.metafields.variant-nutritional.variant-nutritional %}
+    {% assign variant-jerky-recipes = variant.metafields.Jerky_recipes.Jerky_recipes %}
+    {% assign variant-why-we-made-this = variant.metafields.why-we-made-this.why-we-made-this %}
+    {% assign variant-why-video = variant.metafields.why-video.why-video %}
+    {% assign variant-why-image = variant.metafields.why-image.why-image %}
+  
+  
+    <variantoptions class="{{ variant.title | handle }} {% if variant == product.selected_or_first_available_variant %}show-variant{% else %} hide-variant{% endif %}">
+      {% unless product_feature_toughness == blank %}
+        <button class="accordion-btn active"><span class="acd-btn">FEATURES </span></button>
+        <div class="panel">
+          <ul class="brands-img">
+              <li class="item-brand"> <img src="https://cdn.shopify.com/s/files/1/0429/9385/files/Toughness_Scale_{{ product_feature_toughness }}.png?v=1601501487" alt="" srcset=""></li>
+              <li class="item-brand"> <img src="https://cdn.shopify.com/s/files/1/0429/9385/files/Heat_Scale_{{ product_feature_heat }}.png?v=1601501587" alt="" srcset=""></li>
+          </ul>
+          <ul class="brands">
+            {% assign variant-icons-split = variant-icons | split: "" %}
+            {% assign array_index = 0 %}
+            {% assign variant-icons-array = "" %}
+            {% for singleitem in variant-icons-split %}
+              {% assign temp = forloop.index %}
+              {% assign temp_prev = forloop.index | minus: 2 %}
+              {% assign temp_prev_prev = forloop.index | minus: 3 %}
+
+              {% if singleitem == '0' %}
+                {% assign variant-icons-array = variant-icons-array | append: '10 ' %}
+                {% continue %}
+              {% elsif singleitem == '.' %}
+                {% assign variant-icons-array = variant-icons-array | append: '11 ' %}
+                {% continue %}
+              {% else %}
+                {% if variant-icons-split[temp] == '0' %}
+                  {% continue %}
+                {% elsif variant-icons-split[temp_prev] == '.' or variant-icons-split[temp_prev_prev] == '.' %}
+                  {% continue %}
+                {% else %}
+                  {% assign variant-icons-array = variant-icons-array | append: singleitem | append: ' ' %}
+                {% endif %}
+              {% endif %}
+            
+            {% endfor %}
+            {% assign final-variant-array = variant-icons-array | split: ' ' %}
+            {% assign array_size = final-variant-array.size | divided_by : 2 %}
+            {% for item in final-variant-array %}
+              <li class="item-brand"><img src="https://cdn.shopify.com/s/files/1/0429/9385/files/{{ item }}.png?v=1603303639" alt="" srcset=""></li>
+            {% endfor %}
+          </ul>
+          <ul class="brands-mobile">
+            <div class="brands-mobile-row">
+              {% for item in final-variant-array %}
+                {% if forloop.index <= array_size %}
+                  <li class="item-brand"><img src="https://cdn.shopify.com/s/files/1/0429/9385/files/{{ item }}.png?v=1603303639" alt="" srcset=""></li>   
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="brands-mobile-row">
+              {% for item in final-variant-array %}
+                {% if forloop.index > array_size %}
+                  <li class="item-brand"><img src="https://cdn.shopify.com/s/files/1/0429/9385/files/{{ item }}.png?v=1603303639" alt="" srcset=""></li>   
+                {% endif %}
+              {% endfor %}
+            </div>
+          </ul>
+        </div>
+      {% endunless %}
+      {% unless variant-description == blank %}
+        <button class="accordion-btn prod-desc"><span class="acd-btn">PRODUCT DESCRIPTION</span></button>
+        <div class="panel prod-desc" style="padding: 20px;">
+          <p class="variant-description"> {{variant-description }} </p>
+        </div>
+      {% endunless %}
+      {% unless variant-jerky-recipes == blank %}
+        <button class="accordion-btn nutri"><span class="acd-btn">NUTRITIONAL</span></button>
+        <div class="panel">
+          <p class="variant-description">
+            <img src="{{variant-jerky-recipes}}" alt="" srcset="">
+          
+          </p>
+        </div>
+      {% endunless %}
+      {% unless variant-nutritional == blank %}
+        <button class="accordion-btn jerky_recipes" ><span class="acd-btn"><span class="jerky">JERKY</span> RECIPES</span></button>
+        <div class="panel" style="padding: 20px;">
+          {{variant-nutritional}}
+        </div>
+      {% endunless %}
+      {% unless variant-why-we-made-this == blank %}
+        <div class="why-we-made-this">
+          <div class="description">
+            <div class="why-heading-text">WHY WE MADE THIS</div>
+            <div class="desc-text">{{variant-why-we-made-this}}</div>
+          </div>
+          {% unless variant-why-video == blank %}
+            <div class="video-pos">
+              <iframe
+              height="300"
+              src="{{variant-why-video}}"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+            </div>
+          {% endunless %}
+          
+          {% unless variant-why-image == blank %}
+            <div class="image-pos">
+              <img src="{{variant-why-image}}" alt="" srcset="">
+            </div>
+          {% endunless %}
+        </div>
+      {% endunless %}
+    </variantoptions>
+  {% endunless %}
+{% endfor %}
+
+<button class="accordion-btn active"><span class="acd-btn">REVIEWS</span></button>
+<div class="panel" id="review-panel">
+{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion-btn");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  if(acc[i].classList.contains('active')) acc[i].nextElementSibling.style.display = "block";
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>

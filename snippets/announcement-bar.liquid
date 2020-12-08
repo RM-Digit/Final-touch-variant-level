@@ -1,0 +1,68 @@
+{%- assign _layout = section.settings.layout -%}
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _style = section.settings.bar_style -%}
+
+{%- assign _bg_style = section.settings.bar_bg_style -%}
+{%- assign _bg_color = section.settings.bar_bg_color -%}
+{%- assign _bg_image = section.settings.bar_bg_image -%}
+
+{%- assign _text_color_1 = section.settings.text_color_1 -%}
+{%- assign _text_color_2 = section.settings.text_color_2 -%}
+{%- assign _icon_color = section.settings.icon_color -%}
+
+{% capture background_section %}
+  {% if _bg_style == 'color' %}
+    style="background: {{ _bg_color }};"
+  {% else %}
+    {% unless _bg_image == blank %}
+      {% if _lazyload %}
+        data-bgset = "{{ _bg_image | img_url: '1920x' }} 1920w"
+      {% else %}
+        style="background-image: url({{ _bg_image | img_url: '1920x' }});"
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endcapture %}
+
+{% if _style == 5 %}
+  {%- assign _col_class = 'col-fix' -%}
+{% else %}
+  {%- assign _col_class = 'col-md-4 col-12' -%}
+{% endif %}
+
+{%- assign _layout_class = 'container' -%}
+
+<div class="announcement-bar layout-{{ _layout }} style-{{ _style }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="bar-container{% if _lazyload and _bg_style == 'image' %} lazyload{% endif %}" {{ background_section | strip }}>
+    <div class="{{ _layout_class }}">
+
+      <div class="top-bar-list row justify-content-md-center">
+        {% for block in section.blocks %}
+          {%- assign _icon = block.settings.icon -%}
+          {%- assign _text = block.settings.text -%}
+          {%- assign _text_2 = block.settings.text_2 -%}
+
+          {% unless _text == blank %}
+            <div class="{{ _col_class }}">
+              <div class="item">
+                <div class="icon" style="color: {{ _icon_color }}"><i class="demo-icon {{ _icon }}"></i></div>
+                <div class="text">
+                  <div class="heading" style="color: {{ _text_color_1 }}">{{ _text }}</div>
+                  {% unless _text_2 == blank %}<p style="color: {{ _text_color_2 }}">{{ _text_2 }}</p>{% endunless %}
+                </div>
+              </div>
+            </div>
+
+            {% if _style == 3 %}<div class="line"></div>{% endif %}
+          {% endunless %}
+        
+        {% endfor %} 
+      </div>
+
+    </div>
+
+    {% if settings.announcement_bar_position == 'above' %}
+      <span class="close-notice"><i class="demo-icon icon-close"></i></span>
+    {% endif %}
+  </div>
+</div>

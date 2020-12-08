@@ -1,0 +1,75 @@
+{% assign _lazyload = settings.use_lazyload %}
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div class="page-sub-collections">
+  <div class="container">
+
+    <h1 class="page-heading">{{ collection.title }}</h1>
+
+    <div id="col-main" class="page-sub-collections-content">
+      {% if section.blocks.size > 0 %}
+
+        {% include 'sub-collections-banner' %}
+
+        {% for block in section.blocks %}
+
+          {% unless block.type == 'image' %}
+            <div class="block-{{ block.type }}">
+
+              {% if block.type == 'subcollections' %} 
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <div class="text-box">
+                      {%- assign _menu_item = block.settings.menu_item -%}
+                      {%- assign _heading = block.settings.heading -%}
+
+                      {% unless _menu_item == blank %}
+                        {% unless _heading == blank %}
+                          <h3>{{ _heading }}</h3>
+                        {% endunless %}
+
+                        {% include 'sub-collections' %} 
+                      {% endunless %}
+
+                    </div>
+                  </div>
+
+                  {%- assign _image = block.settings.image -%}
+                  {%- assign _image_size = '390x' -%}
+                  {% unless _image == blank %}
+                    <div class="col-12 col-md-4">
+                      <div class="box-image"> 
+                        {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}     
+                      </div>
+                    </div>
+                  {% endunless %}
+                </div>
+
+              {% else %}
+                {%- assign _heading = block.settings.heading -%}
+                {%- assign _limit = block.settings.limited -%}
+                {%- assign _collection = block.settings.collection -%}
+                {%- assign collection = collections[_collection] -%}
+
+                {% unless _heading == blank %}
+                  <div class="title-wrapper text-center"><h3>{{ _heading }}</h3></div>
+                {% endunless %}
+
+                <div class="box-product box-product-carousel">
+                  {% for product in collection.products limit: _limit %}
+                    {% include 'product-item' %}
+                  {% endfor %}
+                </div>
+
+              {% endif %}
+
+            </div>
+          {% endunless %}
+
+        {% endfor %}
+
+      {% endif %}
+    </div>
+
+  </div>
+</div>

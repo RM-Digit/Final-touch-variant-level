@@ -1,0 +1,18 @@
+{% assign _image = block.settings.image %}
+{% assign _link = block.settings.link %}
+
+<div class="sb-widget d-none d-lg-block">
+  <div class="sb-banner">
+
+    {% unless _image == blank %}
+      <a href="{{ _link }}">
+        {% include 'image-lazysize' with image: _image, image_size: '330x', image_class: '', image_alt: 'Banner' %}
+      </a>
+
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+
+    {% endunless %}
+
+  </div>
+</div>

@@ -1,0 +1,117 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div class="container">
+  <div id="col-main" class="page-login">
+
+    <h1 class="page-heading">{{ 'customer.login.page_title' | t }}</h1>
+
+    <div class="row">
+
+      <div class="col-sm-6 col-12">
+        <div class="form-wrapper">
+
+          <div id="customer-login" class="content">
+            <h2 class="account-heading">{{ 'customer.login.heading' | t }}</h2>
+            <p><strong>{{ 'customer.login.subheading' | t }}</strong></p>
+
+            {% form 'customer_login' %}
+
+            {% if form.errors %}
+            <div class="alert alert-error">
+              <button type="button" class="close" title="{{'customer.general.close' | t }}" data-dismiss="alert">×</button>
+              {{ form.errors | default_errors }}
+            </div>
+            {% endif %}
+
+            <div class="control-wrapper">
+              <label for="customer_email">{{ 'customer.login.email' | t }}<span class="req">*</span></label>
+              <input type="email" required name="customer[email]" id="customer_email" />
+            </div>
+
+            {% if form.password_needed %}
+            <div class="control-wrapper">
+              <label for="customer_password">{{ 'customer.login.password' | t }}<span class="req">*</span></label>
+              <input type="password" required name="customer[password]" id="customer_password" class="password" />
+            </div>
+            {% endif %}
+            
+            <div class="control-wrapper last">
+              <div class="action">
+                <a class="forgot-pass" href="javascript:;" onclick="showRecoverPasswordForm()">{{ 'customer.login.forgot_password' | t }}</a>
+              </div>
+              <button class="btn btn-1" type="submit">{{ 'customer.login.sign_in' | t }}</button>
+            </div>
+
+            {% endform %}
+
+          </div>
+
+          <div id="recover-password" style="display: none;">
+
+            <h2 class="account-heading">{{ 'customer.recover_password.heading' | t }}</h2>
+            <p class="note">{{ 'customer.recover_password.caption' | t }}</p>
+
+            {% form 'recover_customer_password' %}
+
+            {% if form.posted_successfully? %}
+            {% assign reset_success = true %}
+            {% endif %}
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+              <button type="button" class="close" title="{{'customer.general.close' | t }}" data-dismiss="alert">×</button>
+              {{ form.errors | default_errors }}
+            </div>
+            {% endif %}
+
+            <div class="control-wrapper">
+              <label for="email">{{ 'customer.recover_password.email' | t }}<span class="req">*</span></label>
+              <input type="email" value="" name="email" id="recover-email" />
+            </div>
+
+            <div class="control-wrapper">
+              <button class="btn btn-1" type="submit">{{ 'customer.recover_password.submit' | t }}</button>
+              <a class="cancel btn btn-2" href="javascript:;" onclick="hideRecoverPasswordForm();">{{ 'customer.recover_password.cancel' | t }}</a>
+            </div>
+
+            {% endform %}
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="col-sm-6 col-12 login-or">
+        <div class="form-wrapper">
+
+          <h2 class="account-heading">{{'customer.register.heading' | t }}</h2>
+          <p><strong>{{'customer.register.subheading' | t }}</strong></p>
+          <p>{{'customer.register.caption' | t }}</p>
+
+          <a class="btn btn-1" href="/account/register">{{'customer.register.submit' | t }}</a>
+
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  if (window.location.hash == '#recover') { showRecoverPasswordForm(); }
+
+  function showRecoverPasswordForm() {
+    $('#recover-password').fadeIn();
+    $('#customer-login').hide();
+    window.location.hash = '#recover';
+    return false;
+  }
+
+  function hideRecoverPasswordForm() {
+    $('#recover-password').hide();
+    $('#customer-login').fadeIn();
+    window.location.hash = '';
+    return false;
+  }
+</script>

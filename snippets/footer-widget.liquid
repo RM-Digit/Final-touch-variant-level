@@ -1,0 +1,234 @@
+{%- assign _widget_border_top = block.settings.border_top -%}
+{%- assign _heading_flex = block.settings.heading_flex -%}
+{%- assign _heading_moibile = block.settings.heading_moibile -%}
+{%- assign _background = block.settings.bg_color -%}
+
+<div class="footer-widget footer-widget-{{ block.id }} border-top-{{ _widget_border_top }}" style="background: {{ _background }};">
+  <div class="{{ _layout_class }}">
+    <div class="footer-inner" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+      
+      <div class="table-row{% if _heading_flex %} heading-flex{% endif %}{% if _heading_moibile %} heading-mobile-only{% endif %}">
+        <div class="row">
+
+          {% capture _index %}{{ forloop.index }}{% endcapture %}
+          {% assign _info_width = block.settings.info_width %}
+          {% assign _menu_width = block.settings.menu_width %}
+          {% assign _menu_uppercase = block.settings.uppercase %}
+          {% assign _menu_bold = block.settings.bold_text %}
+          {% assign _column_padding_top = block.settings.column_padding_top %}
+          {% assign _heading_size = block.settings.heading_size %}
+
+          {% for block in section.blocks offset: _index %}
+            {% if block.type == 'logo' %}
+              {% assign _logo_index = true %}
+              {% break %}
+
+            {% else %}
+              {% assign _logo_index = false %}
+              {% break %}
+
+            {% endif %}
+          {% endfor %}
+
+          {% if _logo_index %}
+            {% for block in section.blocks offset: _index %}
+              {% if block.type == 'logo' %}
+                {% include 'footer-widget-logo' %}
+
+              {% elsif block.type == 'menu-info' %}
+                {% break %}
+              {% else %}
+
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          <div class="col-md-{{ _menu_width }} col-sm-12 col-12 fix-pad">
+            <div class="row footer-check-content">
+              {% for block in section.blocks offset: _index %}
+                {% assign _width = block.settings.width %}
+                {% assign _f_title = block.settings.heading %}
+
+                {% case block.type %}
+                  {% when 'menu' %}
+                    {% include 'footer-widget-menu' %} 
+
+                  {% when 'working-time' %}
+                    {% include 'footer-widget-working-time' %}
+                
+                	{% when 'collection-list' %}
+                    {% include 'footer-widget-collection' %} 
+
+                  {% when 'newsletter-column' %}
+                    {% include 'footer-widget-newsletter' %}
+                
+                	{% when 'text' %}
+                    {% include 'footer-widget-textbox' %}
+
+                  {% when 'payment' %}
+                    {% if _logo_index == false and _push_elements_right == false %}
+                      {% include 'footer-payment-widget' %}
+                    {% endif %}
+
+                  {% when 'social-icons' %}
+                    {%- assign _social_text = block.settings.social_text -%}
+
+                    <div class="col-md-{{ _width }} col-sm-12 col-12{% if _width == 12 %} fix-menu{% endif %}{% if _f_title == blank %} heading-blank{% endif %}">
+                      <div class="footer-block social-icons-block{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %}">
+
+                        {% unless _f_title == blank %}
+                          <h6>{{ _f_title }}<span class="icon"></span></h6>
+                        {% endunless %}
+
+                        {% if _social_text %}
+                          <ul class="widget-social-icons show-text">
+                            <div class="whoweare">
+                              <h6 class="heading-text">WHO WE ARE</h6>
+                              <p class="contents">B.U.L.K stands for Building Up Lives with Kindness. We do not have customers, we have one big family. To everyone that is new, we welcome you to the B.U.L.K Fam!
+                              </p>
+                               
+                            </div>
+                            {% for i in (1..8) %}
+                              {% assign _type = 'social_icon_type_' | append: i %}
+                              
+                              {% unless settings[_type] == 'none' %}
+                                {% assign _font_icon = 'social_font_icon_' | append: i %}
+                                {% assign _image = 'social_icon_' | append: i %}
+                                {% assign _title = 'social_icon_title_' | append: i %}
+                                {% assign _link = 'social_icon_link_' | append: i %}
+                                
+                                <li>
+                                  <a target="_blank" rel="noopener" href="{{ settings[_link] }}" title="{{ settings[_title] }}">
+                                    {% if settings[_type] == 'font-icon' %}
+                                      <i class="demo-icon {{ settings[_font_icon] }}"></i>
+                                    {% else %}
+                                      <img src="{{ settings[_image] | img_url: '20x' }}" alt="Social" />
+                                    {% endif %}
+                                    <span class="text">{{ settings[_title] }}</span>
+                                  </a>
+                                </li>
+                              {% endunless %}
+                            
+                            {% endfor %}
+                            <div style="margin-top: 45px;"><img src ="https://cdn.shopify.com/s/files/1/0429/9385/files/footer-logo.png?v=1600990391"></div>
+                          </ul>
+                          
+                        {% else %}
+                          {% include 'social-media-icons' %}
+                        {% endif %}
+
+                      </div>
+                    </div>
+                    <div class="bulk-logo">
+                      <img src ="https://cdn.shopify.com/s/files/1/0429/9385/files/Group_1_ca6a662b-ada0-48c2-b7de-6f1e867a99d4.png?v=1601112160">
+                      <p class="addr">
+                        <span>602 US 281 S</span><br>
+                        <span>Johnson City, TX 78636</span>
+                      </p>
+                    </div>
+                  {% when 'menu-info' or 'copyright' %}
+                    {% break %}
+
+                  {% else %}
+
+                {% endcase %}
+
+              {% endfor %}
+            </div>
+
+            {% if _push_elements_right %}
+              {% for block in section.blocks offset: _index %}
+                {%- assign _padding_top = block.settings.padding_top -%}
+                {%- assign _padding_bottom = block.settings.padding_bottom -%}
+            
+                {% case block.type %}
+            
+                  {% when 'menu-2-wrapper' %}
+            		    <div class="row footer-check-content push-right">
+                      {% for block in section.blocks offset: _index %}
+                        {% if block.type == 'menu-2' %}
+
+                          {% unless block.settings.footer_menu == blank %}
+                            {% assign _width_2 = block.settings.width %}
+                            {% assign _f_title_2 = block.settings.heading %}
+
+                            <div class="{% if _width_2 == 0 %}col fix-col{% else %}col-md-{{ _width_2 }} col-sm-12 col-12{% endif %}{% if _f_title_2 == blank %} heading-blank{% endif %}">
+                              <div class="footer-block footer-menu{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %}">
+
+                                {% unless _f_title_2 == blank %}
+                                  <h6>{{ _f_title_2 }}<span class="icon"></span></h6>
+                                {% endunless %}
+
+                                <ul class="f-list">
+                                  {% for l in linklists[block.settings.footer_menu].links %}
+                                    <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+                                  {% endfor %}
+                                </ul>
+
+                              </div>
+                            </div>
+                          {% endunless %}
+
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+            
+                  {% when 'newsletter' %}
+                    {% include 'footer-newsletter' %}
+
+                  {% when 'bar' %}
+                    {% include 'footer-service-bar' %}
+
+                  {% when 'payment' %}
+                    {% include 'footer-payment-icon' %}
+
+                  {% when 'copyright-text' %}
+                    <div class="copyright">
+                      {%- assign _copyright_text = block.settings.html -%}
+                      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ _copyright_text }}</p>
+                    </div>
+
+                  {% when 'menu-copyright' %}
+                    {% include 'footer-menu-copyright' %}
+
+                  {% else %}
+
+                {% endcase %}
+              {% endfor %}
+            {% endif %}
+
+          </div>
+
+          {% unless _logo_index %}
+            {% for block in section.blocks offset: _index %}
+              {% if block.type == 'logo' %}
+                {% include 'footer-widget-logo' %}
+
+              {% elsif block.type == 'menu-info' %}
+                {% break %}
+                
+              {% else %}
+              {% endif %}
+            {% endfor %}
+          {% endunless %} 
+
+          <style>
+            .footer-widget.footer-widget-{{ block.id }} .footer-block{
+                padding-top: {{ _column_padding_top }}px;
+            }
+            .footer-widget.footer-widget-{{ block.id }} .footer-block h6{
+                font-size: {{ _heading_size }}px;
+            }
+            .footer-widget.footer-widget-{{ block.id }} .footer-block ul.f-list li a,
+            .footer-widget.footer-widget-{{ block.id }} .footer-block.working-time .phone,
+            .footer-widget.footer-widget-{{ block.id }} .footer-block.working-time .email-text{
+              color: {{ block.settings.link_color }};
+            }
+          </style>
+
+        </div>
+      </div>
+      
+    </div>            
+  </div>
+</div>

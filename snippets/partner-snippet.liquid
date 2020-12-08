@@ -1,0 +1,163 @@
+{% include 'partner-config' %}
+{% capture emptyImage %}
+<img src="{{ 'default-image.jpg' | asset_img_url: 'master' }}">
+{% endcapture %}
+
+<div data-section-id="{{ section.id }}" data-section-type="reload_section" id="partner-section-{{ section.id }}" class="partner-wrapper layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}" style="background-color: {{ _background }};">
+  <div class="partner-container{% if _border_top %} logo-border-top{% endif %}{% if _border_bottom %} logo-border-bottom{% endif %} type-{{ _type }}">
+    <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %}">
+
+      {% unless template == 'page.about' or _type == 'banner-ll' %}
+        {% include 'heading-block' %}
+      {% endunless %}
+
+      {% if section.blocks.size > 0 %}
+
+        {% for block in section.blocks limit: 1 %}
+          {% if block.type == 'banner' %}
+
+          <div class="widget-image">
+            {%- assign _image = block.settings.image -%}
+            {%- assign _image_size = '1460x' -%}
+            {%- assign _link = block.settings.button_link -%}
+            {%- assign _link_2 = block.settings.button_link_2 -%}
+
+            {%- assign _title = block.settings.heading -%}
+            {%- assign _title_color = block.settings.title_color -%}
+            {%- assign _title_size = block.settings.title_size -%}
+            {%- assign _title_text_bold = block.settings.title_text_bold -%}
+
+            {%- assign _subtitle = block.settings.subheading -%}
+            {%- assign _subtitle_color = block.settings.subtitle_color -%}
+            {%- assign _subtitle_size = block.settings.subtitle_size -%}
+            {%- assign _subtitle_text_bold = block.settings.subtitle_text_bold -%}
+
+            {%- assign _button_text = block.settings.button_text -%}
+            {%- assign _button_text_2 = block.settings.button_text_2 -%}
+            {%- assign _button_color = block.settings.button_text_color -%}
+            {%- assign _button_bg = block.settings.button_text_bg_color -%}
+
+            <div class="banner-item text-box-overlay center-left">
+              {% unless _image == blank %}
+
+                <div class="image">
+                  <a href="{{ _link }}">
+                    {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}
+                  </a>
+                </div>
+
+                {% unless _title == blank and _button_text == blank and _subtitle == blank %}
+                  <div class="text">
+
+                    {% unless _title == blank %}
+                      <div class="title{% if _title_text_bold %} bold-text{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                    {% endunless %}
+
+                    {% unless _subtitle == blank %}
+                      <div class="subtitle{% if _subtitle_text_bold %} bold-text{% endif %}" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px;">{{ _subtitle }}</div>
+                    {% endunless %}
+
+                    {% unless _button_text == blank %}
+                      <a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>
+                    {% endunless %}
+
+                    {% unless _button_text_2 == blank %}
+                      <a class="btn btn-banner" href="{{ _link_2 }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text_2 }}</a>
+                    {% endunless %}
+
+                  </div>
+                {% endunless %}
+
+              {% else %}
+                {{ emptyImage }}
+
+              {% endunless %}
+            </div>
+
+          </div>
+
+          {% endif %}
+        {% endfor %}
+
+        <div class="widget-brands{% if _border_logo_list %} border-widget-brands{% endif %}">
+          {% if _type == 'banner-ll' %}{% include 'heading-block' %}{% endif %}
+
+          <div class="widget-partner widget-partner-{{ section.id }} border-item-{{ _border_logo_list_item }} {% if _type == 'row' %} row{% endif %}">
+            {% for block in section.blocks %}
+
+              {% if block.type == 'image' %}
+                {%- assign _image = block.settings.image -%}
+                {%- assign _link = block.settings.link -%}
+
+                {% if _link == blank %}
+                  <div class="partner-item{% if _type == 'row' %} {{ _item_per_row }} {{ _item_per_row_tablet }} {{ _item_per_row_mobile }}{% endif %}">
+                    {% unless _image == blank %}
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _image_size }}" alt="Logo list" />
+
+                    {% else %}
+                      {{ emptyImage }}
+
+                    {% endunless %}
+                  </div>
+
+                {% else %}
+                  <div class="partner-item{% if _type == 'row' %} {{ _item_per_row }} {{ _item_per_row_tablet }} {{ _item_per_row_mobile }}{% endif %}">
+                    {% unless _image == blank %}
+                      <a href="{{ _link }}">
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _image_size }}" alt="Logo list" />
+                      </a>
+
+                    {% else %}
+                      {{ emptyImage }}
+
+                    {% endunless %}
+                  </div>
+                {% endif %}
+
+              {% endif %}
+
+            {% endfor %}
+          </div>
+
+          {% if _show_all_btn %}
+            <div class="show-all style-{{ _show_all_btn_style }}"><a href="{{ _show_all_btn_link }}">{{ 'general.text.view_all' | t }}</a></div>
+          {% endif %}
+        </div>
+
+      {% else %}
+          <div class="widget-partner widget-partner-{{ section.id }}{% if _type == 'row' %} row{% endif %}">
+            {% for i in (1.._item_per_row) %}
+              <div class="partner-item{% if _type == 'row' %} {{ _item_per_row }} {{ _item_per_row_tablet }} {{ _item_per_row_mobile }}{% endif %}">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endfor %}
+          </div>
+
+      {% endif %}
+
+    </div>
+  </div>
+  {%- if _type == 'carousel' -%}
+  <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+        data-id=".widget-partner.widget-partner-{{ section.id }}"        
+        data-margin="10"
+        data-resp="8.2"
+        data-items-1="{{_item_per_row_mobile}}"
+        data-items-2="{{_item_per_row_tablet}}"
+        data-items-3="{{_item_per_row_tablet_2}}"
+        data-items-4="{{_item_per_row_tablet_3}}"
+        data-items-5="{{_item_per_row_4}}"
+        data-items-6="{{_item_per_row_3}}"
+        data-items-7="{{_item_per_row_2}}"
+        data-items-8="{{_item_per_row}}">
+  {%- endif -%}
+
+  <style type="text/css">
+    #partner-section-{{ section.id }} .partner-container .widget-brands.border-widget-brands .widget-partner{
+      border: 2px solid {{ _border_logo_list_color }};
+    }
+    #partner-section-{{ section.id }} .partner-container.type-banner-ll .border-widget-brands{
+      border: 3px solid {{ _border_logo_list_color }};
+    }
+  </style>
+</div>

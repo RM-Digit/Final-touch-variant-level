@@ -1,0 +1,29 @@
+{%- if metafields_icon -%}
+  {%- assign c_f_menu_arr  = shop.metafields.c_f.icon_tab_menu -%}
+  {%- assign _menu_svg_icon = l_title -%} 
+
+  {% for value in c_f_menu_arr %}
+  {{value}}
+  {% endfor %}
+
+  {%- for i in c_f_menu_arr -%}
+    {%- if i == _menu_svg_icon -%}
+      {%- assign c_f_icon = shop.metafields.c_f.icon_code[forloop.index0] -%}
+      {%- unless c_f_icon == blank -%}
+        {%- capture c_f_icon_menu -%}
+          <span class="c_f-icon">
+            {%- if c_f_icon contains '<svg' -%}
+            {{c_f_icon}}
+            {%- elsif c_f_icon contains '.png' or c_f_icon contains '.jpg' or c_f_icon contains '.jpeg' -%}
+              <img src="{{c_f_icon}}" alt="">
+            {%- endif -%}
+          </span>
+        {%- endcapture -%}
+      {%- endunless -%}
+
+      {{ c_f_icon_menu }}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+{%- endif -%}

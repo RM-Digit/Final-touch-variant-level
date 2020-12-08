@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="{{ shop.locale }}" class="js{% if template == 'index' %} templateIndex{% endif %}">
+<head>
+  {% unless settings.favicon == blank %}<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">{% endunless %}
+  <meta name="google-site-verification" content="_LytyWejFkvZtB2rHlce1S27eSxxVhAdE4F9iJ_BEmI" />
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+  <meta name='HandheldFriendly' content='True'>
+  <meta name='MobileOptimized' content='375'>
+  <meta http-equiv="cleartype" content="on">
+  <meta name="theme-color" content="{{ settings.main_color }}">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-ND9X2R');</script>
+      <!-- End Google Tag Manager -->
+          
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140502806-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'UA-140502806-1');
+      </script>
+      
+
+  {%- capture seo_title -%}
+    {%- if template == 'search' and search.performed == true -%}
+      {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+      {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+
+
+  <link rel="canonical" href="{{ canonical_url }}"/>
+  <link rel="preconnect dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="preconnect dns-prefetch" href="https://v.shopify.com">
+  <link rel="preconnect dns-prefetch" href="https://cdn.shopifycloud.com">
+{%- comment -%}
+<link rel="preload" href="{{'styles.scss.css' | asset_url }}" as="style">
+{%- endcomment -%}
+  
+  
+ 
+
+  {% if template == "product" %}
+    <link rel="preload" href="{{'themes.scss.css' | asset_url }}" as="style" >
+    <link rel="preload" href="{{'arenafont.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{'global.scss.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{'vendor-product.css' | asset_url }}" as="style">
+  {% else %}
+    <link rel="preload" href="{{'themes.scss.css' | asset_url }}" as="style" >
+    <link rel="preload" href="{{'arenafont.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{'styles.scss.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{'global.scss.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{'vendor.css' | asset_url }}" as="style">
+  {% endif %}
+  <!-- header-css-file  ================================================== -->
+  {% if settings.header_font_type == 'google' %}
+    <link rel="dns-prefetch preconnect" href="https://fonts.gstatic.com">
+    <link href="//fonts.googleapis.com/css?family={{ settings.header_google_font_1 | replace: ' ', '+'}}:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel='stylesheet' type='text/css'>
+  {% endif %}
+
+  {% if settings.general_font_type == 'google' %}
+    <link href="//fonts.googleapis.com/css?family={{ settings.general_google_font_1 | replace: ' ', '+'}}:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&display=swap" rel='stylesheet' type='text/css'>
+  {% endif %}
+
+  {% assign _rtl = false %}
+ 
+  {% if template == "product" %}
+  
+    <link href="{{ 'themes.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ 'vendor-product.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ 'global.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  {% else %}
+   
+        <link href="{{ 'themes.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+   
+    <link href="{{ 'vendor.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" defer>
+    <link href="{{ 'styles.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ 'global.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  {% endif %}
+  
+  
+  {%- comment -%}
+
+  {%- endcomment -%}
+
+  <link href="{{ 'arenafont.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  <link href="https://fonts.googleapis.com/css?family=Caveat:300,400,500,600,700&display=swap" rel='stylesheet' type='text/css'>
+ 
+  <link href="{{ 'custom.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+ 
+ 
+
+  <script crossorigin="anonymous" src="{{ 'lazysizes.min.js' | asset_url }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'jquery-1.11.0.min.js' | asset_url }}"></script>
+  <script crossorigin="anonymous" src="{{ 'cookies.js' | asset_url  }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'bootstrap.4x.min.js' | asset_url }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'custom.js' | asset_url }}" defer></script>
+  {%- if template == 'product.JOTM-ReCharge' -%}
+    <script type="text/javascript" src="{{ 'fastclick.min.js' | asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'timber.js' | asset_url }}"></script>
+    {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'jotm.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'jotmSelectBag.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'jotmModal.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'asphaltic.css' | asset_url | stylesheet_tag }}
+    {{ 'bou-western.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  
+  <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=HQkx8y"></script>
+  
+  {% if template == '404' %}<meta http-equiv="refresh" content="0;URL={{ shop.url }}" />{% endif %}
+  {% if template == 'collection' %}<meta http-equiv="refresh" content="0;URL={{ shop.url }}" />{% endif %}
+  {{ content_for_header }}
+
+
+{%- comment -%}
+  {%- render 'bold-common' -%}
+  {{ shop.metafields.loox["global_html_head"] }}
+  <link rel="preconnect dns-prefetch" href="https://cdn.weglot.com">
+  <link rel="prefetch" href="https://cdn.weglot.com/weglot.min.css" as="style">
+  {% include 'weglot-translate' %}
+  {% include 'arn_wl_cp_settings' %}
+  {% include 'arn_wl_cp_styles' %}
+  {% include 'arn_icons_define' %}
+{%- endcomment -%}
+
+<script>var scaaffCheck = false;</script>
+{{ 'sca_affiliate.js' | asset_url | script_tag }}
+<!--Gem_Page_Header_Script-->
+{% include 'gem-app-header-scripts' %}
+<!--End_Gem_Page_Header_Script-->
+{% if template == "product" %}
+  {% include 'judgeme_core' %}
+ {% endif %}
+  
+ {%- comment -%}
+  {% include 'booster-common' %}
+  {% render 'shogun-head' %}
+  {% render 'pagefly-header' %}
+{%- endcomment -%}
+</head> 
+
+{% assign _input_bg = settings.input_bg %}
+{% if _input_bg == blank or _input_bg == 'none' or _input_bg == 'rgba(0,0,0,0)' %}
+  {%- assign _input_class = 'input-bg-none' -%}
+{% elsif _input_bg == '#ffffff' or _input_bg == '#000000' %}
+  {%- assign _input_class = 'input-bg-white' -%}
+{% endif %}
+
+<body class="template{{ template | split: '.' | first | camelize }} mobile-bar-{{ settings.mobile_bar }} category-mode-{{ settings.catalog_mode }} lazy-loading-img {{ _input_class }}{% if settings.btn_round %} btn-round{% endif %}">
+  {% assign _template_skin = settings.template_skin %}
+  {% assign _container_width_type = settings.container_width_type %}
+  {% assign _lazyload = settings.use_lazyload %}
+  {% assign _header_left = settings.header_left %}
+  {% assign _general_layout_mode = settings.general_placement %}
+  {% assign _boxed_mode_bg = settings.boxed_mode_bg %}
+  {% assign _fix_boxed = settings.fix_boxed %}
+  {% assign _show_left_column = settings.show_left_column %}
+  {% assign _breadcrumb_styles = settings.breadcrumb_styles %}
+  {% assign _back_to_top = settings.show_back_to_top %}
+  {% assign _cart_styles = settings.cart_styles %}
+  {% assign _show_cookie_policy = settings.show_cookie_policy %}
+  {% assign _enable_visitor_count = settings.enable_visitor_count %}
+  {% assign _show_add_to_cart_sticky = settings.show_add_to_cart_sticky %}
+  {% assign _show_discount_popup = settings.show_discount_popup %}
+  {% assign _use_color_hexcode = settings.use_color_hexcode %}
+  {% assign _auto_currency = settings.auto_currency %}
+  {% assign _icon_btn_banner = settings.icon_btn_banner %}
+  {% assign _notice_bar = settings.notice_bar %}
+  {% assign _announcement_bar = settings.announcement_bar %}
+  {% assign _mobile_department = settings.mobile_department %}
+  {% assign _newsletter_popup = settings.newsletter_popup %}
+
+  {% if template contains 'customers' %}
+    <script crossorigin="anonymous" src="{{ 'shopify_common.js' | shopify_asset_url }}"></script>
+    <script crossorigin="anonymous" src="{{ 'bc.customerArea.js'  | asset_url }}"></script>
+  {% endif %}
+
+  <div class="boxed-wrapper skin-{{ _template_skin }} mode-{{ _boxed_mode_bg }}{% if _icon_btn_banner %} icon-btn-banner{% endif %}" data-cart-style="{{ _cart_styles }}" data-redirect="{{ settings.enable_redirect_checkout }}" data-ajax-cart="{{ settings.disable_ajax_cart }}">
+    <div class="new-loading"></div>
+    <div id="menu-hover-background"></div>
+
+    {% if _header_left %}{% section 'header' %}{% endif %}
+    <div id="page-body" class="{% if _header_left %}flex-header-left {% endif %}{% if template contains 'product' %}product-{{ template.suffix }} {% endif %}breadcrumb-{{ _breadcrumb_styles }} {{ _general_layout_mode }}">
+      <div class="header-department">
+        {% if _notice_bar %}{% section 'notice-bar' %}{% endif %}
+        {% if _announcement_bar %}{% section 'announcement-bar' %}{% endif %}
+        {% unless _header_left %}{% section 'header' %}{% endunless %}
+        {% if _mobile_department %}
+          {% if template == 'index' or template contains 'collection' %}
+            {% section 'mobile-department' %}
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% include 'language-modal' %}
+
+      <div id="body-content" class="container-width-{{ _container_width_type }}">
+        <div id="main-content">
+          <div class="main-content{% if _show_left_column %} show-left-column{% endif %}">{{ content_for_layout }}
+            {%include 'section-any-where'%}
+          </div>
+        </div>
+      </div>
+ 
+      {% if _newsletter_popup %}{% section 'newsletter-template' %}{% endif %}
+      {% if settings.footer_slideshow %}{% section 'section-slideshow' %}{% endif %}
+      {% section 'footer' %}
+      {% if settings.footer_banner %}{% section 'section-image-gallery' %}{% endif %}
+    </div>
+
+    {% if settings.mobile_bar == 'outside' %}
+      {% include 'layer-mobile-bar' %}
+    {% endif %}
+
+    {{ "api.jquery.js" | shopify_asset_url | script_tag }}
+
+    {% if _cart_styles == 'dropdown' %}
+      {% include 'cart-dd-custom' %}
+      {% include 'layer-cart-modal' %}
+    {% else %}
+      {% include 'cart-sb-custom' %}
+      {% include 'cart-sidebar' %}
+    {% endif %}
+    {% include 'bc-config-js' %}
+    {% include 'currencies' %}
+    {%- comment -%}
+     {% include 'quick-shop-product' %}
+    {%- endcomment -%}
+   
+
+    {% if _use_color_hexcode %}{% include 'color-hexcode' %}{% endif %}
+    {% if _show_cookie_policy %}{% include 'cookie-policy' %}{% endif %}
+    {% if template contains 'product' %}{% include 'theme-product' %}{% endif %}
+
+  </div>
+
+  {% if _auto_currency %}{% include 'auto-currency' %}{% endif %}
+  {% include 'script-files' %}
+  {{ shop.metafields.loox["global_html_body"] }}
+<!--Gem_Page_Footer_Script-->
+{% include 'gem-app-footer-scripts' %}
+<!--End_Gem_Page_Footer_Script-->
+
+  {%- comment -%}
+    {% render 'spurit_po2_theme_snippet' %}
+    {% render 'upsell-now', customer: customer, product: product, template: template, cart: cart %}
+    {% render 'preorder-now' %}
+    {% include 'booster-discounts' %}
+  {%- endcomment -%}
+ 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND9X2R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {% unless template == "product" %}
+    <script src="https://cdn.attn.tv/bulk/dtag.js"></script>
+
+  {% endunless %}
+  
+</body>
+</html>

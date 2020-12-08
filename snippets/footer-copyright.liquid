@@ -1,0 +1,147 @@
+{%- assign _copyright_style = block.settings.style -%}
+{%- assign _copyright_border_top = block.settings.copyright_border_top -%}
+{%- assign _alignment_ = block.settings.alignment -%}
+
+{% capture _copyright_index %}{{ forloop.index }}{% endcapture %}
+
+<div class="footer-bot fb-style-{{ _copyright_style }} border-top-{{ _copyright_border_top }}">
+	<div class="{{ _layout_class }}">
+
+		<div class="footer-bot-container text-{{ _alignment_ }}" style="padding-top: {{ _padding_top }}px; padding-bottom: {{ _padding_bottom }}px;">
+
+			{% case _copyright_style %}
+
+			{% when 1 %}
+				<div class="social-payments">
+					{% for block in section.blocks offset: _copyright_index %}
+
+						{% case block.type %}
+							{% when 'support-center' %}
+								{% include 'footer-support-center' %} 
+								
+							{% when 'social-icons' %}
+								<div class="widget-social">
+									{% include 'social-media-icons' %}
+								</div>
+
+							{% when 'payment' %}
+								{% include 'footer-payment-icon' %} 
+
+							{% else %}
+								
+						{% endcase %}
+
+					{% endfor %}
+				</div>
+
+				{% for block in section.blocks offset: _copyright_index %}
+					{% if block.type == 'menu-copyright' %}
+						{% include 'footer-menu-copyright' %}
+					{% elsif block.type == 'copyright-text' %}
+						{%- assign _copyright_text = block.settings.html -%}
+						{% assign _uppercase = block.settings.uppercase %}
+						{% assign _bold_text = block.settings.bold_text %}
+						<div class="copyright{% if _uppercase %} text-uppercase{% endif %}{% if _bold_text %} bold-text{% endif %}">
+							<p>Copyright &copy;{{ 'now' | date: '%Y' }} B.U.L.K Beef Jery</p>
+						</div>
+					{% else %}
+					{% endif %}
+				{% endfor %}
+
+			{% when 2 %}
+				{% for block in section.blocks offset: _copyright_index %}
+
+					{% case block.type %}
+						{% when 'menu-copyright' %}
+							{% include 'footer-menu-copyright' %}
+
+						{% when 'payment' %}
+							{% include 'footer-payment-icon' %}
+
+						{% when 'social-icons' %}
+							<div class="widget-social">
+								{% include 'social-media-icons' %}
+							</div>
+
+						{% when 'copyright-text' %}
+							{%- assign _copyright_text = block.settings.html -%}
+							{% assign _uppercase = block.settings.uppercase %}
+							{% assign _bold_text = block.settings.bold_text %}
+							<div class="copyright{% if _uppercase %} text-uppercase{% endif %}{% if _bold_text %} bold-text{% endif %}">
+								<p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ _copyright_text }}</p>
+							</div>
+
+						{% else %}
+							
+					{% endcase %}
+
+				{% endfor %}
+
+			{% when 3 %}
+
+				{% for block in section.blocks offset: _copyright_index %}
+
+					{% case block.type %}
+						{% when 'menu-copyright' %}
+							{% include 'footer-menu-copyright' %}
+
+						{% when 'payment' %}
+							{% include 'footer-payment-icon' %}
+
+						{% when 'social-icons' %}
+							<div class="widget-social">
+								{% include 'social-media-icons' %}
+							</div>
+
+						{% when 'copyright-text' %}
+							{%- assign _copyright_text = block.settings.html -%}
+							{% assign _uppercase = block.settings.uppercase %}
+							{% assign _bold_text = block.settings.bold_text %}
+							<div class="copyright{% if _uppercase %} text-uppercase{% endif %}{% if _bold_text %} bold-text{% endif %}">
+								<p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ _copyright_text }}</p>
+							</div>
+
+						{% else %}
+							
+					{% endcase %}
+
+				{% endfor %}
+
+			{% else %}
+
+				{% for block in section.blocks offset: _copyright_index %}
+
+					{% case block.type %}
+						{% when 'support-center' %}
+							{% include 'footer-support-center' %} 
+							
+						{% when 'social-icons' %}
+							<div class="widget-social">
+								{% include 'social-media-icons' %}
+							</div>
+
+						{% when 'copyright-text' %}
+							{%- assign _copyright_text = block.settings.html -%}
+							{% assign _uppercase = block.settings.uppercase %}
+							{% assign _bold_text = block.settings.bold_text %}
+							<div class="copyright{% if _uppercase %} text-uppercase{% endif %}{% if _bold_text %} bold-text{% endif %}">
+								<p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ _copyright_text }}</p>
+							</div>
+
+						{% when 'menu-copyright' %}
+							{% include 'footer-menu-copyright' %}
+
+						{% else %}
+							{% break %}
+							
+					{% endcase %}
+					
+				{% endfor %}
+
+
+			{% endcase %}
+
+		</div>
+
+  	</div>
+</div>

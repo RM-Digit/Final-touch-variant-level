@@ -1,0 +1,19 @@
+<div class="single-product-{{ _type }}{% if _type == 'row' %} row justify-content-center{% endif %}">
+  {% for block in section.blocks %}
+  {%- assign _product = block.settings.product -%}
+
+    {% unless _product == blank %}
+      <div class="sp-item{% if _type == 'row' %} col-md-6 col-sm-12 col-12{% endif %}">
+        
+        {%- assign product = all_products[_product] -%}
+        {% include 'single-product-item' %}
+
+      </div>
+
+    {% else %}
+      {{ emptyProduct02 }}
+
+    {% endunless %}
+
+  {% endfor %}
+</div>

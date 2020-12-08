@@ -1,0 +1,31 @@
+<div class="banner-item text-box-overlay {{ _text_position }}">
+
+  {% unless _image == blank %}   
+
+    <div class="image">
+      <a href="{{ _link }}">
+        {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+      </a>
+    </div>
+
+    {% unless _title == blank and _subtitle == blank and _button_text == blank %}
+      <div class="text text-{{ _text_alignment }} {{ _po_class_1 }} {{ _po_class_2 }}{% if _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %} btn{% endif %}">
+
+        {% unless _title == blank %}
+          <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+        {% endunless %}
+
+        {% unless _subtitle == blank %}
+          <div class="subtitle{% if _subtitle_text_bold %} bold-text{% endif %}{% if _subtitle_size > 25 %} big-size{% endif %}" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px;">{{ _subtitle }}</div>
+        {% endunless %}
+        
+        {% unless _button_text == blank %}
+          <a class="{% if _button_text_bold %}bold-text {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+        {% endunless %}
+
+      </div>
+    {% endunless %}
+
+  {% endunless %}
+
+</div>

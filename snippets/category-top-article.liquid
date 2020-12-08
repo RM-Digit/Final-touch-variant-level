@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="blog-post-container">
+
+    <div class="row">
+      {% for i in (1..2) %}
+        {%- assign _blog_post = 'blog_posts_' | append: i -%}
+
+        {% unless block.settings[_blog_post] == blank %}
+          <div class="blog-post-col col-sm-6 col-12">
+            {%- assign article = articles[block.settings[_blog_post]] -%}
+            {%- assign _image_size = '300x' -%}
+            <div class="post-item-inner">
+              {% if article.image %}
+                <div class="post-image">
+                  <a href="{{ article.url }}">
+                    {% include 'image-lazysize' with image: article.image, image_size: _image_size, image_class: '', image_alt: 'Blog' %}       
+                  </a>
+                </div>
+              {% endif %}
+
+              <div class="post-content text-center">
+                <div class="info{% if _alignment_textbox %} text-center{% endif %}">
+                  <h4 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+
+                  <div class="meta-data">
+                    <span class="date">{{ article.published_at | date: "%b %d %Y" }}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div> 
+          </div>
+        {% endunless %}
+
+      {% endfor %}
+    </div>
+    
+  </div>
+</div>

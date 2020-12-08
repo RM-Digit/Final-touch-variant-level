@@ -1,0 +1,22 @@
+<div class="col-md-{{ _width }} col-sm-12 col-12{% if _width == 12 %} fix-menu{% endif %}{% if _f_title == blank %} heading-blank{% endif %}">
+  <div class="footer-block working-time{% if _menu_uppercase %} text-uppercase{% endif %}{% if _menu_bold %} bold-text{% endif %}">
+
+    {% unless _f_title == blank %}
+      <h6>{{ _f_title }}<span class="icon"></span></h6>
+    {% endunless %}
+
+    {%- assign _phone_number = block.settings.phone_number -%}
+    {%- assign _working_time = block.settings.working_time -%}
+    {%- assign _email = block.settings.email -%}
+
+    {% unless _phone_number == blank and _working_time == blank %}
+    <div class="working-phone">
+      {% unless _phone_number == blank %}<div class="phone">{{ _phone_number }}</div>{% endunless %}
+      {% unless _working_time == blank %}<div class="working">{{ _working_time }}</div>{% endunless %}
+    </div>
+    {% endunless %}
+
+    {% unless _email == blank %}<div class="email-text">{{ _email }}</div>{% endunless %}
+
+  </div>
+</div>

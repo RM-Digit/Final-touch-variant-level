@@ -1,0 +1,241 @@
+{% include 'list-collections-snippet' %}
+
+{% schema %}
+{
+  "name": "List Collections V1",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Created by 'List Collections V1' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Collection List V1"
+    }, 
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        { "value": "boxed", "label": "Boxed" },
+        { "value": "boxed-padding", "label": "Boxed padding" },
+        { "value": "full", "label": "Wide" },
+        { "value": "right-column", "label": "Right column" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background Mode",
+      "default": "bg-color",
+      "options": [
+        { "value": "bg-image", "label": "Image" },
+        { "value": "bg-color", "label": "Color" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Border content"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_content",
+      "label": "Border content"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_bottom",
+      "label": "Border bottom"
+    },
+    {
+      "type": "range",
+      "id": "border_content_size",
+      "label": "Width",
+      "default": 1,
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "border_content_color",
+      "label": "Color",
+      "default": "#dddddd"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Text",
+      "default": "Shop by category"
+    },
+    {
+      "type": "checkbox",
+      "id": "bigger_size",
+      "label": "Bigger size"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "border_line",
+      "label": "Border line"
+    },
+    {
+      "type": "header",
+      "content": "SHOW ALL button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_btn",
+      "label": "SHOW ALL button"
+    },
+    {
+      "type": "url",
+      "id": "show_all_link",
+      "label": "Link to "
+    },
+    {
+      "type": "header",
+      "content": "Block settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_bold",
+      "label": "Bold Heading"
+    },  
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    }, 
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": 16,
+      "min": 13,
+      "max": 80,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "content_uppercase",
+      "label": "Uppercase text"
+    },
+    {
+      "type": "checkbox",
+      "id": "content_bold",
+      "label": "Bold text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "range",
+          "id": "width",
+          "label": "Width",
+          "default": 6,
+          "min": 0,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "default": 0,
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "border_right_item",
+          "label": "Border right"
+        },
+        {
+          "label": "Heading",
+          "id": "heading",
+          "type": "text"
+        }, 
+        {
+          "label": "Link to",
+          "id": "link",
+          "type": "url"
+        }, 
+        {
+          "type": "link_list",
+          "id": "menu_item",
+          "label": "Menu item"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }, 
+        {
+          "label": "Image size",
+          "id": "image_size",
+          "type": "text",
+          "default": "570x300",
+          "info": "E.g: 570x300"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "List Collections V1",
+      "category": "List Collections",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

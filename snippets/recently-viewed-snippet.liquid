@@ -1,0 +1,69 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _style = section.settings.style -%}
+
+{%- assign _navigator = section.settings.navigator -%}
+{%- assign _paging = section.settings.paging -%}
+
+{% if _layout == 'boxed' %}
+  {%- assign _layout_class = 'container' -%}
+{% else %}
+  {%- assign _layout_class = 'container-fluid' -%}
+{% endif %}
+
+<div class="section-recently-viewed hide layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  <div class="{{ _layout_class }} style-{{ _style }}">
+
+    <script src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
+    <script src="{{ 'jquery.products.min.js' | asset_url}}"></script>
+
+    {% include 'heading-block' %}
+
+    <div id="recently-viewed-products" class="collection row clearfix" data-handle="{{ product.handle }}"></div>
+
+    {% raw %}
+    <script id="recently-viewed-product-template" type="text/x-jquery-tmpl"> 
+    <div id="product-${handle}" class="product check-product col-lg-3 col-md-4 col-sm-6 col-12" data-rwhandle="${handle}" >
+        <div class="product-image">
+          <a href="${url}">
+            <img src="${Shopify.Products.resizeImage(featured_image, "160x")}" />
+          </a>
+        </div>
+
+        <div class="product-content">
+          <a href="${url}">${title}</a>
+          <div class="product-price">
+            <span class="on_price price"><span class="money">${Shopify.formatMoney(price)}</span></span>
+            {{if compare_at_price > price}}
+                <span class="on_price price-compare"><span class="money">${Shopify.formatMoney(compare_at_price)}</span></span>
+            {{/if}}
+          </div>
+        </div>  
+    </div>
+    </script>
+    {% endraw %}
+
+    <script> 
+      Shopify.Products.showRecentlyViewed({
+        howManyToShow: 12,
+        onComplete: function() {
+          var _handle = $('#recently-viewed-products').data('handle');
+          $('.section-recently-viewed').removeClass('hide');
+          
+          $('.check-product').each(function(){
+            var _rwhandle = $(this).data('rwhandle')
+            if(_rwhandle === _handle){
+              $(this).remove();
+            }
+          });
+
+          {% if settings.show_multiple_currencies %}
+            currenciesCallbackSpecial('#recently-viewed-products span.money');
+          {% endif %}
+          
+        } 
+      });
+    </script>
+
+  </div>
+</div>

@@ -1,0 +1,370 @@
+{% include 'image-gallery-config' %}
+
+<div id="home-banner-{{ section.id }}" class="home-banner layout-{{_layout }} {{ _bg_color_none }}{% if _effect %} effect-{{ _effect }}{% endif %}{% if _hide_mobile %} d-none d-md-block{% endif %}"{% unless _layout == 'boxed-bg'%} style="background: {{ _bg_color }};"{% endunless %} data-section-id="{{ section.id }}" data-section-type="reload_section" >
+  <div class="{{ _layout_class }}{% if _border_line %} heading-border-line{% endif %} border-{{ _border_item }}">
+
+    {% include 'heading-block' %}
+
+    <style type="text/css">
+      #home-banner-{{ section.id }} .title-wrapper h3{
+        font-size: {{ section.settings.heading_size }}px;
+      }
+    </style>
+
+    <div class="home-banner-items"{% if _layout == 'boxed-bg'%} style="background: {{ _bg_color }};"{% endif %}>
+      {% if section.blocks.size > 0 %}
+      
+        {%  unless _type == 'carousel' %}<div class="home-banner-content home-banner-{{ _type }}">{% endunless %}
+          <div class="{{ _class }}">
+
+            {% for block in section.blocks %} 
+              {%- assign _image = block.settings.image -%}
+              {%- assign _link = block.settings.button_link -%}
+              {%- assign _link_2 = block.settings.button_link_2 -%}
+            
+              {% if block.type == 'image' %}
+                {% if block.settings.image_size == balnk %}
+                  {%- assign _image_size = '370x' -%}
+                {% else %}
+                  {%- assign _image_size = block.settings.image_size -%}
+                {% endif %}
+              
+                {%- assign _image_width = block.settings.image_width  %}
+                {%- assign _image_width_tablet = block.settings.image_width_tablet  %}
+                {%- assign _image_width_mobile = block.settings.image_width_mobile  %}
+
+                {%- assign _icon = block.settings.icon  %}
+              
+                {%- assign _text_style = block.settings.text_style -%}
+                {%- assign _text_position = block.settings.text_position -%}
+                {%- assign _text_alignment = block.settings.text_alignment -%}
+                {%- assign _text_bg_color = block.settings.bg_color -%}
+
+                {%- assign _text_position_top = block.settings.text_position_top -%}
+                {%- assign _text_position_left = block.settings.text_position_left -%}
+                {%- assign _text_position_bottom = block.settings.text_position_bottom -%}
+                {%- assign _text_position_right = block.settings.text_position_right -%}
+              
+                {%- assign _title = block.settings.image_title -%}
+                {%- assign _title_color = block.settings.title_color -%}
+                {%- assign _title_size = block.settings.title_size -%}
+                {%- assign _title_text_bold = block.settings.title_text_bold -%}
+              
+                {%- assign _subtitle = block.settings.subtitle -%}
+                {%- assign _subtitle_color = block.settings.subtitle_color -%}
+                {%- assign _subtitle_size = block.settings.subtitle_size -%}
+                {%- assign _subtitle_text_bold = block.settings.subtitle_text_bold -%}
+              
+                {%- assign _fix_button_position = block.settings.button_position -%}
+                {%- assign _button_text = block.settings.button_text -%}
+                {%- assign _button_text_2 = block.settings.button_text_2 -%}
+                {%- assign _button_color = block.settings.button_text_color -%}
+                {%- assign _button_bg = block.settings.button_text_bg_color -%}
+                {%- assign _button_text_size = block.settings.button_size -%}
+                {%- assign _button_text_bold = block.settings.button_text_bold -%}
+                {%- assign _button_full_width = block.settings.button_full_width -%}
+
+                {% if _text_style == 'overlay' %}
+                  {%- assign _overlay_position_container = block.settings.overlay_position_container -%}
+                  {%- assign _po = true -%}
+
+                  {% case _text_position %}
+                    {% when 'top-left' %}
+                      {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                      {%- assign _po_class_2 = 'pol-' | append: _text_position_left -%}
+
+                    {% when 'top-center' %}
+                      {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                      {%- assign _po_class_2 = '' -%}
+
+                    {% when 'top-right' %}
+                      {%- assign _po_class_1 = 'pot-' | append: _text_position_top -%}
+                      {%- assign _po_class_2 = 'por-' | append: _text_position_right -%}
+
+                    {% when 'center-left' %}
+                      {%- assign _po_class_1 = 'pol-' | append: _text_position_left -%}
+                      {%- assign _po_class_2 = '' -%}
+
+                    {% when 'center-right' %}
+                      {%- assign _po_class_1 = 'por-' | append: _text_position_right -%}
+                      {%- assign _po_class_2 = '' -%}
+
+                    {% when 'bottom-left' %}
+                      {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                      {%- assign _po_class_2 = 'pol-' | append: _text_position_left -%}
+
+                    {% when 'bottom-center' %}
+                      {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                      {%- assign _po_class_2 = '' -%}
+
+                    {% when 'bottom-right' %}
+                      {%- assign _po_class_1 = 'pob-' | append: _text_position_bottom -%}
+                      {%- assign _po_class_2 = 'por-' | append: _text_position_right -%}
+
+                    {% else %}
+                  {% endcase %} 
+
+                {% else %}
+                  {%- assign _po = false -%}
+                {% endif %}
+            
+                {% if _text_bg_color == blank or _text_bg_color == 'none' or _text_bg_color == 'rgba(0,0,0,0)' %}
+                  {%- assign _text_bg = 'bg-color-none' -%}
+            	{% else %}
+                  {%- assign _text_bg = 'bg-color' -%}
+                {% endif %}
+
+                {% if _type == 'row' %}
+                  <div class="{{ _desktop_class }} {{ _tablet_class }} {{ _mobile_class }} col-12 padding-{{ _padding_section }}">
+                {% elsif _type == 'row-2' %}
+                  <div class="col-lg-{{ _image_width }} col-md-{{ _image_width_tablet }} col-sm-{{ _image_width_mobile }} col-12 padding-{{ _padding_section }}">
+                {% endif %}
+
+                  <div class="banner-item text-box-{{ _text_style }} {{ _text_position }}{%  if _type == 'masonry'  %} padding-{{ _padding_section }} masonry-width-{{ _image_width }} masonry-tabletwidth-{{ _image_width_tablet }} masonry-mobilewidth-{{ _image_width_mobile }}{% endif %}">
+
+                    {% unless _image == blank %}
+                      {% if _type == 'masonry' %}<div class="masonry-item">{% endif %}
+                    
+                      {% unless _text_style == 'left' %}
+                        <div class="image">
+                          <a href="{{ _link }}">
+                            {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                          </a>
+                        </div>
+                      {% endunless %}
+                      <div class="overlay-dark"></div>
+                      {% unless _icon == blank and _title == blank and _button_text == blank and _subtitle == blank %}
+                        {% if _overlay_position_container and _item_per_row == 1 and _item_per_row_tablet == 1 %}<div class="position-container">{% endif %}
+                        <div class="text text-{{ _text_alignment }} {{ _text_bg }}{% if _button_full_width %} btn-full-width{% endif %}{% if _po %} {{ _po_class_1 }} {{ _po_class_2 }}{% endif %}{% if _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %} btn-transparent{% endif %} fix-btn-{{ _fix_button_position }}" style="background: {{ _text_bg_color }};">
+
+                          {% unless _fix_button_position == 'below' %}
+                          <div class="wrap-left">
+                            {% endunless %}
+
+                            {% unless _icon == blank %}
+                              {%- assign _image_size = '100x' -%}
+                              <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ _icon | img_url: _image_size  }}" alt="" /> 
+                            {% endunless %}
+
+                            {% unless _title == blank %}
+                              <a href="{{ _link }}"> <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div> </a>
+                            {% endunless %}
+
+                            {% unless _subtitle == blank %}
+                              <div class="subtitle{% if _subtitle_text_bold %} bold-text{% endif %}{% if _subtitle_size > 25 %} big-size{% endif %}" style="color: {{ _subtitle_color }}; font-size: {{ _subtitle_size }}px;">{{ _subtitle }}</div>
+                            {% endunless %}
+ 
+                          {% unless _fix_button_position == 'below' %}</div>{% endunless %}
+                          
+                          {% unless _button_text == blank %}
+                            <a class="{% if _button_text_bold %}bold-text {% endif %}{% if _button_text_size > 25 %}big-size {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+                          {% endunless %}
+
+                          {% unless _button_text_2 == blank %}
+                            <a class="{% if _button_text_bold %}bold-text {% endif %}{% if _button_text_size > 25 %}big-size {% endif %}{% unless _button_bg == blank or _button_bg == 'rgba(0,0,0,0)' %}btn {% endunless %}btn-banner btn-secondary" href="{{ _link_2 }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text_2 }}</a>
+                          {% endunless %}
+                        </div>
+                        {% if _overlay_position_container and _item_per_row == 1 and _item_per_row_tablet == 1 %}</div>{% endif %}
+                      {% endunless %}
+                    
+                      {% if _text_style == 'left' %}
+                        <div class="image">
+                          <a href="{{ _link }}">
+                            {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                          </a>
+                        </div>
+                      {% endif %}
+              
+                      {%  if _type == 'masonry'  %}</div>{% endif %}
+
+                    {% else %}
+                      {{ emptyImage }}
+
+                    {% endunless %}
+
+                  </div>   
+
+                {% if _type == 'row' or _type == 'row-2' %}</div>{% endif %}
+
+              {% elsif block.type == 'image-v2' %}
+                {%- assign _text = block.settings.text -%}
+                {%- assign _text_box_alignment = block.settings.text_box_alignment -%}
+                {%- assign _image_size = '1920x' -%}
+                    
+                {%- assign _position_1 = block.settings.text_position_1 -%}
+                {%- assign _position_2 = block.settings.text_position_2 -%}
+                    
+                {%- assign _text_box_alignment_1 = block.settings.text_box_alignment_1 -%}
+                {%- assign _text_box_alignment_2 = block.settings.text_box_alignment_2 -%}
+
+                {%- assign _image_1 = block.settings.image_1 -%}
+                {%- assign _image_2 = block.settings.image_2 -%}
+
+                {%- assign _title = block.settings.image_title -%}
+                {%- assign _title_2 = block.settings.image_title_2 -%}
+                {%- assign _title_color = block.settings.title_color -%}
+                {%- assign _title_size = block.settings.title_size -%}
+                {%- assign _title_text_bold = block.settings.title_text_bold -%}
+
+                {%- assign _button_text = block.settings.button_text -%}
+                {%- assign _button_text_2 = block.settings.button_text_2 -%}
+                {%- assign _button_color = block.settings.button_text_color -%}
+                {%- assign _button_bg = block.settings.button_text_bg_color -%}
+                {%- assign _button_text_size = block.settings.button_size -%}
+                {%- assign _button_text_bold = block.settings.button_text_bold -%}
+
+                {% if _type == 'row' %}<div class="col-12 padding-{{ _padding_section }}">{% endif %}
+                  <div class="banner-item banner-item-2 text-box-overlay center-center{%  if _type == 'masonry'  %} padding-{{ _padding_section }} masonry-width-12 masonry-tabletwidth-12 masonry-mobilewidth-12{% endif %}">
+
+                    {% unless _image == blank %}
+                      {%  if _type == 'masonry'  %}<div class="masonry-item">{% endif %}
+                    
+                      {% unless _text == blank %}
+                        <div class="text-v2" style="color: {{ _title_color }}">{{ _text }}</div>
+                      {% endunless %}
+              
+                      <div class="image">
+                        <a href="{{ _link }}">
+                          {% include 'image-lazysize' with image: _image, image_size: _image_size, image_class: '', image_alt: 'Banner' %}        
+                        </a>
+                      </div>
+
+                      {% unless _title == blank and _button_text == blank %}
+                        <div class="text text-{{ _text_box_alignment_1 }}" style="left: {{ _position_1 }}%">
+                          {% unless _image_1 == blank %}
+                            <div class="image">
+                              {%- assign _image_size = '200x' -%}
+                              {% include 'image-lazysize' with image: _image_1, image_size: _image_size, image_class: '', image_alt: 'Image' %}
+                            </div>
+                          {% endunless %}
+
+                          {% unless _title == blank %}
+                            <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title }}</div>
+                          {% endunless %}
+                          
+                          {% unless _button_text == blank %}
+                            <a class="{% if _button_text_bold %}bold-text {% endif %}btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text }}</a>
+                          {% endunless %}
+                        </div>
+                      {% endunless %}
+
+                      {% unless _title_2 == blank and _button_text_2 == blank %}
+                        <div class="text-2 text-{{ _text_box_alignment_2 }}" style="right: {{ _position_2 }}%">
+                          {% unless _image_2 == blank %}
+                            <div class="image">
+                              {%- assign _image_size = '200x' -%}
+                              {% include 'image-lazysize' with image: _image_2, image_size: _image_size, image_class: '', image_alt: 'Image' %}
+                            </div>
+                          {% endunless %}
+
+                          {% unless _title_2 == blank %}
+                            <div class="title{% if _title_text_bold %} bold-text{% endif %}{% if _title_size > 25 %} big-size{% endif %}" style="color: {{ _title_color }}; font-size: {{ _title_size }}px;">{{ _title_2 }}</div>
+                          {% endunless %}
+                          
+                          {% unless _button_text_2 == blank %}
+                            <a class="{% if _button_text_bold %}bold-text {% endif %}btn btn-banner" href="{{ _link_2 }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; font-size: {{ _button_text_size }}px;">{{ _button_text_2 }}</a>
+                          {% endunless %}
+                        </div>
+                      {% endunless %}
+              
+                      {%  if _type == 'masonry'  %}</div>{% endif %}
+
+                    {% else %}
+                      {{ emptyImage }}
+
+                    {% endunless %}
+
+                  </div>
+                {% if _type == 'row' %}</div>{% endif %}
+
+              {% else %}
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+        {%  unless _type == 'carousel'  %}</div>{% endunless %}
+
+        {% if _layout == 'right-column' %} 
+          {%- assign _check_right_column = false -%}
+
+          {% for block in section.blocks %}
+            {% if block.type == 'logo-list' %}
+              {%- assign _check_right_column = true -%}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if _check_right_column %}
+            <div class="right-column">
+              <div class="right-column-content">
+
+                {% for block in section.blocks %}
+                  {% if block.type == 'logo-list' %}
+                    {%- assign _image = block.settings.image -%}
+
+                    <div class="partner-item">
+                      {% unless _image == blank %}
+                        <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: '180x' }}" alt="Logo list" />
+
+                      {% else %}
+                        {{ emptyImage }}
+
+                      {% endunless %}
+                    </div>
+                  {% endif %}
+
+                {% endfor %}
+
+                {% if _show_all_btn %}
+                  <div class="show-all"><a href="{{ _show_all_btn_link }}">{{ 'general.text.view_all' | t }}</a></div>
+                {% endif %}
+
+              </div>
+            </div>
+
+            <style type="text/css">
+              #home-banner-{{ section.id  }}.home-banner.layout-right-column .home-banner-items .right-column{
+                -webkit-padding-start: {{ _right_column_pad }}px;
+                -moz-padding-start: {{ _right_column_pad }}px;
+                padding-inline-start: {{ _right_column_pad }}px;
+              }
+              #home-banner-{{ section.id  }}.home-banner.layout-right-column .home-banner-items .right-column .right-column-content{
+                border-width: {{ _right_column_border }}px;
+              }
+            </style>
+          {% endif %}
+          
+        {% endif %}
+      
+      {% else %}
+      
+        <div class="row row-padding-{{ _padding_section }}">
+          {% for i in (1.._item_per_row) %}
+            <div class="{{ _desktop_class }} {{ _tablet_class }} {{ mobile_class }} padding-{{ _padding_section }}">
+              <div class="banner-item">
+                {{ emptyImage }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      {% endif %}
+    </div>
+    {%- if _type == 'carousel' -%}
+      <input type="hidden" name="carousel_properties" id="carousel_{{section.id}}"
+              data-id=".home-banner-carousel-{{ section.id }}"
+              data-nav="true"
+              data-dot="false"
+              data-margin="{{ _padding_section }}"
+              data-resp="4"
+              data-items-1="1"
+              data-items-2="{{ _item_per_row_mobile }}"
+              data-items-3="{{ _item_per_row_tablet }}"
+              data-items-4="{{ _item_per_row }}">
+    {%- elsif _type == 'masonry' -%}
+      <input type="hidden" name="masonry_properties" id="masonry_{{section.id}}" data-id=".bc-masonry-{{section.id}}" data-element=".banner-item">                  
+    {%- endif -%}
+    
+  </div>
+</div>

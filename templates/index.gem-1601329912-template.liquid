@@ -1,0 +1,30 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+{% assign carousel_next_prev_position = settings.right_position %}
+
+{% if settings.show_left_column %}
+	<div class="container">
+		<div class="row">
+			<div id="home-left-column" class="col-lg-3 d-none d-lg-block">
+			  {% section 'section-left-column' %}
+			</div>
+
+			<div id="home-main-content" class="{% if carousel_next_prev_position %}owl-nav-right {% endif %}col-lg-9 col-md-12">
+			    {{ content_for_index }}
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div id="home-main-content" class="{% if carousel_next_prev_position %} owl-nav-right{% endif %}">
+	    {{ content_for_index }}
+	</div>
+{% endif %}
+
+{% if settings.enable_notify_home_page %}
+	{% include 'layout-notify' %}
+{% endif %}
